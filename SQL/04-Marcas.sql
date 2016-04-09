@@ -1,82 +1,82 @@
 USE SisGMA
 GO
 
-INSERT INTO Veh_Marcas (1, 'Abarth');
-INSERT INTO Veh_Marcas (2, 'Alfa Romeo');
-INSERT INTO Veh_Marcas (3, 'Aro');
-INSERT INTO Veh_Marcas (4, 'Asia');
-INSERT INTO Veh_Marcas (5, 'Asia Motors');
-INSERT INTO Veh_Marcas (6, 'Aston Martin');
-INSERT INTO Veh_Marcas (7, 'Audi');
-INSERT INTO Veh_Marcas (8, 'Austin');
-INSERT INTO Veh_Marcas (9, 'Auverland');
-INSERT INTO Veh_Marcas (10, 'Bentley');
-INSERT INTO Veh_Marcas (11, 'Bertone');
-INSERT INTO Veh_Marcas (12, 'Bmw');
-INSERT INTO Veh_Marcas (13, 'Cadillac');
-INSERT INTO Veh_Marcas (14, 'Chevrolet');
-INSERT INTO Veh_Marcas (15, 'Chrysler');
-INSERT INTO Veh_Marcas (16, 'Citroen');
-INSERT INTO Veh_Marcas (17, 'Corvette');
-INSERT INTO Veh_Marcas (18, 'Dacia');
-INSERT INTO Veh_Marcas (19, 'Daewoo');
-INSERT INTO Veh_Marcas (20, 'Daf');
-INSERT INTO Veh_Marcas (21, 'Daihatsu');
-INSERT INTO Veh_Marcas (22, 'Daimler');
-INSERT INTO Veh_Marcas (23, 'Dodge');
-INSERT INTO Veh_Marcas (24, 'Ferrari');
-INSERT INTO Veh_Marcas (25, 'Fiat');
-INSERT INTO Veh_Marcas (26, 'Ford');
-INSERT INTO Veh_Marcas (27, 'Galloper');
-INSERT INTO Veh_Marcas (28, 'Gmc');
-INSERT INTO Veh_Marcas (29, 'Honda');
-INSERT INTO Veh_Marcas (30, 'Hummer');
-INSERT INTO Veh_Marcas (31, 'Hyundai');
-INSERT INTO Veh_Marcas (32, 'Infiniti');
-INSERT INTO Veh_Marcas (33, 'Innocenti');
-INSERT INTO Veh_Marcas (34, 'Isuzu');
-INSERT INTO Veh_Marcas (35, 'Iveco');
-INSERT INTO Veh_Marcas (36, 'Iveco-Pegaso');
-INSERT INTO Veh_Marcas (37, 'Jaguar');
-INSERT INTO Veh_Marcas (38, 'Jeep');
-INSERT INTO Veh_Marcas (39, 'Kia');
-INSERT INTO Veh_Marcas (40, 'Lada');
-INSERT INTO Veh_Marcas (41, 'Lamborghini');
-INSERT INTO Veh_Marcas (42, 'Lancia');
-INSERT INTO Veh_Marcas (43, 'Land-rover');
-INSERT INTO Veh_Marcas (44, 'Ldv');
-INSERT INTO Veh_Marcas (45, 'Lexus');
-INSERT INTO Veh_Marcas (46, 'Lotus');
-INSERT INTO Veh_Marcas (47, 'Mahindra');
-INSERT INTO Veh_Marcas (48, 'Maserati');
-INSERT INTO Veh_Marcas (49, 'Maybach');
-INSERT INTO Veh_Marcas (50, 'Mazda');
-INSERT INTO Veh_Marcas (51, 'Mercedes-Benz');
-INSERT INTO Veh_Marcas (52, 'Mg');
-INSERT INTO Veh_Marcas (53, 'Mini');
-INSERT INTO Veh_Marcas (54, 'Mitsubishi');
-INSERT INTO Veh_Marcas (55, 'Morgan');
-INSERT INTO Veh_Marcas (56, 'Nissan');
-INSERT INTO Veh_Marcas (57, 'Opel');
-INSERT INTO Veh_Marcas (58, 'Peugeot');
-INSERT INTO Veh_Marcas (59, 'Pontiac');
-INSERT INTO Veh_Marcas (60, 'Porsche');
-INSERT INTO Veh_Marcas (61, 'Renault');
-INSERT INTO Veh_Marcas (62, 'Rolls-royce');
-INSERT INTO Veh_Marcas (63, 'Rover');
-INSERT INTO Veh_Marcas (64, 'Saab');
-INSERT INTO Veh_Marcas (65, 'Santana');
-INSERT INTO Veh_Marcas (66, 'Seat');
-INSERT INTO Veh_Marcas (67, 'Skoda');
-INSERT INTO Veh_Marcas (68, 'Smart');
-INSERT INTO Veh_Marcas (69, 'Ssangyong');
-INSERT INTO Veh_Marcas (70, 'Subaru');
-INSERT INTO Veh_Marcas (71, 'Suzuki');
-INSERT INTO Veh_Marcas (72, 'Talbot');
-INSERT INTO Veh_Marcas (73, 'Tata');
-INSERT INTO Veh_Marcas (74, 'Toyota');
-INSERT INTO Veh_Marcas (75, 'Umm');
-INSERT INTO Veh_Marcas (76, 'Vaz');
-INSERT INTO Veh_Marcas (77, 'Volkswagen');
-INSERT INTO Veh_Marcas (78, 'Volvo');
-INSERT INTO Veh_Marcas (79, 'Wartburg');
+INSERT INTO Veh_Marcas VALUES (1, 'Abarth')
+INSERT INTO Veh_Marcas VALUES (2, 'Alfa Romeo')
+INSERT INTO Veh_Marcas VALUES (3, 'Aro')
+INSERT INTO Veh_Marcas VALUES (4, 'Asia')
+INSERT INTO Veh_Marcas VALUES (5, 'Asia Motors')
+INSERT INTO Veh_Marcas VALUES (6, 'Aston Martin')
+INSERT INTO Veh_Marcas VALUES (7, 'Audi')
+INSERT INTO Veh_Marcas VALUES (8, 'Austin')
+INSERT INTO Veh_Marcas VALUES (9, 'Auverland')
+INSERT INTO Veh_Marcas VALUES (10, 'Bentley')
+INSERT INTO Veh_Marcas VALUES (11, 'Bertone')
+INSERT INTO Veh_Marcas VALUES (12, 'Bmw')
+INSERT INTO Veh_Marcas VALUES (13, 'Cadillac')
+INSERT INTO Veh_Marcas VALUES (14, 'Chevrolet')
+INSERT INTO Veh_Marcas VALUES (15, 'Chrysler')
+INSERT INTO Veh_Marcas VALUES (16, 'Citroen')
+INSERT INTO Veh_Marcas VALUES (17, 'Corvette')
+INSERT INTO Veh_Marcas VALUES (18, 'Dacia')
+INSERT INTO Veh_Marcas VALUES (19, 'Daewoo')
+INSERT INTO Veh_Marcas VALUES (20, 'Daf')
+INSERT INTO Veh_Marcas VALUES (21, 'Daihatsu')
+INSERT INTO Veh_Marcas VALUES (22, 'Daimler')
+INSERT INTO Veh_Marcas VALUES (23, 'Dodge')
+INSERT INTO Veh_Marcas VALUES (24, 'Ferrari')
+INSERT INTO Veh_Marcas VALUES (25, 'Fiat')
+INSERT INTO Veh_Marcas VALUES (26, 'Ford')
+INSERT INTO Veh_Marcas VALUES (27, 'Galloper')
+INSERT INTO Veh_Marcas VALUES (28, 'Gmc')
+INSERT INTO Veh_Marcas VALUES (29, 'Honda')
+INSERT INTO Veh_Marcas VALUES (30, 'Hummer')
+INSERT INTO Veh_Marcas VALUES (31, 'Hyundai')
+INSERT INTO Veh_Marcas VALUES (32, 'Infiniti')
+INSERT INTO Veh_Marcas VALUES (33, 'Innocenti')
+INSERT INTO Veh_Marcas VALUES (34, 'Isuzu')
+INSERT INTO Veh_Marcas VALUES (35, 'Iveco')
+INSERT INTO Veh_Marcas VALUES (36, 'Iveco-pegaso')
+INSERT INTO Veh_Marcas VALUES (37, 'Jaguar')
+INSERT INTO Veh_Marcas VALUES (38, 'Jeep')
+INSERT INTO Veh_Marcas VALUES (39, 'Kia')
+INSERT INTO Veh_Marcas VALUES (40, 'Lada')
+INSERT INTO Veh_Marcas VALUES (41, 'Lamborghini')
+INSERT INTO Veh_Marcas VALUES (42, 'Lancia')
+INSERT INTO Veh_Marcas VALUES (43, 'Land-rover')
+INSERT INTO Veh_Marcas VALUES (44, 'Ldv')
+INSERT INTO Veh_Marcas VALUES (45, 'Lexus')
+INSERT INTO Veh_Marcas VALUES (46, 'Lotus')
+INSERT INTO Veh_Marcas VALUES (47, 'Mahindra')
+INSERT INTO Veh_Marcas VALUES (48, 'Maserati')
+INSERT INTO Veh_Marcas VALUES (49, 'Maybach')
+INSERT INTO Veh_Marcas VALUES (50, 'Mazda')
+INSERT INTO Veh_Marcas VALUES (51, 'Mercedes-benz')
+INSERT INTO Veh_Marcas VALUES (52, 'Mg')
+INSERT INTO Veh_Marcas VALUES (53, 'Mini')
+INSERT INTO Veh_Marcas VALUES (54, 'Mitsubishi')
+INSERT INTO Veh_Marcas VALUES (55, 'Morgan')
+INSERT INTO Veh_Marcas VALUES (56, 'Nissan')
+INSERT INTO Veh_Marcas VALUES (57, 'Opel')
+INSERT INTO Veh_Marcas VALUES (58, 'Peugeot')
+INSERT INTO Veh_Marcas VALUES (59, 'Pontiac')
+INSERT INTO Veh_Marcas VALUES (60, 'Porsche')
+INSERT INTO Veh_Marcas VALUES (61, 'Renault')
+INSERT INTO Veh_Marcas VALUES (62, 'Rolls-royce')
+INSERT INTO Veh_Marcas VALUES (63, 'Rover')
+INSERT INTO Veh_Marcas VALUES (64, 'Saab')
+INSERT INTO Veh_Marcas VALUES (65, 'Santana')
+INSERT INTO Veh_Marcas VALUES (66, 'Seat')
+INSERT INTO Veh_Marcas VALUES (67, 'Skoda')
+INSERT INTO Veh_Marcas VALUES (68, 'Smart')
+INSERT INTO Veh_Marcas VALUES (69, 'Ssangyong')
+INSERT INTO Veh_Marcas VALUES (70, 'Subaru')
+INSERT INTO Veh_Marcas VALUES (71, 'Suzuki')
+INSERT INTO Veh_Marcas VALUES (72, 'Talbot')
+INSERT INTO Veh_Marcas VALUES (73, 'Tata')
+INSERT INTO Veh_Marcas VALUES (74, 'Toyota')
+INSERT INTO Veh_Marcas VALUES (75, 'Umm')
+INSERT INTO Veh_Marcas VALUES (76, 'Vaz')
+INSERT INTO Veh_Marcas VALUES (77, 'Volkswagen')
+INSERT INTO Veh_Marcas VALUES (78, 'Volvo')
+INSERT INTO Veh_Marcas VALUES (79, 'Wartburg')
