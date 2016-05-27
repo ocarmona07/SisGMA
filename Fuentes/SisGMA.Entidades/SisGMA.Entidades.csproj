@@ -41,18 +41,103 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CliClientes.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtrlControlProduccion.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GastGastosDiarios.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenComunas.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenGiros.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenProvincias.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenRegiones.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenRoles.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OpOperarios.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdCategorias.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdMarcas.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdProducto.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdSubcategorias.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvProveedores.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SisGMA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SisGMA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SisGMA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SisGMA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SisGMA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="VehMarcas.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VehModelos.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VehVehiculos.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="SisGMA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SisGMA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="packages.config" />
+    <None Include="SisGMA.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SisGMA.edmx</DependentUpon>
+      <LastGenOutput>SisGMA.Context.cs</LastGenOutput>
+    </None>
+    <None Include="SisGMA.edmx.diagram">
+      <DependentUpon>SisGMA.edmx</DependentUpon>
+    </None>
+    <None Include="SisGMA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SisGMA.edmx</DependentUpon>
+      <LastGenOutput>SisGMA.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

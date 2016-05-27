@@ -39,8 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CliClientesBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SisGMA.Datos\SisGMA.Datos.csproj">
+      <Project>{c829b2c6-7a4d-4cb9-9595-b306177159d1}</Project>
+      <Name>SisGMA.Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisGMA.Entidades\SisGMA.Entidades.csproj">
+      <Project>{b9a42c6a-df31-41a0-8d00-09f217e2f063}</Project>
+      <Name>SisGMA.Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
