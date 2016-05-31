@@ -13,7 +13,7 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (true)
+            if (false)
             {
                 var addCliente = new CliClientesBo().Insert(new CliClientes
                 {

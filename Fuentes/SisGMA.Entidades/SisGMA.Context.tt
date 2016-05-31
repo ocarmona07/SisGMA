@@ -310,8 +310,8 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} virtual DbSet<{1}> {2} {{ get; set; }}",
             Accessibility.ForReadOnlyProperty(entitySet),
-            _typeMapper.GetTypeName(entitySet.ElementType).Replace("_", ""),
-            _code.Escape(entitySet).Replace("_", ""));
+            _typeMapper.GetTypeName(entitySet.ElementType),
+            _code.Escape(entitySet));
     }
 
     public string DbSetInitializer(EntitySet entitySet)

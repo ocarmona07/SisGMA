@@ -20,7 +20,7 @@ WriteHeader(codeStringGenerator, fileManager);
 
 foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
 {
-    fileManager.StartNewFile(entity.Name.Replace("_", "") + ".cs");
+    fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
@@ -35,27 +35,27 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     {
 #>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public <#=code.Escape(entity).Replace("_", "")#>()
+    public <#=code.Escape(entity)#>()
     {
 <#
         foreach (var edmProperty in propertiesWithDefaultValues)
         {
 #>
-        this.<#=code.Escape(edmProperty).Replace("_", "")#> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue).Replace("_", "")#>;
+        this.<#=code.Escape(edmProperty)#> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue)#>;
 <#
         }
 
         foreach (var navigationProperty in collectionNavigationProperties)
         {
 #>
-        this.<#=code.Escape(navigationProperty).Replace("_", "")#> = new HashSet<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType()).Replace("_", "")#>>();
+        this.<#=code.Escape(navigationProperty)#> = new HashSet<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType())#>>();
 <#
         }
 
         foreach (var complexProperty in complexProperties)
         {
 #>
-        this.<#=code.Escape(complexProperty).Replace("_", "")#> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage).Replace("_", "")#>();
+        this.<#=code.Escape(complexProperty)#> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage)#>();
 <#
         }
 #>
@@ -300,8 +300,8 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} {1} {2} {{ {3}get; {4}set; }}",
             AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)),
-            navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType.Replace("_", "") + ">") : endType.Replace("_", ""),
-            _code.Escape(navProp).Replace("_", ""),
+            navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
+            _code.Escape(navProp),
             _code.SpaceAfter(Accessibility.ForGetter(navProp)),
             _code.SpaceAfter(Accessibility.ForSetter(navProp)));
     }
@@ -318,7 +318,7 @@ public class CodeStringGenerator
             "{0} {1}partial class {2}{3}",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
-            _code.Escape(entity).Replace("_", ""),
+            _code.Escape(entity),
             _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));
     }
     
