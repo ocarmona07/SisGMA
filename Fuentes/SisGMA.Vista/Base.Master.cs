@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using System.Web.UI;
     using System.Web.UI.WebControls;
     using System.Web.UI.HtmlControls;
     using Negocio;
@@ -14,15 +13,16 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Versión y Copyright TODO: agregar derechos de autor
+            // Version & Copyright TODO: agregar derechos de autor
             lblVersion.Text = ConfigurationManager.AppSettings.Get("Version");
             // Body class
-            MasterBody.Attributes.Add("class", "hold-transition skin-black sidebar-mini");
+            var skin = "skin-black";
+            MasterBody.Attributes.Add("class", "hold-transition sidebar-mini " + skin);
 
             // User Info TODO: Agregar imagen
-            var cliente = new ClientesBo().Get(1);
-            lblUserName.Text = string.Format("{0} {1}", cliente.Nombres, cliente.ApPaterno);
-            lblRole.Text = string.Format("Web Developer", cliente.Nombres);
+            var operario = new OperariosBo().Get(1);
+            lblUserName.Text = string.Format("{0} {1}", operario.Nombres, operario.ApPaterno);
+            lblRole.Text = string.Format("{0}", operario.Roles.Rol);
 
             // Notifications TODO: pasar a capa negocio como método
             lblNumNotif.Text = 2.ToString();
@@ -30,7 +30,7 @@
             var link = "#";
             var text = "5 new members joined today";
             var test = string.Format("<li><a href=\"{0}\">{1}{2}</a></li>", link, icon, text);
-            litNotifications.Text = test + test;
+            litNotifications.Text = test;
         }
     }
 }

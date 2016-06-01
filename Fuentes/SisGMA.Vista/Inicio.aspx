@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SisGMA - Dashboard" Language="C#" MasterPageFile="~/Base.Master" AutoEventWireup="true"
+﻿<%@ Page Title="SisGMA - Inicio" Language="C#" MasterPageFile="~/Base.Master" AutoEventWireup="true"
     CodeBehind="Inicio.aspx.cs" Inherits="SisGMA.Vista.Inicio" %>
 
 <asp:Content ID="Head" ContentPlaceHolderID="BaseHead" runat="server">
@@ -6,12 +6,9 @@
 <asp:Content ID="Content" ContentPlaceHolderID="BaseContent" runat="server">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Dashboard
-            <small>Control panel</small>
-        </h1>
+        <h1>Inicio</h1>
         <ol class="breadcrumb">
             <li><a href="Inicio.aspx"><i class="fa fa-home"></i>Inicio</a></li>
-            <li class="active">Demo</li>
         </ol>
     </section>
     <!-- Main content -->

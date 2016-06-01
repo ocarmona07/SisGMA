@@ -51,7 +51,15 @@
     <Compile Include="ClientesDa.cs">
       <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="OperariosDa.cs">
+      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SisGMA.Datos.Da.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SisGMA.Entidades\SisGMA.Entidades.csproj">

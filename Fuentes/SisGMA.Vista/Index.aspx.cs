@@ -13,25 +13,8 @@
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (false)
-            {
-                var addCliente = new ClientesBo().Insert(new Clientes
-                {
-                    RutCliente = "159888207",
-                    Nombres = "Omar",
-                    ApPaterno = "Carmona",
-                    ApMaterno = "Rivas",
-                    Direccion = "Lynch 1040",
-                    Email = "ocarmona07@gmail.com",
-                    Estado = true,
-                    IdComuna = 211,
-                    Telefono = 82433600,
-                    Clave = "123456"
-                });
-            }
-
-            var cliente = new ClientesBo().Get(1);
-            lblCliente.Text = cliente.Nombres;
+            var operario = new OperariosBo().Get(1);
+            lblCliente.Text = string.Format("{0} {1}", operario.Nombres, operario.ApPaterno);
         }
     }
 }
