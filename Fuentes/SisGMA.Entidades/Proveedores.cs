@@ -12,23 +12,25 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class GenComunas
+    public partial class Proveedores
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GenComunas()
+        public Proveedores()
         {
-            this.CliClientes = new HashSet<CliClientes>();
-            this.OpOperarios = new HashSet<OpOperarios>();
+            this.GastosDiarios = new HashSet<GastosDiarios>();
+            this.Productos = new HashSet<Productos>();
         }
     
-        public int IdComuna { get; set; }
-        public Nullable<int> IdProvincia { get; set; }
-        public string Comuna { get; set; }
+        public int IdProveedor { get; set; }
+        public Nullable<int> IdGiro { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> Telefono { get; set; }
+        public string Observaciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CliClientes> CliClientes { get; set; }
-        public virtual GenProvincias GenProvincias { get; set; }
+        public virtual ICollection<GastosDiarios> GastosDiarios { get; set; }
+        public virtual Giros Giros { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OpOperarios> OpOperarios { get; set; }
+        public virtual ICollection<Productos> Productos { get; set; }
     }
 }

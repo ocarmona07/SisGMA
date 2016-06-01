@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="CliClientesDa.cs">
+    <Compile Include="ClientesDa.cs">
       <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

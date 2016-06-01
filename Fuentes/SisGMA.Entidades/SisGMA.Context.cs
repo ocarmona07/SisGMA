@@ -25,22 +25,22 @@ namespace SisGMA.Entidades
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CliClientes> CliClientes { get; set; }
-        public virtual DbSet<CtrlControlProduccion> CtrlControlProduccion { get; set; }
-        public virtual DbSet<GastGastosDiarios> GastGastosDiarios { get; set; }
-        public virtual DbSet<GenComunas> GenComunas { get; set; }
-        public virtual DbSet<GenGiros> GenGiros { get; set; }
-        public virtual DbSet<GenProvincias> GenProvincias { get; set; }
-        public virtual DbSet<GenRegiones> GenRegiones { get; set; }
-        public virtual DbSet<GenRoles> GenRoles { get; set; }
-        public virtual DbSet<OpOperarios> OpOperarios { get; set; }
-        public virtual DbSet<ProdCategorias> ProdCategorias { get; set; }
-        public virtual DbSet<ProdMarcas> ProdMarcas { get; set; }
-        public virtual DbSet<ProdProducto> ProdProducto { get; set; }
-        public virtual DbSet<ProdSubcategorias> ProdSubcategorias { get; set; }
-        public virtual DbSet<ProvProveedores> ProvProveedores { get; set; }
-        public virtual DbSet<VehMarcas> VehMarcas { get; set; }
-        public virtual DbSet<VehModelos> VehModelos { get; set; }
-        public virtual DbSet<VehVehiculos> VehVehiculos { get; set; }
+        public virtual DbSet<Categorias> Categorias { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Comunas> Comunas { get; set; }
+        public virtual DbSet<ControlProduccion> ControlProduccion { get; set; }
+        public virtual DbSet<GastosDiarios> GastosDiarios { get; set; }
+        public virtual DbSet<Giros> Giros { get; set; }
+        public virtual DbSet<MarcaProductos> MarcaProductos { get; set; }
+        public virtual DbSet<MarcaVehiculos> MarcaVehiculos { get; set; }
+        public virtual DbSet<ModeloVehiculos> ModeloVehiculos { get; set; }
+        public virtual DbSet<Operarios> Operarios { get; set; }
+        public virtual DbSet<Productos> Productos { get; set; }
+        public virtual DbSet<Proveedores> Proveedores { get; set; }
+        public virtual DbSet<Provincias> Provincias { get; set; }
+        public virtual DbSet<Regiones> Regiones { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Subcategorias> Subcategorias { get; set; }
+        public virtual DbSet<Vehiculos> Vehiculos { get; set; }
     }
 }

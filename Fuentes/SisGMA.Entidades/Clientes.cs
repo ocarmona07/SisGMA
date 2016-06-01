@@ -12,7 +12,7 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class CliClientes
+    public partial class Clientes
     {
         public int IdCliente { get; set; }
         public Nullable<int> IdComuna { get; set; }
@@ -23,8 +23,9 @@ namespace SisGMA.Entidades
         public string Direccion { get; set; }
         public int Telefono { get; set; }
         public string Email { get; set; }
+        public string Clave { get; set; }
         public bool Estado { get; set; }
     
-        public virtual GenComunas GenComunas { get; set; }
+        public virtual Comunas Comunas { get; set; }
     }
 }

@@ -12,13 +12,18 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class CtrlControlProduccion
+    public partial class Regiones
     {
-        public int IdControlProd { get; set; }
-        public Nullable<int> IdOperario { get; set; }
-        public System.DateTime FechaEntrega { get; set; }
-        public decimal ValorNeto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Regiones()
+        {
+            this.Provincias = new HashSet<Provincias>();
+        }
     
-        public virtual OpOperarios OpOperarios { get; set; }
+        public int IdRegion { get; set; }
+        public string Region { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Provincias> Provincias { get; set; }
     }
 }

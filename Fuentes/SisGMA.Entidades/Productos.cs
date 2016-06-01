@@ -12,7 +12,7 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ProdProducto
+    public partial class Productos
     {
         public int IdProducto { get; set; }
         public Nullable<int> IdSubcategoria { get; set; }
@@ -25,8 +25,8 @@ namespace SisGMA.Entidades
         public System.DateTime FechaIngreso { get; set; }
         public int Cantidad { get; set; }
     
-        public virtual ProdMarcas ProdMarcas { get; set; }
-        public virtual ProdSubcategorias ProdSubcategorias { get; set; }
-        public virtual ProvProveedores ProvProveedores { get; set; }
+        public virtual MarcaProductos MarcaProductos { get; set; }
+        public virtual Proveedores Proveedores { get; set; }
+        public virtual Subcategorias Subcategorias { get; set; }
     }
 }

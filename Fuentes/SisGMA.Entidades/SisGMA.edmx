@@ -5,7 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SisGMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CliClientes">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="IdCliente" />
           </Key>
@@ -18,9 +26,18 @@
           <Property Name="Direccion" Type="nvarchar" MaxLength="128" />
           <Property Name="Telefono" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="20" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="CtrlControlProduccion">
+        <EntityType Name="Comunas">
+          <Key>
+            <PropertyRef Name="IdComuna" />
+          </Key>
+          <Property Name="IdComuna" Type="int" Nullable="false" />
+          <Property Name="IdProvincia" Type="int" />
+          <Property Name="Comuna" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ControlProduccion">
           <Key>
             <PropertyRef Name="IdControlProd" />
           </Key>
@@ -29,7 +46,7 @@
           <Property Name="FechaEntrega" Type="date" Nullable="false" />
           <Property Name="ValorNeto" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="GastGastosDiarios">
+        <EntityType Name="GastosDiarios">
           <Key>
             <PropertyRef Name="IdGastoDiario" />
           </Key>
@@ -40,15 +57,7 @@
           <Property Name="Monto" Type="money" Nullable="false" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="GenComunas">
-          <Key>
-            <PropertyRef Name="IdComuna" />
-          </Key>
-          <Property Name="IdComuna" Type="int" Nullable="false" />
-          <Property Name="IdProvincia" Type="int" />
-          <Property Name="Comuna" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GenGiros">
+        <EntityType Name="Giros">
           <Key>
             <PropertyRef Name="IdGiro" />
           </Key>
@@ -59,30 +68,30 @@
           <Property Name="CatTributaria" Type="int" />
           <Property Name="Internet" Type="int" />
         </EntityType>
-        <EntityType Name="GenProvincias">
+        <EntityType Name="MarcaProductos">
           <Key>
-            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="IdMarca" />
           </Key>
-          <Property Name="IdProvincia" Type="int" Nullable="false" />
-          <Property Name="IdRegion" Type="int" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GenRegiones">
-          <Key>
-            <PropertyRef Name="IdRegion" />
-          </Key>
-          <Property Name="IdRegion" Type="int" Nullable="false" />
-          <Property Name="Region" Type="nvarchar" MaxLength="64" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GenRoles">
-          <Key>
-            <PropertyRef Name="IdRol" />
-          </Key>
-          <Property Name="IdRol" Type="int" Nullable="false" />
-          <Property Name="Rol" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marca" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="OpOperarios">
+        <EntityType Name="MarcaVehiculos">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" Nullable="false" />
+          <Property Name="Marca" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModeloVehiculos">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="int" Nullable="false" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="Modelo" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operarios">
           <Key>
             <PropertyRef Name="IdOperario" />
           </Key>
@@ -94,26 +103,12 @@
           <Property Name="Direccion" Type="nvarchar" MaxLength="128" />
           <Property Name="IdComuna" Type="int" />
           <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="nvarchar(max)" />
           <Property Name="IdRol" Type="int" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProdCategorias">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProdMarcas">
-          <Key>
-            <PropertyRef Name="IdMarca" />
-          </Key>
-          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Marca" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProdProducto">
+        <EntityType Name="Productos">
           <Key>
             <PropertyRef Name="IdProducto" />
           </Key>
@@ -128,16 +123,7 @@
           <Property Name="FechaIngreso" Type="date" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProdSubcategorias">
-          <Key>
-            <PropertyRef Name="IdSubcategoria" />
-          </Key>
-          <Property Name="IdSubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdCategoria" Type="int" />
-          <Property Name="Subcategoria" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProvProveedores">
+        <EntityType Name="Proveedores">
           <Key>
             <PropertyRef Name="IdProveedor" />
           </Key>
@@ -147,22 +133,39 @@
           <Property Name="Telefono" Type="int" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="VehMarcas">
+        <EntityType Name="Provincias">
           <Key>
-            <PropertyRef Name="IdMarca" />
+            <PropertyRef Name="IdProvincia" />
           </Key>
-          <Property Name="IdMarca" Type="int" Nullable="false" />
-          <Property Name="Marca" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="IdProvincia" Type="int" Nullable="false" />
+          <Property Name="IdRegion" Type="int" />
+          <Property Name="Provincia" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
-        <EntityType Name="VehModelos">
+        <EntityType Name="Regiones">
           <Key>
-            <PropertyRef Name="IdModelo" />
+            <PropertyRef Name="IdRegion" />
           </Key>
-          <Property Name="IdModelo" Type="int" Nullable="false" />
-          <Property Name="IdMarca" Type="int" />
-          <Property Name="Modelo" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
-        <EntityType Name="VehVehiculos">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subcategorias">
+          <Key>
+            <PropertyRef Name="IdSubcategoria" />
+          </Key>
+          <Property Name="IdSubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" />
+          <Property Name="Subcategoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehiculos">
           <Key>
             <PropertyRef Name="IdVehiculo" />
           </Key>
@@ -175,263 +178,263 @@
           <Property Name="Estanque" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK_CLICLIEN_REFERENCE_GENCOMUN">
-          <End Role="GenComunas" Type="Self.GenComunas" Multiplicity="0..1" />
-          <End Role="CliClientes" Type="Self.CliClientes" Multiplicity="*" />
+        <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GenComunas">
+            <Principal Role="Comunas">
               <PropertyRef Name="IdComuna" />
             </Principal>
-            <Dependent Role="CliClientes">
+            <Dependent Role="Clientes">
               <PropertyRef Name="IdComuna" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CTRLCONT_REFERENCE_OPOPERAR">
-          <End Role="OpOperarios" Type="Self.OpOperarios" Multiplicity="0..1" />
-          <End Role="CtrlControlProduccion" Type="Self.CtrlControlProduccion" Multiplicity="*" />
+        <Association Name="FK_COMUNAS_REFERENCE_PROVINCI">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OpOperarios">
-              <PropertyRef Name="IdOperario" />
-            </Principal>
-            <Dependent Role="CtrlControlProduccion">
-              <PropertyRef Name="IdOperario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GASTGAST_REFERENCE_OPOPERAR">
-          <End Role="OpOperarios" Type="Self.OpOperarios" Multiplicity="0..1" />
-          <End Role="GastGastosDiarios" Type="Self.GastGastosDiarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OpOperarios">
-              <PropertyRef Name="IdOperario" />
-            </Principal>
-            <Dependent Role="GastGastosDiarios">
-              <PropertyRef Name="IdOperario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GASTGAST_REFERENCE_PROVPROV">
-          <End Role="ProvProveedores" Type="Self.ProvProveedores" Multiplicity="0..1" />
-          <End Role="GastGastosDiarios" Type="Self.GastGastosDiarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProvProveedores">
-              <PropertyRef Name="IdProveedor" />
-            </Principal>
-            <Dependent Role="GastGastosDiarios">
-              <PropertyRef Name="IdProveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GENCOMUN_REFERENCE_GENPROVI">
-          <End Role="GenProvincias" Type="Self.GenProvincias" Multiplicity="0..1" />
-          <End Role="GenComunas" Type="Self.GenComunas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenProvincias">
+            <Principal Role="Provincias">
               <PropertyRef Name="IdProvincia" />
             </Principal>
-            <Dependent Role="GenComunas">
+            <Dependent Role="Comunas">
               <PropertyRef Name="IdProvincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GENPROVI_REFERENCE_GENREGIO">
-          <End Role="GenRegiones" Type="Self.GenRegiones" Multiplicity="0..1" />
-          <End Role="GenProvincias" Type="Self.GenProvincias" Multiplicity="*" />
+        <Association Name="FK_CONTROLP_REFERENCE_OPERARIO">
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="ControlProduccion" Type="Self.ControlProduccion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GenRegiones">
-              <PropertyRef Name="IdRegion" />
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
             </Principal>
-            <Dependent Role="GenProvincias">
-              <PropertyRef Name="IdRegion" />
+            <Dependent Role="ControlProduccion">
+              <PropertyRef Name="IdOperario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OPOPERAR_REFERENCE_GENCOMUN">
-          <End Role="GenComunas" Type="Self.GenComunas" Multiplicity="0..1" />
-          <End Role="OpOperarios" Type="Self.OpOperarios" Multiplicity="*" />
+        <Association Name="FK_GASTOSDI_REFERENCE_OPERARIO">
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="GastosDiarios" Type="Self.GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GenComunas">
-              <PropertyRef Name="IdComuna" />
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
             </Principal>
-            <Dependent Role="OpOperarios">
-              <PropertyRef Name="IdComuna" />
+            <Dependent Role="GastosDiarios">
+              <PropertyRef Name="IdOperario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OPOPERAR_REFERENCE_GENROLES">
-          <End Role="GenRoles" Type="Self.GenRoles" Multiplicity="0..1" />
-          <End Role="OpOperarios" Type="Self.OpOperarios" Multiplicity="*" />
+        <Association Name="FK_GASTOSDI_REFERENCE_PROVEEDO">
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
+          <End Role="GastosDiarios" Type="Self.GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GenRoles">
-              <PropertyRef Name="IdRol" />
-            </Principal>
-            <Dependent Role="OpOperarios">
-              <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PRODMARC">
-          <End Role="ProdMarcas" Type="Self.ProdMarcas" Multiplicity="0..1" />
-          <End Role="ProdProducto" Type="Self.ProdProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProdMarcas">
-              <PropertyRef Name="IdMarca" />
-            </Principal>
-            <Dependent Role="ProdProducto">
-              <PropertyRef Name="IdMarca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PRODSUBC">
-          <End Role="ProdSubcategorias" Type="Self.ProdSubcategorias" Multiplicity="0..1" />
-          <End Role="ProdProducto" Type="Self.ProdProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProdSubcategorias">
-              <PropertyRef Name="IdSubcategoria" />
-            </Principal>
-            <Dependent Role="ProdProducto">
-              <PropertyRef Name="IdSubcategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PROVPROV">
-          <End Role="ProvProveedores" Type="Self.ProvProveedores" Multiplicity="0..1" />
-          <End Role="ProdProducto" Type="Self.ProdProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProvProveedores">
+            <Principal Role="Proveedores">
               <PropertyRef Name="IdProveedor" />
             </Principal>
-            <Dependent Role="ProdProducto">
+            <Dependent Role="GastosDiarios">
               <PropertyRef Name="IdProveedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODSUBC_REFERENCE_PRODCATE">
-          <End Role="ProdCategorias" Type="Self.ProdCategorias" Multiplicity="0..1" />
-          <End Role="ProdSubcategorias" Type="Self.ProdSubcategorias" Multiplicity="*" />
+        <Association Name="FK_MODELOVE_REFERENCE_MARCAVEH">
+          <End Role="MarcaVehiculos" Type="Self.MarcaVehiculos" Multiplicity="0..1" />
+          <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProdCategorias">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="ProdSubcategorias">
-              <PropertyRef Name="IdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PROVPROV_REFERENCE_GENGIROS">
-          <End Role="GenGiros" Type="Self.GenGiros" Multiplicity="0..1" />
-          <End Role="ProvProveedores" Type="Self.ProvProveedores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenGiros">
-              <PropertyRef Name="IdGiro" />
-            </Principal>
-            <Dependent Role="ProvProveedores">
-              <PropertyRef Name="IdGiro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VEHMODEL_REFERENCE_VEHMARCA">
-          <End Role="VehMarcas" Type="Self.VehMarcas" Multiplicity="0..1" />
-          <End Role="VehModelos" Type="Self.VehModelos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VehMarcas">
+            <Principal Role="MarcaVehiculos">
               <PropertyRef Name="IdMarca" />
             </Principal>
-            <Dependent Role="VehModelos">
+            <Dependent Role="ModeloVehiculos">
               <PropertyRef Name="IdMarca" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VEHVEHIC_REFERENCE_VEHMODEL">
-          <End Role="VehModelos" Type="Self.VehModelos" Multiplicity="0..1" />
-          <End Role="VehVehiculos" Type="Self.VehVehiculos" Multiplicity="*" />
+        <Association Name="FK_OPERARIO_REFERENCE_COMUNAS">
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="0..1" />
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VehModelos">
+            <Principal Role="Comunas">
+              <PropertyRef Name="IdComuna" />
+            </Principal>
+            <Dependent Role="Operarios">
+              <PropertyRef Name="IdComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OPERARIO_REFERENCE_ROLES">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Operarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_MARCAPRO">
+          <End Role="MarcaProductos" Type="Self.MarcaProductos" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaProductos">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_PROVEEDO">
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_SUBCATEG">
+          <End Role="Subcategorias" Type="Self.Subcategorias" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategorias">
+              <PropertyRef Name="IdSubcategoria" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdSubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROVEEDO_REFERENCE_GIROS">
+          <End Role="Giros" Type="Self.Giros" Multiplicity="0..1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giros">
+              <PropertyRef Name="IdGiro" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="IdGiro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROVINCI_REFERENCE_REGIONES">
+          <End Role="Regiones" Type="Self.Regiones" Multiplicity="0..1" />
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regiones">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="Provincias">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+          <End Role="Subcategorias" Type="Self.Subcategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Subcategorias">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_REFERENCE_MODELOVE">
+          <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeloVehiculos">
               <PropertyRef Name="IdModelo" />
             </Principal>
-            <Dependent Role="VehVehiculos">
+            <Dependent Role="Vehiculos">
               <PropertyRef Name="IdModelo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SisGMAModelStoreContainer">
-          <EntitySet Name="CliClientes" EntityType="Self.CliClientes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CtrlControlProduccion" EntityType="Self.CtrlControlProduccion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GastGastosDiarios" EntityType="Self.GastGastosDiarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GenComunas" EntityType="Self.GenComunas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GenGiros" EntityType="Self.GenGiros" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GenProvincias" EntityType="Self.GenProvincias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GenRegiones" EntityType="Self.GenRegiones" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GenRoles" EntityType="Self.GenRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OpOperarios" EntityType="Self.OpOperarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProdCategorias" EntityType="Self.ProdCategorias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProdMarcas" EntityType="Self.ProdMarcas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProdProducto" EntityType="Self.ProdProducto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProdSubcategorias" EntityType="Self.ProdSubcategorias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProvProveedores" EntityType="Self.ProvProveedores" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehMarcas" EntityType="Self.VehMarcas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehModelos" EntityType="Self.VehModelos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehVehiculos" EntityType="Self.VehVehiculos" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CLICLIEN_REFERENCE_GENCOMUN" Association="Self.FK_CLICLIEN_REFERENCE_GENCOMUN">
-            <End Role="GenComunas" EntitySet="GenComunas" />
-            <End Role="CliClientes" EntitySet="CliClientes" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comunas" EntityType="Self.Comunas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ControlProduccion" EntityType="Self.ControlProduccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GastosDiarios" EntityType="Self.GastosDiarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giros" EntityType="Self.Giros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaProductos" EntityType="Self.MarcaProductos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaVehiculos" EntityType="Self.MarcaVehiculos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModeloVehiculos" EntityType="Self.ModeloVehiculos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operarios" EntityType="Self.Operarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regiones" EntityType="Self.Regiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subcategorias" EntityType="Self.Subcategorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_COMUNAS" Association="Self.FK_CLIENTES_REFERENCE_COMUNAS">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_CTRLCONT_REFERENCE_OPOPERAR" Association="Self.FK_CTRLCONT_REFERENCE_OPOPERAR">
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
-            <End Role="CtrlControlProduccion" EntitySet="CtrlControlProduccion" />
+          <AssociationSet Name="FK_COMUNAS_REFERENCE_PROVINCI" Association="Self.FK_COMUNAS_REFERENCE_PROVINCI">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Comunas" EntitySet="Comunas" />
           </AssociationSet>
-          <AssociationSet Name="FK_GASTGAST_REFERENCE_OPOPERAR" Association="Self.FK_GASTGAST_REFERENCE_OPOPERAR">
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
-            <End Role="GastGastosDiarios" EntitySet="GastGastosDiarios" />
+          <AssociationSet Name="FK_CONTROLP_REFERENCE_OPERARIO" Association="Self.FK_CONTROLP_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="ControlProduccion" EntitySet="ControlProduccion" />
           </AssociationSet>
-          <AssociationSet Name="FK_GASTGAST_REFERENCE_PROVPROV" Association="Self.FK_GASTGAST_REFERENCE_PROVPROV">
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
-            <End Role="GastGastosDiarios" EntitySet="GastGastosDiarios" />
+          <AssociationSet Name="FK_GASTOSDI_REFERENCE_OPERARIO" Association="Self.FK_GASTOSDI_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="GastosDiarios" EntitySet="GastosDiarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_GENCOMUN_REFERENCE_GENPROVI" Association="Self.FK_GENCOMUN_REFERENCE_GENPROVI">
-            <End Role="GenProvincias" EntitySet="GenProvincias" />
-            <End Role="GenComunas" EntitySet="GenComunas" />
+          <AssociationSet Name="FK_GASTOSDI_REFERENCE_PROVEEDO" Association="Self.FK_GASTOSDI_REFERENCE_PROVEEDO">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="GastosDiarios" EntitySet="GastosDiarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_GENPROVI_REFERENCE_GENREGIO" Association="Self.FK_GENPROVI_REFERENCE_GENREGIO">
-            <End Role="GenRegiones" EntitySet="GenRegiones" />
-            <End Role="GenProvincias" EntitySet="GenProvincias" />
+          <AssociationSet Name="FK_MODELOVE_REFERENCE_MARCAVEH" Association="Self.FK_MODELOVE_REFERENCE_MARCAVEH">
+            <End Role="MarcaVehiculos" EntitySet="MarcaVehiculos" />
+            <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
           </AssociationSet>
-          <AssociationSet Name="FK_OPOPERAR_REFERENCE_GENCOMUN" Association="Self.FK_OPOPERAR_REFERENCE_GENCOMUN">
-            <End Role="GenComunas" EntitySet="GenComunas" />
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
+          <AssociationSet Name="FK_OPERARIO_REFERENCE_COMUNAS" Association="Self.FK_OPERARIO_REFERENCE_COMUNAS">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Operarios" EntitySet="Operarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_OPOPERAR_REFERENCE_GENROLES" Association="Self.FK_OPOPERAR_REFERENCE_GENROLES">
-            <End Role="GenRoles" EntitySet="GenRoles" />
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
+          <AssociationSet Name="FK_OPERARIO_REFERENCE_ROLES" Association="Self.FK_OPERARIO_REFERENCE_ROLES">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Operarios" EntitySet="Operarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PRODMARC" Association="Self.FK_PRODPROD_REFERENCE_PRODMARC">
-            <End Role="ProdMarcas" EntitySet="ProdMarcas" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_MARCAPRO" Association="Self.FK_PRODUCTO_REFERENCE_MARCAPRO">
+            <End Role="MarcaProductos" EntitySet="MarcaProductos" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PRODSUBC" Association="Self.FK_PRODPROD_REFERENCE_PRODSUBC">
-            <End Role="ProdSubcategorias" EntitySet="ProdSubcategorias" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_PROVEEDO" Association="Self.FK_PRODUCTO_REFERENCE_PROVEEDO">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PROVPROV" Association="Self.FK_PRODPROD_REFERENCE_PROVPROV">
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_SUBCATEG" Association="Self.FK_PRODUCTO_REFERENCE_SUBCATEG">
+            <End Role="Subcategorias" EntitySet="Subcategorias" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODSUBC_REFERENCE_PRODCATE" Association="Self.FK_PRODSUBC_REFERENCE_PRODCATE">
-            <End Role="ProdCategorias" EntitySet="ProdCategorias" />
-            <End Role="ProdSubcategorias" EntitySet="ProdSubcategorias" />
+          <AssociationSet Name="FK_PROVEEDO_REFERENCE_GIROS" Association="Self.FK_PROVEEDO_REFERENCE_GIROS">
+            <End Role="Giros" EntitySet="Giros" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
           </AssociationSet>
-          <AssociationSet Name="FK_PROVPROV_REFERENCE_GENGIROS" Association="Self.FK_PROVPROV_REFERENCE_GENGIROS">
-            <End Role="GenGiros" EntitySet="GenGiros" />
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
+          <AssociationSet Name="FK_PROVINCI_REFERENCE_REGIONES" Association="Self.FK_PROVINCI_REFERENCE_REGIONES">
+            <End Role="Regiones" EntitySet="Regiones" />
+            <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
-          <AssociationSet Name="FK_VEHMODEL_REFERENCE_VEHMARCA" Association="Self.FK_VEHMODEL_REFERENCE_VEHMARCA">
-            <End Role="VehMarcas" EntitySet="VehMarcas" />
-            <End Role="VehModelos" EntitySet="VehModelos" />
+          <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="Self.FK_SUBCATEG_REFERENCE_CATEGORI">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Subcategorias" EntitySet="Subcategorias" />
           </AssociationSet>
-          <AssociationSet Name="FK_VEHVEHIC_REFERENCE_VEHMODEL" Association="Self.FK_VEHVEHIC_REFERENCE_VEHMODEL">
-            <End Role="VehModelos" EntitySet="VehModelos" />
-            <End Role="VehVehiculos" EntitySet="VehVehiculos" />
+          <AssociationSet Name="FK_VEHICULO_REFERENCE_MODELOVE" Association="Self.FK_VEHICULO_REFERENCE_MODELOVE">
+            <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -439,85 +442,94 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SisGMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SisGMAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CliClientes" EntityType="SisGMAModel.CliClientes" />
-          <EntitySet Name="CtrlControlProduccion" EntityType="SisGMAModel.CtrlControlProduccion" />
-          <EntitySet Name="GastGastosDiarios" EntityType="SisGMAModel.GastGastosDiarios" />
-          <EntitySet Name="GenComunas" EntityType="SisGMAModel.GenComunas" />
-          <EntitySet Name="GenGiros" EntityType="SisGMAModel.GenGiros" />
-          <EntitySet Name="GenProvincias" EntityType="SisGMAModel.GenProvincias" />
-          <EntitySet Name="GenRegiones" EntityType="SisGMAModel.GenRegiones" />
-          <EntitySet Name="GenRoles" EntityType="SisGMAModel.GenRoles" />
-          <EntitySet Name="OpOperarios" EntityType="SisGMAModel.OpOperarios" />
-          <EntitySet Name="ProdCategorias" EntityType="SisGMAModel.ProdCategorias" />
-          <EntitySet Name="ProdMarcas" EntityType="SisGMAModel.ProdMarcas" />
-          <EntitySet Name="ProdProducto" EntityType="SisGMAModel.ProdProducto" />
-          <EntitySet Name="ProdSubcategorias" EntityType="SisGMAModel.ProdSubcategorias" />
-          <EntitySet Name="ProvProveedores" EntityType="SisGMAModel.ProvProveedores" />
-          <EntitySet Name="VehMarcas" EntityType="SisGMAModel.VehMarcas" />
-          <EntitySet Name="VehModelos" EntityType="SisGMAModel.VehModelos" />
-          <EntitySet Name="VehVehiculos" EntityType="SisGMAModel.VehVehiculos" />
-          <AssociationSet Name="FK_CLICLIEN_REFERENCE_GENCOMUN" Association="SisGMAModel.FK_CLICLIEN_REFERENCE_GENCOMUN">
-            <End Role="GenComunas" EntitySet="GenComunas" />
-            <End Role="CliClientes" EntitySet="CliClientes" />
+          <EntitySet Name="Categorias" EntityType="SisGMAModel.Categorias" />
+          <EntitySet Name="Clientes" EntityType="SisGMAModel.Clientes" />
+          <EntitySet Name="Comunas" EntityType="SisGMAModel.Comunas" />
+          <EntitySet Name="ControlProduccion" EntityType="SisGMAModel.ControlProduccion" />
+          <EntitySet Name="GastosDiarios" EntityType="SisGMAModel.GastosDiarios" />
+          <EntitySet Name="Giros" EntityType="SisGMAModel.Giros" />
+          <EntitySet Name="MarcaProductos" EntityType="SisGMAModel.MarcaProductos" />
+          <EntitySet Name="MarcaVehiculos" EntityType="SisGMAModel.MarcaVehiculos" />
+          <EntitySet Name="ModeloVehiculos" EntityType="SisGMAModel.ModeloVehiculos" />
+          <EntitySet Name="Operarios" EntityType="SisGMAModel.Operarios" />
+          <EntitySet Name="Productos" EntityType="SisGMAModel.Productos" />
+          <EntitySet Name="Proveedores" EntityType="SisGMAModel.Proveedores" />
+          <EntitySet Name="Provincias" EntityType="SisGMAModel.Provincias" />
+          <EntitySet Name="Regiones" EntityType="SisGMAModel.Regiones" />
+          <EntitySet Name="Roles" EntityType="SisGMAModel.Roles" />
+          <EntitySet Name="Subcategorias" EntityType="SisGMAModel.Subcategorias" />
+          <EntitySet Name="Vehiculos" EntityType="SisGMAModel.Vehiculos" />
+          <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Subcategorias" EntitySet="Subcategorias" />
           </AssociationSet>
-          <AssociationSet Name="FK_CTRLCONT_REFERENCE_OPOPERAR" Association="SisGMAModel.FK_CTRLCONT_REFERENCE_OPOPERAR">
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
-            <End Role="CtrlControlProduccion" EntitySet="CtrlControlProduccion" />
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_COMUNAS" Association="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_GASTGAST_REFERENCE_OPOPERAR" Association="SisGMAModel.FK_GASTGAST_REFERENCE_OPOPERAR">
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
-            <End Role="GastGastosDiarios" EntitySet="GastGastosDiarios" />
+          <AssociationSet Name="FK_COMUNAS_REFERENCE_PROVINCI" Association="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Comunas" EntitySet="Comunas" />
           </AssociationSet>
-          <AssociationSet Name="FK_GASTGAST_REFERENCE_PROVPROV" Association="SisGMAModel.FK_GASTGAST_REFERENCE_PROVPROV">
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
-            <End Role="GastGastosDiarios" EntitySet="GastGastosDiarios" />
+          <AssociationSet Name="FK_OPERARIO_REFERENCE_COMUNAS" Association="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS">
+            <End Role="Comunas" EntitySet="Comunas" />
+            <End Role="Operarios" EntitySet="Operarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_GENCOMUN_REFERENCE_GENPROVI" Association="SisGMAModel.FK_GENCOMUN_REFERENCE_GENPROVI">
-            <End Role="GenProvincias" EntitySet="GenProvincias" />
-            <End Role="GenComunas" EntitySet="GenComunas" />
+          <AssociationSet Name="FK_CONTROLP_REFERENCE_OPERARIO" Association="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="ControlProduccion" EntitySet="ControlProduccion" />
           </AssociationSet>
-          <AssociationSet Name="FK_OPOPERAR_REFERENCE_GENCOMUN" Association="SisGMAModel.FK_OPOPERAR_REFERENCE_GENCOMUN">
-            <End Role="GenComunas" EntitySet="GenComunas" />
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
+          <AssociationSet Name="FK_GASTOSDI_REFERENCE_OPERARIO" Association="SisGMAModel.FK_GASTOSDI_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="GastosDiarios" EntitySet="GastosDiarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_PROVPROV_REFERENCE_GENGIROS" Association="SisGMAModel.FK_PROVPROV_REFERENCE_GENGIROS">
-            <End Role="GenGiros" EntitySet="GenGiros" />
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
+          <AssociationSet Name="FK_GASTOSDI_REFERENCE_PROVEEDO" Association="SisGMAModel.FK_GASTOSDI_REFERENCE_PROVEEDO">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="GastosDiarios" EntitySet="GastosDiarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_GENPROVI_REFERENCE_GENREGIO" Association="SisGMAModel.FK_GENPROVI_REFERENCE_GENREGIO">
-            <End Role="GenRegiones" EntitySet="GenRegiones" />
-            <End Role="GenProvincias" EntitySet="GenProvincias" />
+          <AssociationSet Name="FK_PROVEEDO_REFERENCE_GIROS" Association="SisGMAModel.FK_PROVEEDO_REFERENCE_GIROS">
+            <End Role="Giros" EntitySet="Giros" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
           </AssociationSet>
-          <AssociationSet Name="FK_OPOPERAR_REFERENCE_GENROLES" Association="SisGMAModel.FK_OPOPERAR_REFERENCE_GENROLES">
-            <End Role="GenRoles" EntitySet="GenRoles" />
-            <End Role="OpOperarios" EntitySet="OpOperarios" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_MARCAPRO" Association="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO">
+            <End Role="MarcaProductos" EntitySet="MarcaProductos" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODSUBC_REFERENCE_PRODCATE" Association="SisGMAModel.FK_PRODSUBC_REFERENCE_PRODCATE">
-            <End Role="ProdCategorias" EntitySet="ProdCategorias" />
-            <End Role="ProdSubcategorias" EntitySet="ProdSubcategorias" />
+          <AssociationSet Name="FK_MODELOVE_REFERENCE_MARCAVEH" Association="SisGMAModel.FK_MODELOVE_REFERENCE_MARCAVEH">
+            <End Role="MarcaVehiculos" EntitySet="MarcaVehiculos" />
+            <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PRODMARC" Association="SisGMAModel.FK_PRODPROD_REFERENCE_PRODMARC">
-            <End Role="ProdMarcas" EntitySet="ProdMarcas" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_VEHICULO_REFERENCE_MODELOVE" Association="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE">
+            <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PRODSUBC" Association="SisGMAModel.FK_PRODPROD_REFERENCE_PRODSUBC">
-            <End Role="ProdSubcategorias" EntitySet="ProdSubcategorias" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_OPERARIO_REFERENCE_ROLES" Association="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Operarios" EntitySet="Operarios" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODPROD_REFERENCE_PROVPROV" Association="SisGMAModel.FK_PRODPROD_REFERENCE_PROVPROV">
-            <End Role="ProvProveedores" EntitySet="ProvProveedores" />
-            <End Role="ProdProducto" EntitySet="ProdProducto" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_PROVEEDO" Association="SisGMAModel.FK_PRODUCTO_REFERENCE_PROVEEDO">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_VEHMODEL_REFERENCE_VEHMARCA" Association="SisGMAModel.FK_VEHMODEL_REFERENCE_VEHMARCA">
-            <End Role="VehMarcas" EntitySet="VehMarcas" />
-            <End Role="VehModelos" EntitySet="VehModelos" />
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_SUBCATEG" Association="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG">
+            <End Role="Subcategorias" EntitySet="Subcategorias" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_VEHVEHIC_REFERENCE_VEHMODEL" Association="SisGMAModel.FK_VEHVEHIC_REFERENCE_VEHMODEL">
-            <End Role="VehModelos" EntitySet="VehModelos" />
-            <End Role="VehVehiculos" EntitySet="VehVehiculos" />
+          <AssociationSet Name="FK_PROVINCI_REFERENCE_REGIONES" Association="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES">
+            <End Role="Regiones" EntitySet="Regiones" />
+            <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="CliClientes">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Categorias" ToRole="Subcategorias" />
+        </EntityType>
+        <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="IdCliente" />
           </Key>
@@ -530,10 +542,22 @@
           <Property Name="Direccion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="GenComunas" Relationship="SisGMAModel.FK_CLICLIEN_REFERENCE_GENCOMUN" FromRole="CliClientes" ToRole="GenComunas" />
+          <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" FromRole="Clientes" ToRole="Comunas" />
         </EntityType>
-        <EntityType Name="CtrlControlProduccion">
+        <EntityType Name="Comunas">
+          <Key>
+            <PropertyRef Name="IdComuna" />
+          </Key>
+          <Property Name="IdComuna" Type="Int32" Nullable="false" />
+          <Property Name="IdProvincia" Type="Int32" />
+          <Property Name="Comuna" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clientes" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" FromRole="Comunas" ToRole="Clientes" />
+          <NavigationProperty Name="Provincias" Relationship="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI" FromRole="Comunas" ToRole="Provincias" />
+          <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS" FromRole="Comunas" ToRole="Operarios" />
+        </EntityType>
+        <EntityType Name="ControlProduccion">
           <Key>
             <PropertyRef Name="IdControlProd" />
           </Key>
@@ -541,9 +565,9 @@
           <Property Name="IdOperario" Type="Int32" />
           <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ValorNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="OpOperarios" Relationship="SisGMAModel.FK_CTRLCONT_REFERENCE_OPOPERAR" FromRole="CtrlControlProduccion" ToRole="OpOperarios" />
+          <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" FromRole="ControlProduccion" ToRole="Operarios" />
         </EntityType>
-        <EntityType Name="GastGastosDiarios">
+        <EntityType Name="GastosDiarios">
           <Key>
             <PropertyRef Name="IdGastoDiario" />
           </Key>
@@ -553,21 +577,10 @@
           <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OpOperarios" Relationship="SisGMAModel.FK_GASTGAST_REFERENCE_OPOPERAR" FromRole="GastGastosDiarios" ToRole="OpOperarios" />
-          <NavigationProperty Name="ProvProveedores" Relationship="SisGMAModel.FK_GASTGAST_REFERENCE_PROVPROV" FromRole="GastGastosDiarios" ToRole="ProvProveedores" />
+          <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_GASTOSDI_REFERENCE_OPERARIO" FromRole="GastosDiarios" ToRole="Operarios" />
+          <NavigationProperty Name="Proveedores" Relationship="SisGMAModel.FK_GASTOSDI_REFERENCE_PROVEEDO" FromRole="GastosDiarios" ToRole="Proveedores" />
         </EntityType>
-        <EntityType Name="GenComunas">
-          <Key>
-            <PropertyRef Name="IdComuna" />
-          </Key>
-          <Property Name="IdComuna" Type="Int32" Nullable="false" />
-          <Property Name="IdProvincia" Type="Int32" />
-          <Property Name="Comuna" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CliClientes" Relationship="SisGMAModel.FK_CLICLIEN_REFERENCE_GENCOMUN" FromRole="GenComunas" ToRole="CliClientes" />
-          <NavigationProperty Name="GenProvincias" Relationship="SisGMAModel.FK_GENCOMUN_REFERENCE_GENPROVI" FromRole="GenComunas" ToRole="GenProvincias" />
-          <NavigationProperty Name="OpOperarios" Relationship="SisGMAModel.FK_OPOPERAR_REFERENCE_GENCOMUN" FromRole="GenComunas" ToRole="OpOperarios" />
-        </EntityType>
-        <EntityType Name="GenGiros">
+        <EntityType Name="Giros">
           <Key>
             <PropertyRef Name="IdGiro" />
           </Key>
@@ -577,36 +590,36 @@
           <Property Name="Iva" Type="Int32" />
           <Property Name="CatTributaria" Type="Int32" />
           <Property Name="Internet" Type="Int32" />
-          <NavigationProperty Name="ProvProveedores" Relationship="SisGMAModel.FK_PROVPROV_REFERENCE_GENGIROS" FromRole="GenGiros" ToRole="ProvProveedores" />
+          <NavigationProperty Name="Proveedores" Relationship="SisGMAModel.FK_PROVEEDO_REFERENCE_GIROS" FromRole="Giros" ToRole="Proveedores" />
         </EntityType>
-        <EntityType Name="GenProvincias">
+        <EntityType Name="MarcaProductos">
           <Key>
-            <PropertyRef Name="IdProvincia" />
+            <PropertyRef Name="IdMarca" />
           </Key>
-          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
-          <Property Name="IdRegion" Type="Int32" />
-          <Property Name="Provincia" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GenComunas" Relationship="SisGMAModel.FK_GENCOMUN_REFERENCE_GENPROVI" FromRole="GenProvincias" ToRole="GenComunas" />
-          <NavigationProperty Name="GenRegiones" Relationship="SisGMAModel.FK_GENPROVI_REFERENCE_GENREGIO" FromRole="GenProvincias" ToRole="GenRegiones" />
-        </EntityType>
-        <EntityType Name="GenRegiones">
-          <Key>
-            <PropertyRef Name="IdRegion" />
-          </Key>
-          <Property Name="IdRegion" Type="Int32" Nullable="false" />
-          <Property Name="Region" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GenProvincias" Relationship="SisGMAModel.FK_GENPROVI_REFERENCE_GENREGIO" FromRole="GenRegiones" ToRole="GenProvincias" />
-        </EntityType>
-        <EntityType Name="GenRoles">
-          <Key>
-            <PropertyRef Name="IdRol" />
-          </Key>
-          <Property Name="IdRol" Type="Int32" Nullable="false" />
-          <Property Name="Rol" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="OpOperarios" Relationship="SisGMAModel.FK_OPOPERAR_REFERENCE_GENROLES" FromRole="GenRoles" ToRole="OpOperarios" />
+          <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO" FromRole="MarcaProductos" ToRole="Productos" />
         </EntityType>
-        <EntityType Name="OpOperarios">
+        <EntityType Name="MarcaVehiculos">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
+          <Property Name="Marca" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ModeloVehiculos" Relationship="SisGMAModel.FK_MODELOVE_REFERENCE_MARCAVEH" FromRole="MarcaVehiculos" ToRole="ModeloVehiculos" />
+        </EntityType>
+        <EntityType Name="ModeloVehiculos">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="Int32" Nullable="false" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="Modelo" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MarcaVehiculos" Relationship="SisGMAModel.FK_MODELOVE_REFERENCE_MARCAVEH" FromRole="ModeloVehiculos" ToRole="MarcaVehiculos" />
+          <NavigationProperty Name="Vehiculos" Relationship="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE" FromRole="ModeloVehiculos" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Operarios">
           <Key>
             <PropertyRef Name="IdOperario" />
           </Key>
@@ -618,32 +631,16 @@
           <Property Name="Direccion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdComuna" Type="Int32" />
           <Property Name="Telefono" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IdRol" Type="Int32" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CtrlControlProduccion" Relationship="SisGMAModel.FK_CTRLCONT_REFERENCE_OPOPERAR" FromRole="OpOperarios" ToRole="CtrlControlProduccion" />
-          <NavigationProperty Name="GastGastosDiarios" Relationship="SisGMAModel.FK_GASTGAST_REFERENCE_OPOPERAR" FromRole="OpOperarios" ToRole="GastGastosDiarios" />
-          <NavigationProperty Name="GenComunas" Relationship="SisGMAModel.FK_OPOPERAR_REFERENCE_GENCOMUN" FromRole="OpOperarios" ToRole="GenComunas" />
-          <NavigationProperty Name="GenRoles" Relationship="SisGMAModel.FK_OPOPERAR_REFERENCE_GENROLES" FromRole="OpOperarios" ToRole="GenRoles" />
+          <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS" FromRole="Operarios" ToRole="Comunas" />
+          <NavigationProperty Name="ControlProduccion" Relationship="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="ControlProduccion" />
+          <NavigationProperty Name="GastosDiarios" Relationship="SisGMAModel.FK_GASTOSDI_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="GastosDiarios" />
+          <NavigationProperty Name="Roles" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES" FromRole="Operarios" ToRole="Roles" />
         </EntityType>
-        <EntityType Name="ProdCategorias">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ProdSubcategorias" Relationship="SisGMAModel.FK_PRODSUBC_REFERENCE_PRODCATE" FromRole="ProdCategorias" ToRole="ProdSubcategorias" />
-        </EntityType>
-        <EntityType Name="ProdMarcas">
-          <Key>
-            <PropertyRef Name="IdMarca" />
-          </Key>
-          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Marca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ProdProducto" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PRODMARC" FromRole="ProdMarcas" ToRole="ProdProducto" />
-        </EntityType>
-        <EntityType Name="ProdProducto">
+        <EntityType Name="Productos">
           <Key>
             <PropertyRef Name="IdProducto" />
           </Key>
@@ -657,22 +654,11 @@
           <Property Name="ValorSalida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProdMarcas" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PRODMARC" FromRole="ProdProducto" ToRole="ProdMarcas" />
-          <NavigationProperty Name="ProdSubcategorias" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PRODSUBC" FromRole="ProdProducto" ToRole="ProdSubcategorias" />
-          <NavigationProperty Name="ProvProveedores" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PROVPROV" FromRole="ProdProducto" ToRole="ProvProveedores" />
+          <NavigationProperty Name="MarcaProductos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO" FromRole="Productos" ToRole="MarcaProductos" />
+          <NavigationProperty Name="Proveedores" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_PROVEEDO" FromRole="Productos" ToRole="Proveedores" />
+          <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" FromRole="Productos" ToRole="Subcategorias" />
         </EntityType>
-        <EntityType Name="ProdSubcategorias">
-          <Key>
-            <PropertyRef Name="IdSubcategoria" />
-          </Key>
-          <Property Name="IdSubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCategoria" Type="Int32" />
-          <Property Name="Subcategoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ProdCategorias" Relationship="SisGMAModel.FK_PRODSUBC_REFERENCE_PRODCATE" FromRole="ProdSubcategorias" ToRole="ProdCategorias" />
-          <NavigationProperty Name="ProdProducto" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PRODSUBC" FromRole="ProdSubcategorias" ToRole="ProdProducto" />
-        </EntityType>
-        <EntityType Name="ProvProveedores">
+        <EntityType Name="Proveedores">
           <Key>
             <PropertyRef Name="IdProveedor" />
           </Key>
@@ -681,29 +667,49 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="Int32" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GastGastosDiarios" Relationship="SisGMAModel.FK_GASTGAST_REFERENCE_PROVPROV" FromRole="ProvProveedores" ToRole="GastGastosDiarios" />
-          <NavigationProperty Name="GenGiros" Relationship="SisGMAModel.FK_PROVPROV_REFERENCE_GENGIROS" FromRole="ProvProveedores" ToRole="GenGiros" />
-          <NavigationProperty Name="ProdProducto" Relationship="SisGMAModel.FK_PRODPROD_REFERENCE_PROVPROV" FromRole="ProvProveedores" ToRole="ProdProducto" />
+          <NavigationProperty Name="GastosDiarios" Relationship="SisGMAModel.FK_GASTOSDI_REFERENCE_PROVEEDO" FromRole="Proveedores" ToRole="GastosDiarios" />
+          <NavigationProperty Name="Giros" Relationship="SisGMAModel.FK_PROVEEDO_REFERENCE_GIROS" FromRole="Proveedores" ToRole="Giros" />
+          <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_PROVEEDO" FromRole="Proveedores" ToRole="Productos" />
         </EntityType>
-        <EntityType Name="VehMarcas">
+        <EntityType Name="Provincias">
           <Key>
-            <PropertyRef Name="IdMarca" />
+            <PropertyRef Name="IdProvincia" />
           </Key>
-          <Property Name="IdMarca" Type="Int32" Nullable="false" />
-          <Property Name="Marca" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VehModelos" Relationship="SisGMAModel.FK_VEHMODEL_REFERENCE_VEHMARCA" FromRole="VehMarcas" ToRole="VehModelos" />
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+          <Property Name="IdRegion" Type="Int32" />
+          <Property Name="Provincia" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI" FromRole="Provincias" ToRole="Comunas" />
+          <NavigationProperty Name="Regiones" Relationship="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES" FromRole="Provincias" ToRole="Regiones" />
         </EntityType>
-        <EntityType Name="VehModelos">
+        <EntityType Name="Regiones">
           <Key>
-            <PropertyRef Name="IdModelo" />
+            <PropertyRef Name="IdRegion" />
           </Key>
-          <Property Name="IdModelo" Type="Int32" Nullable="false" />
-          <Property Name="IdMarca" Type="Int32" />
-          <Property Name="Modelo" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VehMarcas" Relationship="SisGMAModel.FK_VEHMODEL_REFERENCE_VEHMARCA" FromRole="VehModelos" ToRole="VehMarcas" />
-          <NavigationProperty Name="VehVehiculos" Relationship="SisGMAModel.FK_VEHVEHIC_REFERENCE_VEHMODEL" FromRole="VehModelos" ToRole="VehVehiculos" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Provincias" Relationship="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES" FromRole="Regiones" ToRole="Provincias" />
         </EntityType>
-        <EntityType Name="VehVehiculos">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES" FromRole="Roles" ToRole="Operarios" />
+        </EntityType>
+        <EntityType Name="Subcategorias">
+          <Key>
+            <PropertyRef Name="IdSubcategoria" />
+          </Key>
+          <Property Name="IdSubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCategoria" Type="Int32" />
+          <Property Name="Subcategoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Categorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Subcategorias" ToRole="Categorias" />
+          <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" FromRole="Subcategorias" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Vehiculos">
           <Key>
             <PropertyRef Name="IdVehiculo" />
           </Key>
@@ -715,185 +721,185 @@
           <Property Name="Color" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estanque" Type="Int32" Nullable="false" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VehModelos" Relationship="SisGMAModel.FK_VEHVEHIC_REFERENCE_VEHMODEL" FromRole="VehVehiculos" ToRole="VehModelos" />
+          <NavigationProperty Name="ModeloVehiculos" Relationship="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE" FromRole="Vehiculos" ToRole="ModeloVehiculos" />
         </EntityType>
-        <Association Name="FK_CLICLIEN_REFERENCE_GENCOMUN">
-          <End Type="SisGMAModel.GenComunas" Role="GenComunas" Multiplicity="0..1" />
-          <End Type="SisGMAModel.CliClientes" Role="CliClientes" Multiplicity="*" />
+        <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
+          <End Type="SisGMAModel.Categorias" Role="Categorias" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Subcategorias" Role="Subcategorias" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GenComunas">
-              <PropertyRef Name="IdComuna" />
-            </Principal>
-            <Dependent Role="CliClientes">
-              <PropertyRef Name="IdComuna" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTRLCONT_REFERENCE_OPOPERAR">
-          <End Type="SisGMAModel.OpOperarios" Role="OpOperarios" Multiplicity="0..1" />
-          <End Type="SisGMAModel.CtrlControlProduccion" Role="CtrlControlProduccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OpOperarios">
-              <PropertyRef Name="IdOperario" />
-            </Principal>
-            <Dependent Role="CtrlControlProduccion">
-              <PropertyRef Name="IdOperario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GASTGAST_REFERENCE_OPOPERAR">
-          <End Type="SisGMAModel.OpOperarios" Role="OpOperarios" Multiplicity="0..1" />
-          <End Type="SisGMAModel.GastGastosDiarios" Role="GastGastosDiarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OpOperarios">
-              <PropertyRef Name="IdOperario" />
-            </Principal>
-            <Dependent Role="GastGastosDiarios">
-              <PropertyRef Name="IdOperario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GASTGAST_REFERENCE_PROVPROV">
-          <End Type="SisGMAModel.ProvProveedores" Role="ProvProveedores" Multiplicity="0..1" />
-          <End Type="SisGMAModel.GastGastosDiarios" Role="GastGastosDiarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProvProveedores">
-              <PropertyRef Name="IdProveedor" />
-            </Principal>
-            <Dependent Role="GastGastosDiarios">
-              <PropertyRef Name="IdProveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GENCOMUN_REFERENCE_GENPROVI">
-          <End Type="SisGMAModel.GenProvincias" Role="GenProvincias" Multiplicity="0..1" />
-          <End Type="SisGMAModel.GenComunas" Role="GenComunas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenProvincias">
-              <PropertyRef Name="IdProvincia" />
-            </Principal>
-            <Dependent Role="GenComunas">
-              <PropertyRef Name="IdProvincia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OPOPERAR_REFERENCE_GENCOMUN">
-          <End Type="SisGMAModel.GenComunas" Role="GenComunas" Multiplicity="0..1" />
-          <End Type="SisGMAModel.OpOperarios" Role="OpOperarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenComunas">
-              <PropertyRef Name="IdComuna" />
-            </Principal>
-            <Dependent Role="OpOperarios">
-              <PropertyRef Name="IdComuna" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PROVPROV_REFERENCE_GENGIROS">
-          <End Type="SisGMAModel.GenGiros" Role="GenGiros" Multiplicity="0..1" />
-          <End Type="SisGMAModel.ProvProveedores" Role="ProvProveedores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenGiros">
-              <PropertyRef Name="IdGiro" />
-            </Principal>
-            <Dependent Role="ProvProveedores">
-              <PropertyRef Name="IdGiro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GENPROVI_REFERENCE_GENREGIO">
-          <End Type="SisGMAModel.GenRegiones" Role="GenRegiones" Multiplicity="0..1" />
-          <End Type="SisGMAModel.GenProvincias" Role="GenProvincias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenRegiones">
-              <PropertyRef Name="IdRegion" />
-            </Principal>
-            <Dependent Role="GenProvincias">
-              <PropertyRef Name="IdRegion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OPOPERAR_REFERENCE_GENROLES">
-          <End Type="SisGMAModel.GenRoles" Role="GenRoles" Multiplicity="0..1" />
-          <End Type="SisGMAModel.OpOperarios" Role="OpOperarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GenRoles">
-              <PropertyRef Name="IdRol" />
-            </Principal>
-            <Dependent Role="OpOperarios">
-              <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODSUBC_REFERENCE_PRODCATE">
-          <End Type="SisGMAModel.ProdCategorias" Role="ProdCategorias" Multiplicity="0..1" />
-          <End Type="SisGMAModel.ProdSubcategorias" Role="ProdSubcategorias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProdCategorias">
+            <Principal Role="Categorias">
               <PropertyRef Name="IdCategoria" />
             </Principal>
-            <Dependent Role="ProdSubcategorias">
+            <Dependent Role="Subcategorias">
               <PropertyRef Name="IdCategoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PRODMARC">
-          <End Type="SisGMAModel.ProdMarcas" Role="ProdMarcas" Multiplicity="0..1" />
-          <End Type="SisGMAModel.ProdProducto" Role="ProdProducto" Multiplicity="*" />
+        <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
+          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProdMarcas">
-              <PropertyRef Name="IdMarca" />
+            <Principal Role="Comunas">
+              <PropertyRef Name="IdComuna" />
             </Principal>
-            <Dependent Role="ProdProducto">
-              <PropertyRef Name="IdMarca" />
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdComuna" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PRODSUBC">
-          <End Type="SisGMAModel.ProdSubcategorias" Role="ProdSubcategorias" Multiplicity="0..1" />
-          <End Type="SisGMAModel.ProdProducto" Role="ProdProducto" Multiplicity="*" />
+        <Association Name="FK_COMUNAS_REFERENCE_PROVINCI">
+          <End Type="SisGMAModel.Provincias" Role="Provincias" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProdSubcategorias">
-              <PropertyRef Name="IdSubcategoria" />
+            <Principal Role="Provincias">
+              <PropertyRef Name="IdProvincia" />
             </Principal>
-            <Dependent Role="ProdProducto">
-              <PropertyRef Name="IdSubcategoria" />
+            <Dependent Role="Comunas">
+              <PropertyRef Name="IdProvincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODPROD_REFERENCE_PROVPROV">
-          <End Type="SisGMAModel.ProvProveedores" Role="ProvProveedores" Multiplicity="0..1" />
-          <End Type="SisGMAModel.ProdProducto" Role="ProdProducto" Multiplicity="*" />
+        <Association Name="FK_OPERARIO_REFERENCE_COMUNAS">
+          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProvProveedores">
+            <Principal Role="Comunas">
+              <PropertyRef Name="IdComuna" />
+            </Principal>
+            <Dependent Role="Operarios">
+              <PropertyRef Name="IdComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTROLP_REFERENCE_OPERARIO">
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.ControlProduccion" Role="ControlProduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
+            </Principal>
+            <Dependent Role="ControlProduccion">
+              <PropertyRef Name="IdOperario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GASTOSDI_REFERENCE_OPERARIO">
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.GastosDiarios" Role="GastosDiarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
+            </Principal>
+            <Dependent Role="GastosDiarios">
+              <PropertyRef Name="IdOperario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GASTOSDI_REFERENCE_PROVEEDO">
+          <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="0..1" />
+          <End Type="SisGMAModel.GastosDiarios" Role="GastosDiarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
               <PropertyRef Name="IdProveedor" />
             </Principal>
-            <Dependent Role="ProdProducto">
+            <Dependent Role="GastosDiarios">
               <PropertyRef Name="IdProveedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VEHMODEL_REFERENCE_VEHMARCA">
-          <End Type="SisGMAModel.VehMarcas" Role="VehMarcas" Multiplicity="0..1" />
-          <End Type="SisGMAModel.VehModelos" Role="VehModelos" Multiplicity="*" />
+        <Association Name="FK_PROVEEDO_REFERENCE_GIROS">
+          <End Type="SisGMAModel.Giros" Role="Giros" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VehMarcas">
+            <Principal Role="Giros">
+              <PropertyRef Name="IdGiro" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="IdGiro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_MARCAPRO">
+          <End Type="SisGMAModel.MarcaProductos" Role="MarcaProductos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaProductos">
               <PropertyRef Name="IdMarca" />
             </Principal>
-            <Dependent Role="VehModelos">
+            <Dependent Role="Productos">
               <PropertyRef Name="IdMarca" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VEHVEHIC_REFERENCE_VEHMODEL">
-          <End Type="SisGMAModel.VehModelos" Role="VehModelos" Multiplicity="0..1" />
-          <End Type="SisGMAModel.VehVehiculos" Role="VehVehiculos" Multiplicity="*" />
+        <Association Name="FK_MODELOVE_REFERENCE_MARCAVEH">
+          <End Type="SisGMAModel.MarcaVehiculos" Role="MarcaVehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.ModeloVehiculos" Role="ModeloVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VehModelos">
+            <Principal Role="MarcaVehiculos">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="ModeloVehiculos">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_REFERENCE_MODELOVE">
+          <End Type="SisGMAModel.ModeloVehiculos" Role="ModeloVehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Vehiculos" Role="Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeloVehiculos">
               <PropertyRef Name="IdModelo" />
             </Principal>
-            <Dependent Role="VehVehiculos">
+            <Dependent Role="Vehiculos">
               <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OPERARIO_REFERENCE_ROLES">
+          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Operarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_PROVEEDO">
+          <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_SUBCATEG">
+          <End Type="SisGMAModel.Subcategorias" Role="Subcategorias" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategorias">
+              <PropertyRef Name="IdSubcategoria" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdSubcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROVINCI_REFERENCE_REGIONES">
+          <End Type="SisGMAModel.Regiones" Role="Regiones" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Provincias" Role="Provincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regiones">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="Provincias">
+              <PropertyRef Name="IdRegion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -903,10 +909,20 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SisGMAModelStoreContainer" CdmEntityContainer="SisGMAEntities">
-          <EntitySetMapping Name="CliClientes">
-            <EntityTypeMapping TypeName="SisGMAModel.CliClientes">
-              <MappingFragment StoreEntitySet="CliClientes">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="SisGMAModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="SisGMAModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
@@ -919,9 +935,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtrlControlProduccion">
-            <EntityTypeMapping TypeName="SisGMAModel.CtrlControlProduccion">
-              <MappingFragment StoreEntitySet="CtrlControlProduccion">
+          <EntitySetMapping Name="Comunas">
+            <EntityTypeMapping TypeName="SisGMAModel.Comunas">
+              <MappingFragment StoreEntitySet="Comunas">
+                <ScalarProperty Name="Comuna" ColumnName="Comuna" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlProduccion">
+            <EntityTypeMapping TypeName="SisGMAModel.ControlProduccion">
+              <MappingFragment StoreEntitySet="ControlProduccion">
                 <ScalarProperty Name="ValorNeto" ColumnName="ValorNeto" />
                 <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
                 <ScalarProperty Name="IdOperario" ColumnName="IdOperario" />
@@ -929,9 +954,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GastGastosDiarios">
-            <EntityTypeMapping TypeName="SisGMAModel.GastGastosDiarios">
-              <MappingFragment StoreEntitySet="GastGastosDiarios">
+          <EntitySetMapping Name="GastosDiarios">
+            <EntityTypeMapping TypeName="SisGMAModel.GastosDiarios">
+              <MappingFragment StoreEntitySet="GastosDiarios">
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
@@ -941,18 +966,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GenComunas">
-            <EntityTypeMapping TypeName="SisGMAModel.GenComunas">
-              <MappingFragment StoreEntitySet="GenComunas">
-                <ScalarProperty Name="Comuna" ColumnName="Comuna" />
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GenGiros">
-            <EntityTypeMapping TypeName="SisGMAModel.GenGiros">
-              <MappingFragment StoreEntitySet="GenGiros">
+          <EntitySetMapping Name="Giros">
+            <EntityTypeMapping TypeName="SisGMAModel.Giros">
+              <MappingFragment StoreEntitySet="Giros">
                 <ScalarProperty Name="Internet" ColumnName="Internet" />
                 <ScalarProperty Name="CatTributaria" ColumnName="CatTributaria" />
                 <ScalarProperty Name="Iva" ColumnName="Iva" />
@@ -962,37 +978,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GenProvincias">
-            <EntityTypeMapping TypeName="SisGMAModel.GenProvincias">
-              <MappingFragment StoreEntitySet="GenProvincias">
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GenRegiones">
-            <EntityTypeMapping TypeName="SisGMAModel.GenRegiones">
-              <MappingFragment StoreEntitySet="GenRegiones">
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GenRoles">
-            <EntityTypeMapping TypeName="SisGMAModel.GenRoles">
-              <MappingFragment StoreEntitySet="GenRoles">
+          <EntitySetMapping Name="MarcaProductos">
+            <EntityTypeMapping TypeName="SisGMAModel.MarcaProductos">
+              <MappingFragment StoreEntitySet="MarcaProductos">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OpOperarios">
-            <EntityTypeMapping TypeName="SisGMAModel.OpOperarios">
-              <MappingFragment StoreEntitySet="OpOperarios">
+          <EntitySetMapping Name="MarcaVehiculos">
+            <EntityTypeMapping TypeName="SisGMAModel.MarcaVehiculos">
+              <MappingFragment StoreEntitySet="MarcaVehiculos">
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModeloVehiculos">
+            <EntityTypeMapping TypeName="SisGMAModel.ModeloVehiculos">
+              <MappingFragment StoreEntitySet="ModeloVehiculos">
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operarios">
+            <EntityTypeMapping TypeName="SisGMAModel.Operarios">
+              <MappingFragment StoreEntitySet="Operarios">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
@@ -1004,27 +1022,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProdCategorias">
-            <EntityTypeMapping TypeName="SisGMAModel.ProdCategorias">
-              <MappingFragment StoreEntitySet="ProdCategorias">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProdMarcas">
-            <EntityTypeMapping TypeName="SisGMAModel.ProdMarcas">
-              <MappingFragment StoreEntitySet="ProdMarcas">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Marca" ColumnName="Marca" />
-                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProdProducto">
-            <EntityTypeMapping TypeName="SisGMAModel.ProdProducto">
-              <MappingFragment StoreEntitySet="ProdProducto">
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="SisGMAModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
                 <ScalarProperty Name="ValorSalida" ColumnName="ValorSalida" />
@@ -1038,19 +1038,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProdSubcategorias">
-            <EntityTypeMapping TypeName="SisGMAModel.ProdSubcategorias">
-              <MappingFragment StoreEntitySet="ProdSubcategorias">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Subcategoria" ColumnName="Subcategoria" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-                <ScalarProperty Name="IdSubcategoria" ColumnName="IdSubcategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProvProveedores">
-            <EntityTypeMapping TypeName="SisGMAModel.ProvProveedores">
-              <MappingFragment StoreEntitySet="ProvProveedores">
+          <EntitySetMapping Name="Proveedores">
+            <EntityTypeMapping TypeName="SisGMAModel.Proveedores">
+              <MappingFragment StoreEntitySet="Proveedores">
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1059,26 +1049,45 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VehMarcas">
-            <EntityTypeMapping TypeName="SisGMAModel.VehMarcas">
-              <MappingFragment StoreEntitySet="VehMarcas">
-                <ScalarProperty Name="Marca" ColumnName="Marca" />
-                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+          <EntitySetMapping Name="Provincias">
+            <EntityTypeMapping TypeName="SisGMAModel.Provincias">
+              <MappingFragment StoreEntitySet="Provincias">
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VehModelos">
-            <EntityTypeMapping TypeName="SisGMAModel.VehModelos">
-              <MappingFragment StoreEntitySet="VehModelos">
-                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
-                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
-                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+          <EntitySetMapping Name="Regiones">
+            <EntityTypeMapping TypeName="SisGMAModel.Regiones">
+              <MappingFragment StoreEntitySet="Regiones">
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VehVehiculos">
-            <EntityTypeMapping TypeName="SisGMAModel.VehVehiculos">
-              <MappingFragment StoreEntitySet="VehVehiculos">
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="SisGMAModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subcategorias">
+            <EntityTypeMapping TypeName="SisGMAModel.Subcategorias">
+              <MappingFragment StoreEntitySet="Subcategorias">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Subcategoria" ColumnName="Subcategoria" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdSubcategoria" ColumnName="IdSubcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehiculos">
+            <EntityTypeMapping TypeName="SisGMAModel.Vehiculos">
+              <MappingFragment StoreEntitySet="Vehiculos">
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="Estanque" ColumnName="Estanque" />
                 <ScalarProperty Name="Color" ColumnName="Color" />

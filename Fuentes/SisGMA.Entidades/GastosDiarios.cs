@@ -12,7 +12,7 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class GastGastosDiarios
+    public partial class GastosDiarios
     {
         public int IdGastoDiario { get; set; }
         public Nullable<int> IdOperario { get; set; }
@@ -21,7 +21,7 @@ namespace SisGMA.Entidades
         public decimal Monto { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual OpOperarios OpOperarios { get; set; }
-        public virtual ProvProveedores ProvProveedores { get; set; }
+        public virtual Operarios Operarios { get; set; }
+        public virtual Proveedores Proveedores { get; set; }
     }
 }

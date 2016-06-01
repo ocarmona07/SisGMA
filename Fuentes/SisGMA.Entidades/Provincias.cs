@@ -12,21 +12,20 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ProdSubcategorias
+    public partial class Provincias
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProdSubcategorias()
+        public Provincias()
         {
-            this.ProdProducto = new HashSet<ProdProducto>();
+            this.Comunas = new HashSet<Comunas>();
         }
     
-        public int IdSubcategoria { get; set; }
-        public Nullable<int> IdCategoria { get; set; }
-        public string Subcategoria { get; set; }
-        public bool Estado { get; set; }
+        public int IdProvincia { get; set; }
+        public Nullable<int> IdRegion { get; set; }
+        public string Provincia { get; set; }
     
-        public virtual ProdCategorias ProdCategorias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdProducto> ProdProducto { get; set; }
+        public virtual ICollection<Comunas> Comunas { get; set; }
+        public virtual Regiones Regiones { get; set; }
     }
 }

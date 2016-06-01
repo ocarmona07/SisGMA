@@ -12,13 +12,13 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class OpOperarios
+    public partial class Operarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OpOperarios()
+        public Operarios()
         {
-            this.CtrlControlProduccion = new HashSet<CtrlControlProduccion>();
-            this.GastGastosDiarios = new HashSet<GastGastosDiarios>();
+            this.ControlProduccion = new HashSet<ControlProduccion>();
+            this.GastosDiarios = new HashSet<GastosDiarios>();
         }
     
         public int IdOperario { get; set; }
@@ -29,14 +29,16 @@ namespace SisGMA.Entidades
         public string Direccion { get; set; }
         public Nullable<int> IdComuna { get; set; }
         public int Telefono { get; set; }
+        public string Imagen { get; set; }
         public Nullable<int> IdRol { get; set; }
+        public string Clave { get; set; }
         public bool Estado { get; set; }
     
+        public virtual Comunas Comunas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CtrlControlProduccion> CtrlControlProduccion { get; set; }
+        public virtual ICollection<ControlProduccion> ControlProduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GastGastosDiarios> GastGastosDiarios { get; set; }
-        public virtual GenComunas GenComunas { get; set; }
-        public virtual GenRoles GenRoles { get; set; }
+        public virtual ICollection<GastosDiarios> GastosDiarios { get; set; }
+        public virtual Roles Roles { get; set; }
     }
 }

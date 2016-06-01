@@ -5,38 +5,38 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="87b5e80b2d4f4e06942df6b981ee3ce2" Name="Diagram1" ZoomLevel="40">
-        <EntityTypeShape EntityType="SisGMAModel.CliClientes" Width="1.5" PointX="3.125" PointY="8.625" />
-        <EntityTypeShape EntityType="SisGMAModel.CtrlControlProduccion" Width="1.5" PointX="5.5" PointY="3.5" />
-        <EntityTypeShape EntityType="SisGMAModel.GastGastosDiarios" Width="1.5" PointX="5.5" PointY="6.125" />
-        <EntityTypeShape EntityType="SisGMAModel.GenComunas" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="SisGMAModel.GenGiros" Width="1.5" PointX="8.125" PointY="3.25" />
-        <EntityTypeShape EntityType="SisGMAModel.GenProvincias" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SisGMAModel.GenRegiones" Width="1.5" PointX="0.75" PointY="2.125" />
-        <EntityTypeShape EntityType="SisGMAModel.GenRoles" Width="1.5" PointX="3.25" PointY="2.125" />
-        <EntityTypeShape EntityType="SisGMAModel.OpOperarios" Width="1.5" PointX="3.125" PointY="4.5" />
-        <EntityTypeShape EntityType="SisGMAModel.ProdCategorias" Width="1.5" PointX="5.625" PointY="9.875" />
-        <EntityTypeShape EntityType="SisGMAModel.ProdMarcas" Width="1.5" PointX="10.5" PointY="3.375" />
-        <EntityTypeShape EntityType="SisGMAModel.ProdProducto" Width="1.5" PointX="10.25" PointY="6.25" />
-        <EntityTypeShape EntityType="SisGMAModel.ProdSubcategorias" Width="1.5" PointX="8" PointY="9.875" />
-        <EntityTypeShape EntityType="SisGMAModel.ProvProveedores" Width="1.5" PointX="8" PointY="6.125" />
-        <EntityTypeShape EntityType="SisGMAModel.VehMarcas" Width="1.5" PointX="12.75" PointY="2.875" />
-        <EntityTypeShape EntityType="SisGMAModel.VehModelos" Width="1.5" PointX="12.75" PointY="5.875" />
-        <EntityTypeShape EntityType="SisGMAModel.VehVehiculos" Width="1.5" PointX="12.75" PointY="9" />
-        <AssociationConnector Association="SisGMAModel.FK_CLICLIEN_REFERENCE_GENCOMUN" />
-        <AssociationConnector Association="SisGMAModel.FK_CTRLCONT_REFERENCE_OPOPERAR" />
-        <AssociationConnector Association="SisGMAModel.FK_GASTGAST_REFERENCE_OPOPERAR" />
-        <AssociationConnector Association="SisGMAModel.FK_GASTGAST_REFERENCE_PROVPROV" />
-        <AssociationConnector Association="SisGMAModel.FK_GENCOMUN_REFERENCE_GENPROVI" />
-        <AssociationConnector Association="SisGMAModel.FK_OPOPERAR_REFERENCE_GENCOMUN" />
-        <AssociationConnector Association="SisGMAModel.FK_PROVPROV_REFERENCE_GENGIROS" />
-        <AssociationConnector Association="SisGMAModel.FK_GENPROVI_REFERENCE_GENREGIO" />
-        <AssociationConnector Association="SisGMAModel.FK_OPOPERAR_REFERENCE_GENROLES" />
-        <AssociationConnector Association="SisGMAModel.FK_PRODSUBC_REFERENCE_PRODCATE" />
-        <AssociationConnector Association="SisGMAModel.FK_PRODPROD_REFERENCE_PRODMARC" />
-        <AssociationConnector Association="SisGMAModel.FK_PRODPROD_REFERENCE_PRODSUBC" />
-        <AssociationConnector Association="SisGMAModel.FK_PRODPROD_REFERENCE_PROVPROV" />
-        <AssociationConnector Association="SisGMAModel.FK_VEHMODEL_REFERENCE_VEHMARCA" />
-        <AssociationConnector Association="SisGMAModel.FK_VEHVEHIC_REFERENCE_VEHMODEL" />
+        <EntityTypeShape EntityType="SisGMAModel.Categorias" Width="1.5" PointX="7.625" PointY="1.125" />
+        <EntityTypeShape EntityType="SisGMAModel.Clientes" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="SisGMAModel.Comunas" Width="1.5" PointX="0.625" PointY="4.125" />
+        <EntityTypeShape EntityType="SisGMAModel.ControlProduccion" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="SisGMAModel.GastosDiarios" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="SisGMAModel.Giros" Width="1.5" PointX="5.125" PointY="9.75" />
+        <EntityTypeShape EntityType="SisGMAModel.MarcaProductos" Width="1.5" PointX="7.5" PointY="10.25" />
+        <EntityTypeShape EntityType="SisGMAModel.MarcaVehiculos" Width="1.5" PointX="9.875" PointY="1.125" />
+        <EntityTypeShape EntityType="SisGMAModel.ModeloVehiculos" Width="1.5" PointX="9.875" PointY="3.375" />
+        <EntityTypeShape EntityType="SisGMAModel.Operarios" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="SisGMAModel.Productos" Width="1.5" PointX="7.5" PointY="6.25" />
+        <EntityTypeShape EntityType="SisGMAModel.Proveedores" Width="1.5" PointX="5.125" PointY="6.625" />
+        <EntityTypeShape EntityType="SisGMAModel.Provincias" Width="1.5" PointX="0.625" PointY="7" />
+        <EntityTypeShape EntityType="SisGMAModel.Regiones" Width="1.5" PointX="0.625" PointY="9.875" />
+        <EntityTypeShape EntityType="SisGMAModel.Roles" Width="1.5" PointX="0.875" PointY="1.125" />
+        <EntityTypeShape EntityType="SisGMAModel.Subcategorias" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="SisGMAModel.Vehiculos" Width="1.5" PointX="9.875" PointY="6" />
+        <AssociationConnector Association="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" />
+        <AssociationConnector Association="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" />
+        <AssociationConnector Association="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI" />
+        <AssociationConnector Association="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS" />
+        <AssociationConnector Association="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" />
+        <AssociationConnector Association="SisGMAModel.FK_GASTOSDI_REFERENCE_OPERARIO" />
+        <AssociationConnector Association="SisGMAModel.FK_GASTOSDI_REFERENCE_PROVEEDO" />
+        <AssociationConnector Association="SisGMAModel.FK_PROVEEDO_REFERENCE_GIROS" />
+        <AssociationConnector Association="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO" />
+        <AssociationConnector Association="SisGMAModel.FK_MODELOVE_REFERENCE_MARCAVEH" />
+        <AssociationConnector Association="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE" />
+        <AssociationConnector Association="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES" />
+        <AssociationConnector Association="SisGMAModel.FK_PRODUCTO_REFERENCE_PROVEEDO" />
+        <AssociationConnector Association="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" />
+        <AssociationConnector Association="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,11 +15,11 @@ namespace SisGMA.Datos
     using System.Linq;
     using Entidades;
 
-    public class CliClientesDa : BaseEntity
+    public class ClientesDa : BaseEntity
     {
         private readonly SisGMAEntities _sisGmaEntities;
 
-        public CliClientesDa()
+        public ClientesDa()
         {
             IsValid = true;
             ErrorMessage = string.Empty;
@@ -29,11 +29,11 @@ namespace SisGMA.Datos
             }
         }
         
-        public CliClientes Insert(CliClientes item)
+        public Clientes Insert(Clientes item)
         {
             try
             {
-                _sisGmaEntities.CliClientes.Add(item);
+                _sisGmaEntities.Clientes.Add(item);
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -51,11 +51,11 @@ namespace SisGMA.Datos
             }
         }
         
-        public CliClientes Get(int idItem)
+        public Clientes Get(int idItem)
         {
             try
             {
-                return _sisGmaEntities.CliClientes.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
+                return _sisGmaEntities.Clientes.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -71,11 +71,11 @@ namespace SisGMA.Datos
             }
         }
         
-        public List<CliClientes> GetAll()
+        public List<Clientes> GetAll()
         {
             try
             {
-                return _sisGmaEntities.CliClientes.ToList();
+                return _sisGmaEntities.Clientes.ToList();
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -91,11 +91,11 @@ namespace SisGMA.Datos
             }
         }
         
-        public CliClientes Update(CliClientes item)
+        public Clientes Update(Clientes item)
         {
             try
             {
-                _sisGmaEntities.CliClientes.Attach(item);
+                _sisGmaEntities.Clientes.Attach(item);
                 var entry = _sisGmaEntities.Entry(item);
                 entry.Property(o => o.Nombres).IsModified = true; // TODO: Reemplazar atributos
                 entry.Property(o => o.ApPaterno).IsModified = true;
@@ -126,7 +126,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                var entry = _sisGmaEntities.CliClientes.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
+                var entry = _sisGmaEntities.Clientes.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
                 _sisGmaEntities.Entry(entry).State = EntityState.Deleted;
                 return _sisGmaEntities.SaveChanges() > 0;
             }

@@ -47,47 +47,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CliClientes.cs">
+    <Compile Include="Categorias.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="CtrlControlProduccion.cs">
+    <Compile Include="Clientes.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GastGastosDiarios.cs">
+    <Compile Include="Comunas.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenComunas.cs">
+    <Compile Include="ControlProduccion.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenGiros.cs">
+    <Compile Include="GastosDiarios.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenProvincias.cs">
+    <Compile Include="Giros.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenRegiones.cs">
+    <Compile Include="MarcaProductos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="GenRoles.cs">
+    <Compile Include="MarcaVehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="OpOperarios.cs">
+    <Compile Include="ModeloVehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProdCategorias.cs">
+    <Compile Include="Operarios.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProdMarcas.cs">
-      <DependentUpon>SisGMA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProdProducto.cs">
-      <DependentUpon>SisGMA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProdSubcategorias.cs">
+    <Compile Include="Productos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProvProveedores.cs">
+    <Compile Include="Proveedores.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Provincias.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Regiones.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="SisGMA.Context.cs">
@@ -105,13 +108,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SisGMA.edmx</DependentUpon>
     </Compile>
-    <Compile Include="VehMarcas.cs">
+    <Compile Include="Subcategorias.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="VehModelos.cs">
-      <DependentUpon>SisGMA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="VehVehiculos.cs">
+    <Compile Include="Vehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -15,7 +15,7 @@
         {
             if (false)
             {
-                var addCliente = new CliClientesBo().Insert(new CliClientes
+                var addCliente = new ClientesBo().Insert(new Clientes
                 {
                     RutCliente = "159888207",
                     Nombres = "Omar",
@@ -25,11 +25,12 @@
                     Email = "ocarmona07@gmail.com",
                     Estado = true,
                     IdComuna = 211,
-                    Telefono = 82433600
+                    Telefono = 82433600,
+                    Clave = "123456"
                 });
             }
 
-            var cliente = new CliClientesBo().Get(1);
+            var cliente = new ClientesBo().Get(1);
             lblCliente.Text = cliente.Nombres;
         }
     }

@@ -12,25 +12,20 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ProvProveedores
+    public partial class ModeloVehiculos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProvProveedores()
+        public ModeloVehiculos()
         {
-            this.GastGastosDiarios = new HashSet<GastGastosDiarios>();
-            this.ProdProducto = new HashSet<ProdProducto>();
+            this.Vehiculos = new HashSet<Vehiculos>();
         }
     
-        public int IdProveedor { get; set; }
-        public Nullable<int> IdGiro { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<int> Telefono { get; set; }
-        public string Observaciones { get; set; }
+        public int IdModelo { get; set; }
+        public Nullable<int> IdMarca { get; set; }
+        public string Modelo { get; set; }
     
+        public virtual MarcaVehiculos MarcaVehiculos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GastGastosDiarios> GastGastosDiarios { get; set; }
-        public virtual GenGiros GenGiros { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdProducto> ProdProducto { get; set; }
+        public virtual ICollection<Vehiculos> Vehiculos { get; set; }
     }
 }

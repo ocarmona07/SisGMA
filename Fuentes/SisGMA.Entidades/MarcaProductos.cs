@@ -12,12 +12,12 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ProdMarcas
+    public partial class MarcaProductos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProdMarcas()
+        public MarcaProductos()
         {
-            this.ProdProducto = new HashSet<ProdProducto>();
+            this.Productos = new HashSet<Productos>();
         }
     
         public int IdMarca { get; set; }
@@ -25,6 +25,6 @@ namespace SisGMA.Entidades
         public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdProducto> ProdProducto { get; set; }
+        public virtual ICollection<Productos> Productos { get; set; }
     }
 }

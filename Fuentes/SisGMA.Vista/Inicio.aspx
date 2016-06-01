@@ -1,7 +1,44 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Base.Master" AutoEventWireup="true"
+﻿<%@ Page Title="SisGMA - Dashboard" Language="C#" MasterPageFile="~/Base.Master" AutoEventWireup="true"
     CodeBehind="Inicio.aspx.cs" Inherits="SisGMA.Vista.Inicio" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="BaseHead" runat="server">
+<asp:Content ID="Head" ContentPlaceHolderID="BaseHead" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="BaseBody" runat="server">
+<asp:Content ID="Content" ContentPlaceHolderID="BaseContent" runat="server">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Dashboard
+            <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="Inicio.aspx"><i class="fa fa-home"></i>Inicio</a></li>
+            <li class="active">Demo</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Title</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                Start creating your amazing application!
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                Footer
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
 </asp:Content>

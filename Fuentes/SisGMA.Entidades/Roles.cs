@@ -12,19 +12,19 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ProdCategorias
+    public partial class Roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProdCategorias()
+        public Roles()
         {
-            this.ProdSubcategorias = new HashSet<ProdSubcategorias>();
+            this.Operarios = new HashSet<Operarios>();
         }
     
-        public int IdCategoria { get; set; }
-        public string Categoria { get; set; }
+        public int IdRol { get; set; }
+        public string Rol { get; set; }
         public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProdSubcategorias> ProdSubcategorias { get; set; }
+        public virtual ICollection<Operarios> Operarios { get; set; }
     }
 }

@@ -12,18 +12,17 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class VehMarcas
+    public partial class Vehiculos
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public VehMarcas()
-        {
-            this.VehModelos = new HashSet<VehModelos>();
-        }
+        public int IdVehiculo { get; set; }
+        public Nullable<int> IdModelo { get; set; }
+        public string Patente { get; set; }
+        public int KmIngreso { get; set; }
+        public int Anio { get; set; }
+        public string Color { get; set; }
+        public int Estanque { get; set; }
+        public string Observaciones { get; set; }
     
-        public int IdMarca { get; set; }
-        public string Marca { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VehModelos> VehModelos { get; set; }
+        public virtual ModeloVehiculos ModeloVehiculos { get; set; }
     }
 }

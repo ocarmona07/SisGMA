@@ -12,20 +12,22 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class GenProvincias
+    public partial class Giros
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GenProvincias()
+        public Giros()
         {
-            this.GenComunas = new HashSet<GenComunas>();
+            this.Proveedores = new HashSet<Proveedores>();
         }
     
-        public int IdProvincia { get; set; }
-        public Nullable<int> IdRegion { get; set; }
-        public string Provincia { get; set; }
+        public int IdGiro { get; set; }
+        public int Codigo { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> Iva { get; set; }
+        public Nullable<int> CatTributaria { get; set; }
+        public Nullable<int> Internet { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GenComunas> GenComunas { get; set; }
-        public virtual GenRegiones GenRegiones { get; set; }
+        public virtual ICollection<Proveedores> Proveedores { get; set; }
     }
 }

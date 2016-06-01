@@ -12,19 +12,23 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class GenRoles
+    public partial class Comunas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GenRoles()
+        public Comunas()
         {
-            this.OpOperarios = new HashSet<OpOperarios>();
+            this.Clientes = new HashSet<Clientes>();
+            this.Operarios = new HashSet<Operarios>();
         }
     
-        public int IdRol { get; set; }
-        public string Rol { get; set; }
-        public bool Estado { get; set; }
+        public int IdComuna { get; set; }
+        public Nullable<int> IdProvincia { get; set; }
+        public string Comuna { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OpOperarios> OpOperarios { get; set; }
+        public virtual ICollection<Clientes> Clientes { get; set; }
+        public virtual Provincias Provincias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Operarios> Operarios { get; set; }
     }
 }

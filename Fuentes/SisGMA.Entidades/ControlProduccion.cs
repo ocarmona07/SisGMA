@@ -12,17 +12,13 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class VehVehiculos
+    public partial class ControlProduccion
     {
-        public int IdVehiculo { get; set; }
-        public Nullable<int> IdModelo { get; set; }
-        public string Patente { get; set; }
-        public int KmIngreso { get; set; }
-        public int Anio { get; set; }
-        public string Color { get; set; }
-        public int Estanque { get; set; }
-        public string Observaciones { get; set; }
+        public int IdControlProd { get; set; }
+        public Nullable<int> IdOperario { get; set; }
+        public System.DateTime FechaEntrega { get; set; }
+        public decimal ValorNeto { get; set; }
     
-        public virtual VehModelos VehModelos { get; set; }
+        public virtual Operarios Operarios { get; set; }
     }
 }
