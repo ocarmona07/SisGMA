@@ -55,7 +55,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                return _sisGmaEntities.Operarios.FirstOrDefault(o => o.IdOperario == idItem); // TODO: Reemplazar Id
+                return _sisGmaEntities.Operarios.FirstOrDefault(o => o.IdOperario == idItem);
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -97,7 +97,7 @@ namespace SisGMA.Datos
             {
                 _sisGmaEntities.Operarios.Attach(item);
                 var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Nombres).IsModified = true; // TODO: Reemplazar atributos
+                entry.Property(o => o.Nombres).IsModified = true;
                 entry.Property(o => o.ApPaterno).IsModified = true;
                 entry.Property(o => o.ApMaterno).IsModified = true;
                 entry.Property(o => o.Direccion).IsModified = true;
@@ -126,7 +126,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                var entry = _sisGmaEntities.Operarios.FirstOrDefault(o => o.IdOperario == idItem); // TODO: Reemplazar Id
+                var entry = _sisGmaEntities.Operarios.FirstOrDefault(o => o.IdOperario == idItem);
                 _sisGmaEntities.Entry(entry).State = EntityState.Deleted;
                 return _sisGmaEntities.SaveChanges() > 0;
             }
