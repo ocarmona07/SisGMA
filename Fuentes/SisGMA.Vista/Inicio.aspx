@@ -2,6 +2,25 @@
     CodeBehind="Inicio.aspx.cs" Inherits="SisGMA.Vista.Inicio" %>
 
 <asp:Content ID="Head" ContentPlaceHolderID="BaseHead" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnTest").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "Inicio.aspx/GetFullName",
+                    data: "{idOper:" + $("#<%= tbTest.ClientID %>").val() + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $("#<%= lblName.ClientID %>").html(response.d);
+                    },
+                    error: function (response) {
+                        alert(response.statusText);
+                    }
+                });
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="BaseContent" runat="server">
     <!-- Content Header (Page header) -->
@@ -27,7 +46,13 @@
                 </div>
             </div>
             <div class="box-body">
-                Start creating your amazing application!
+                <form runat="server" id="frmInternal">
+                    <asp:Label ID="lblName" runat="server" /><br />
+                    <br />
+                    <asp:TextBox ID="tbTest" runat="server" /><br />
+                    <br />
+                    <a id="btnTest" href="#" class="btn btn-danger btn-flat">Test button</a>
+                </form>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
