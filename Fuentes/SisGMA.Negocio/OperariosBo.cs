@@ -3,16 +3,24 @@
     using Entidades;
     using Datos;
 
-    public class OperariosBo
+    public class OperariosBo : BaseEntity
     {
         public Operarios Get(int idItem)
         {
-            return new OperariosDa().Get(idItem);
+            var datos = new OperariosDa();
+            var response = datos.Get(idItem);
+            IsValid = datos.IsValid;
+            ErrorMessage = datos.ErrorMessage;
+            return response;
         }
 
         public Operarios Insert(Operarios item)
         {
-            return new OperariosDa().Insert(item);
+            var datos = new OperariosDa();
+            var response = datos.Insert(item);
+            IsValid = datos.IsValid;
+            ErrorMessage = datos.ErrorMessage;
+            return response;
         }
 
 

@@ -309,9 +309,9 @@ CREATE TABLE Clientes
       ApPaterno NVARCHAR(64) NOT NULL ,
       ApMaterno NVARCHAR(64) NULL ,
       Direccion NVARCHAR(128) NULL ,
-      Telefono INT NOT NULL ,
+      Telefono NVARCHAR(16) NOT NULL ,
       Email NVARCHAR(128) NULL ,
-      Clave NVARCHAR(20) NULL ,
+      Clave NVARCHAR(16) NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_CLIENTES PRIMARY KEY ( IdCliente )
     )
@@ -419,10 +419,10 @@ CREATE TABLE Operarios
       ApMaterno NVARCHAR(64) NOT NULL ,
       Direccion NVARCHAR(128) NULL ,
       IdComuna INT NULL ,
-      Telefono INT NOT NULL ,
+      Telefono NVARCHAR(16) NULL ,
       Imagen NVARCHAR(MAX) NULL ,
       IdRol INT NULL ,
-      Clave NVARCHAR(20) NOT NULL ,
+      Clave NVARCHAR(16) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_OPERARIOS PRIMARY KEY ( IdOperario )
     )

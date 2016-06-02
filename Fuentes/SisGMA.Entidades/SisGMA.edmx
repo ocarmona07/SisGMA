@@ -24,9 +24,9 @@
           <Property Name="ApPaterno" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="ApMaterno" Type="nvarchar" MaxLength="64" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="128" />
-          <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
-          <Property Name="Clave" Type="nvarchar" MaxLength="20" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="16" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Comunas">
@@ -102,10 +102,10 @@
           <Property Name="ApMaterno" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="128" />
           <Property Name="IdComuna" Type="int" />
-          <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="16" />
           <Property Name="Imagen" Type="nvarchar(max)" />
           <Property Name="IdRol" Type="int" />
-          <Property Name="Clave" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Productos">
@@ -540,9 +540,9 @@
           <Property Name="ApPaterno" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="ApMaterno" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Telefono" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Clave" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" FromRole="Clientes" ToRole="Comunas" />
         </EntityType>
@@ -630,10 +630,10 @@
           <Property Name="ApMaterno" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdComuna" Type="Int32" />
-          <Property Name="Telefono" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IdRol" Type="Int32" />
-          <Property Name="Clave" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS" FromRole="Operarios" ToRole="Comunas" />
           <NavigationProperty Name="ControlProduccion" Relationship="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="ControlProduccion" />

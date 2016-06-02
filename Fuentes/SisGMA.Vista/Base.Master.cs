@@ -16,11 +16,17 @@
             // Version & Copyright TODO: agregar derechos de autor
             lblVersion.Text = ConfigurationManager.AppSettings.Get("Version");
             // Body class
-            var skin = "skin-black";
+            const string skin = "skin-black";
             MasterBody.Attributes.Add("class", "hold-transition sidebar-mini " + skin);
 
             // User Info TODO: Agregar imagen
-            var operario = new OperariosBo().Get(1);
+            var operariosBo = new OperariosBo();
+            var operario = operariosBo.Get(1);
+            if (!operariosBo.IsValid)
+            {
+                // Alert con error
+            }
+
             lblUserName.Text = string.Format("{0} {1}", operario.Nombres, operario.ApPaterno);
             lblRole.Text = string.Format("{0}", operario.Roles.Rol);
 

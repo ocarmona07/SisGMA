@@ -28,7 +28,7 @@ namespace SisGMA.Entidades
         public string ApMaterno { get; set; }
         public string Direccion { get; set; }
         public Nullable<int> IdComuna { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Imagen { get; set; }
         public Nullable<int> IdRol { get; set; }
         public string Clave { get; set; }
