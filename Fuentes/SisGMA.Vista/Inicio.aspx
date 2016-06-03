@@ -14,8 +14,8 @@
                     success: function (response) {
                         $("#<%= lblName.ClientID %>").html(response.d);
                     },
-                    error: function (response) {
-                        alert(response.statusText);
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseJSON.Message);
                     }
                 });
             });

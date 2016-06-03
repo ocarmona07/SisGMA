@@ -118,6 +118,7 @@
                 <%-- sidebar menu: : style can be found in sidebar.less --%>
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
+                    <li><a href="Inicio.aspx"><i class="fa fa-home"></i><span>Inicio</span></a></li>
                     <li class="active treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i><span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
