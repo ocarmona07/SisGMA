@@ -6,10 +6,54 @@ IF EXISTS ( SELECT  1
                     JOIN sys.sysobjects o ON ( o.id = r.constid
                                                AND o.type = 'F'
                                              )
+            WHERE   r.fkeyid = OBJECT_ID('Accesos')
+                    AND o.name = 'FK_ACCESOS_REFERENCE_ACCESOS' )
+    ALTER TABLE Accesos
+    DROP CONSTRAINT FK_ACCESOS_REFERENCE_ACCESOS
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('Accesos')
+                    AND o.name = 'FK_ACCESOS_REFERENCE_CATEGORI' )
+    ALTER TABLE Accesos
+    DROP CONSTRAINT FK_ACCESOS_REFERENCE_CATEGORI
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
             WHERE   r.fkeyid = OBJECT_ID('Clientes')
                     AND o.name = 'FK_CLIENTES_REFERENCE_COMUNAS' )
     ALTER TABLE Clientes
     DROP CONSTRAINT FK_CLIENTES_REFERENCE_COMUNAS
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('ClientesVehiculos')
+                    AND o.name = 'FK_CLIENTES_REFERENCE_VEHICULO' )
+    ALTER TABLE ClientesVehiculos
+    DROP CONSTRAINT FK_CLIENTES_REFERENCE_VEHICULO
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('ClientesVehiculos')
+                    AND o.name = 'FK_CLIENTES_REFERENCE_CLIENTES' )
+    ALTER TABLE ClientesVehiculos
+    DROP CONSTRAINT FK_CLIENTES_REFERENCE_CLIENTES
 GO
 
 IF EXISTS ( SELECT  1
@@ -149,6 +193,28 @@ IF EXISTS ( SELECT  1
                     JOIN sys.sysobjects o ON ( o.id = r.constid
                                                AND o.type = 'F'
                                              )
+            WHERE   r.fkeyid = OBJECT_ID('RolesAccesos')
+                    AND o.name = 'FK_ROLESACC_REFERENCE_ROLES' )
+    ALTER TABLE RolesAccesos
+    DROP CONSTRAINT FK_ROLESACC_REFERENCE_ROLES
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('RolesAccesos')
+                    AND o.name = 'FK_ROLESACC_REFERENCE_ACCESOS' )
+    ALTER TABLE RolesAccesos
+    DROP CONSTRAINT FK_ROLESACC_REFERENCE_ACCESOS
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
             WHERE   r.fkeyid = OBJECT_ID('Subcategorias')
                     AND o.name = 'FK_SUBCATEG_REFERENCE_CATEGORI' )
     ALTER TABLE Subcategorias
@@ -168,6 +234,13 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
+            WHERE   id = OBJECT_ID('Accesos')
+                    AND type = 'U' )
+    DROP TABLE Accesos
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
             WHERE   id = OBJECT_ID('Categorias')
                     AND type = 'U' )
     DROP TABLE Categorias
@@ -175,9 +248,23 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
+            WHERE   id = OBJECT_ID('CategoriasAcceso')
+                    AND type = 'U' )
+    DROP TABLE CategoriasAcceso
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
             WHERE   id = OBJECT_ID('Clientes')
                     AND type = 'U' )
     DROP TABLE Clientes
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
+            WHERE   id = OBJECT_ID('ClientesVehiculos')
+                    AND type = 'U' )
+    DROP TABLE ClientesVehiculos
 GO
 
 IF EXISTS ( SELECT  1
@@ -273,6 +360,13 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
+            WHERE   id = OBJECT_ID('RolesAccesos')
+                    AND type = 'U' )
+    DROP TABLE RolesAccesos
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
             WHERE   id = OBJECT_ID('Subcategorias')
                     AND type = 'U' )
     DROP TABLE Subcategorias
@@ -286,6 +380,23 @@ IF EXISTS ( SELECT  1
 GO
 
 /*==============================================================*/
+/* Table: Accesos                                               */
+/*==============================================================*/
+CREATE TABLE Accesos
+    (
+      IdAcceso INT NOT NULL ,
+      IdAccesoPadre INT NULL ,
+      IdCategoriaAcceso INT NULL ,
+      NombreAcceso NVARCHAR(32) NOT NULL ,
+      Descripcion NVARCHAR(256) NULL ,
+      Icono NVARCHAR(32) NULL ,
+      UrlAcceso NVARCHAR(512) NULL ,
+      Estado BIT NOT NULL ,
+      CONSTRAINT PK_ACCESOS PRIMARY KEY ( IdAcceso )
+    )
+GO
+
+/*==============================================================*/
 /* Table: Categorias                                            */
 /*==============================================================*/
 CREATE TABLE Categorias
@@ -294,6 +405,18 @@ CREATE TABLE Categorias
       Categoria NVARCHAR(50) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_CATEGORIAS PRIMARY KEY ( IdCategoria )
+    )
+GO
+
+/*==============================================================*/
+/* Table: CategoriasAcceso                                      */
+/*==============================================================*/
+CREATE TABLE CategoriasAcceso
+    (
+      IdCategoriaAcceso INT NOT NULL ,
+      Categoria NVARCHAR(32) NOT NULL ,
+      Estado BIT NOT NULL ,
+      CONSTRAINT PK_CATEGORIASACCESO PRIMARY KEY ( IdCategoriaAcceso )
     )
 GO
 
@@ -314,6 +437,18 @@ CREATE TABLE Clientes
       Clave NVARCHAR(16) NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_CLIENTES PRIMARY KEY ( IdCliente )
+    )
+GO
+
+/*==============================================================*/
+/* Table: ClientesVehiculos                                     */
+/*==============================================================*/
+CREATE TABLE ClientesVehiculos
+    (
+      IdClienteVehiculo INT NOT NULL ,
+      IdVehiculo INT NULL ,
+      IdCliente INT NULL ,
+      CONSTRAINT PK_CLIENTESVEHICULOS PRIMARY KEY ( IdClienteVehiculo )
     )
 GO
 
@@ -497,6 +632,18 @@ CREATE TABLE Roles
 GO
 
 /*==============================================================*/
+/* Table: RolesAccesos                                          */
+/*==============================================================*/
+CREATE TABLE RolesAccesos
+    (
+      IdRolAcceso INT NOT NULL ,
+      IdRol INT NULL ,
+      IdAcceso INT NULL ,
+      CONSTRAINT PK_ROLESACCESOS PRIMARY KEY ( IdRolAcceso )
+    )
+GO
+
+/*==============================================================*/
 /* Table: Subcategorias                                         */
 /*==============================================================*/
 CREATE TABLE Subcategorias
@@ -526,9 +673,29 @@ CREATE TABLE Vehiculos
     )
 GO
 
+ALTER TABLE Accesos
+ADD CONSTRAINT FK_ACCESOS_REFERENCE_ACCESOS FOREIGN KEY (IdAccesoPadre)
+REFERENCES Accesos (IdAcceso)
+GO
+
+ALTER TABLE Accesos
+ADD CONSTRAINT FK_ACCESOS_REFERENCE_CATEGORI FOREIGN KEY (IdCategoriaAcceso)
+REFERENCES CategoriasAcceso (IdCategoriaAcceso)
+GO
+
 ALTER TABLE Clientes
 ADD CONSTRAINT FK_CLIENTES_REFERENCE_COMUNAS FOREIGN KEY (IdComuna)
 REFERENCES Comunas (IdComuna)
+GO
+
+ALTER TABLE ClientesVehiculos
+ADD CONSTRAINT FK_CLIENTES_REFERENCE_VEHICULO FOREIGN KEY (IdVehiculo)
+REFERENCES Vehiculos (IdVehiculo)
+GO
+
+ALTER TABLE ClientesVehiculos
+ADD CONSTRAINT FK_CLIENTES_REFERENCE_CLIENTES FOREIGN KEY (IdCliente)
+REFERENCES Clientes (IdCliente)
 GO
 
 ALTER TABLE Comunas
@@ -589,6 +756,16 @@ GO
 ALTER TABLE Provincias
 ADD CONSTRAINT FK_PROVINCI_REFERENCE_REGIONES FOREIGN KEY (IdRegion)
 REFERENCES Regiones (IdRegion)
+GO
+
+ALTER TABLE RolesAccesos
+ADD CONSTRAINT FK_ROLESACC_REFERENCE_ROLES FOREIGN KEY (IdRol)
+REFERENCES Roles (IdRol)
+GO
+
+ALTER TABLE RolesAccesos
+ADD CONSTRAINT FK_ROLESACC_REFERENCE_ACCESOS FOREIGN KEY (IdAcceso)
+REFERENCES Accesos (IdAcceso)
 GO
 
 ALTER TABLE Subcategorias
