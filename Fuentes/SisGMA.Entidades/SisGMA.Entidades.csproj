@@ -47,10 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accesos.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Categorias.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
+    <Compile Include="CategoriasAcceso.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientesVehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="Comunas.cs">
@@ -91,6 +100,9 @@
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="Roles.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RolesAccesos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="SisGMA.Context.cs">

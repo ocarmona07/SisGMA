@@ -104,7 +104,6 @@ namespace SisGMA.Datos
                 entry.Property(o => o.Telefono).IsModified = true;
                 entry.Property(o => o.IdComuna).IsModified = true;
                 entry.Property(o => o.Estado).IsModified = true;
-                entry.Property(o => o.Clave).IsModified = true;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }

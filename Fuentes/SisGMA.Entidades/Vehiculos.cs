@@ -14,6 +14,12 @@ namespace SisGMA.Entidades
     
     public partial class Vehiculos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vehiculos()
+        {
+            this.ClientesVehiculos = new HashSet<ClientesVehiculos>();
+        }
+    
         public int IdVehiculo { get; set; }
         public Nullable<int> IdModelo { get; set; }
         public string Patente { get; set; }
@@ -23,6 +29,8 @@ namespace SisGMA.Entidades
         public int Estanque { get; set; }
         public string Observaciones { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientesVehiculos> ClientesVehiculos { get; set; }
         public virtual ModeloVehiculos ModeloVehiculos { get; set; }
     }
 }

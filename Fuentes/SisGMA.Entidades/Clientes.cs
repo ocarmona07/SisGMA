@@ -14,6 +14,12 @@ namespace SisGMA.Entidades
     
     public partial class Clientes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Clientes()
+        {
+            this.ClientesVehiculos = new HashSet<ClientesVehiculos>();
+        }
+    
         public int IdCliente { get; set; }
         public Nullable<int> IdComuna { get; set; }
         public string RutCliente { get; set; }
@@ -26,6 +32,8 @@ namespace SisGMA.Entidades
         public string Clave { get; set; }
         public bool Estado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientesVehiculos> ClientesVehiculos { get; set; }
         public virtual Comunas Comunas { get; set; }
     }
 }

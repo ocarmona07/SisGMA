@@ -5,12 +5,33 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SisGMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accesos">
+          <Key>
+            <PropertyRef Name="IdAcceso" />
+          </Key>
+          <Property Name="IdAcceso" Type="int" Nullable="false" />
+          <Property Name="IdAccesoPadre" Type="int" />
+          <Property Name="IdCategoriaAcceso" Type="int" />
+          <Property Name="NombreAcceso" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="256" />
+          <Property Name="Icono" Type="nvarchar" MaxLength="32" />
+          <Property Name="UrlAcceso" Type="nvarchar" MaxLength="512" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="IdCategoria" />
           </Key>
           <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoriasAcceso">
+          <Key>
+            <PropertyRef Name="IdCategoriaAcceso" />
+          </Key>
+          <Property Name="IdCategoriaAcceso" Type="int" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Clientes">
@@ -28,6 +49,14 @@
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
           <Property Name="Clave" Type="nvarchar" MaxLength="16" />
           <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientesVehiculos">
+          <Key>
+            <PropertyRef Name="IdClienteVehiculo" />
+          </Key>
+          <Property Name="IdClienteVehiculo" Type="int" Nullable="false" />
+          <Property Name="IdVehiculo" Type="int" />
+          <Property Name="IdCliente" Type="int" />
         </EntityType>
         <EntityType Name="Comunas">
           <Key>
@@ -156,6 +185,14 @@
           <Property Name="Rol" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="RolesAccesos">
+          <Key>
+            <PropertyRef Name="IdRolAcceso" />
+          </Key>
+          <Property Name="IdRolAcceso" Type="int" Nullable="false" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="IdAcceso" Type="int" />
+        </EntityType>
         <EntityType Name="Subcategorias">
           <Key>
             <PropertyRef Name="IdSubcategoria" />
@@ -178,6 +215,42 @@
           <Property Name="Estanque" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_ACCESOS_REFERENCE_ACCESOS">
+          <End Role="Accesos" Type="Self.Accesos" Multiplicity="0..1" />
+          <End Role="Accesos1" Type="Self.Accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accesos">
+              <PropertyRef Name="IdAcceso" />
+            </Principal>
+            <Dependent Role="Accesos1">
+              <PropertyRef Name="IdAccesoPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACCESOS_REFERENCE_CATEGORI">
+          <End Role="CategoriasAcceso" Type="Self.CategoriasAcceso" Multiplicity="0..1" />
+          <End Role="Accesos" Type="Self.Accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasAcceso">
+              <PropertyRef Name="IdCategoriaAcceso" />
+            </Principal>
+            <Dependent Role="Accesos">
+              <PropertyRef Name="IdCategoriaAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTES_REFERENCE_CLIENTES">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="ClientesVehiculos" Type="Self.ClientesVehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClientesVehiculos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
           <End Role="Comunas" Type="Self.Comunas" Multiplicity="0..1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
@@ -187,6 +260,18 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="IdComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTES_REFERENCE_VEHICULO">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="0..1" />
+          <End Role="ClientesVehiculos" Type="Self.ClientesVehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="IdVehiculo" />
+            </Principal>
+            <Dependent Role="ClientesVehiculos">
+              <PropertyRef Name="IdVehiculo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -334,6 +419,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ROLESACC_REFERENCE_ACCESOS">
+          <End Role="Accesos" Type="Self.Accesos" Multiplicity="0..1" />
+          <End Role="RolesAccesos" Type="Self.RolesAccesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accesos">
+              <PropertyRef Name="IdAcceso" />
+            </Principal>
+            <Dependent Role="RolesAccesos">
+              <PropertyRef Name="IdAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLESACC_REFERENCE_ROLES">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="RolesAccesos" Type="Self.RolesAccesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="RolesAccesos">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
           <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
           <End Role="Subcategorias" Type="Self.Subcategorias" Multiplicity="*" />
@@ -359,8 +468,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SisGMAModelStoreContainer">
+          <EntitySet Name="Accesos" EntityType="Self.Accesos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriasAcceso" EntityType="Self.CategoriasAcceso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientesVehiculos" EntityType="Self.ClientesVehiculos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comunas" EntityType="Self.Comunas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ControlProduccion" EntityType="Self.ControlProduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GastosDiarios" EntityType="Self.GastosDiarios" Schema="dbo" store:Type="Tables" />
@@ -374,11 +486,28 @@
           <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regiones" EntityType="Self.Regiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolesAccesos" EntityType="Self.RolesAccesos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subcategorias" EntityType="Self.Subcategorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ACCESOS_REFERENCE_ACCESOS" Association="Self.FK_ACCESOS_REFERENCE_ACCESOS">
+            <End Role="Accesos" EntitySet="Accesos" />
+            <End Role="Accesos1" EntitySet="Accesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACCESOS_REFERENCE_CATEGORI" Association="Self.FK_ACCESOS_REFERENCE_CATEGORI">
+            <End Role="CategoriasAcceso" EntitySet="CategoriasAcceso" />
+            <End Role="Accesos" EntitySet="Accesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_CLIENTES" Association="Self.FK_CLIENTES_REFERENCE_CLIENTES">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="ClientesVehiculos" EntitySet="ClientesVehiculos" />
+          </AssociationSet>
           <AssociationSet Name="FK_CLIENTES_REFERENCE_COMUNAS" Association="Self.FK_CLIENTES_REFERENCE_COMUNAS">
             <End Role="Comunas" EntitySet="Comunas" />
             <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_VEHICULO" Association="Self.FK_CLIENTES_REFERENCE_VEHICULO">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="ClientesVehiculos" EntitySet="ClientesVehiculos" />
           </AssociationSet>
           <AssociationSet Name="FK_COMUNAS_REFERENCE_PROVINCI" Association="Self.FK_COMUNAS_REFERENCE_PROVINCI">
             <End Role="Provincias" EntitySet="Provincias" />
@@ -428,6 +557,14 @@
             <End Role="Regiones" EntitySet="Regiones" />
             <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
+          <AssociationSet Name="FK_ROLESACC_REFERENCE_ACCESOS" Association="Self.FK_ROLESACC_REFERENCE_ACCESOS">
+            <End Role="Accesos" EntitySet="Accesos" />
+            <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLESACC_REFERENCE_ROLES" Association="Self.FK_ROLESACC_REFERENCE_ROLES">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
           <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="Self.FK_SUBCATEG_REFERENCE_CATEGORI">
             <End Role="Categorias" EntitySet="Categorias" />
             <End Role="Subcategorias" EntitySet="Subcategorias" />
@@ -442,8 +579,11 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SisGMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SisGMAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accesos" EntityType="SisGMAModel.Accesos" />
           <EntitySet Name="Categorias" EntityType="SisGMAModel.Categorias" />
+          <EntitySet Name="CategoriasAcceso" EntityType="SisGMAModel.CategoriasAcceso" />
           <EntitySet Name="Clientes" EntityType="SisGMAModel.Clientes" />
+          <EntitySet Name="ClientesVehiculos" EntityType="SisGMAModel.ClientesVehiculos" />
           <EntitySet Name="Comunas" EntityType="SisGMAModel.Comunas" />
           <EntitySet Name="ControlProduccion" EntityType="SisGMAModel.ControlProduccion" />
           <EntitySet Name="GastosDiarios" EntityType="SisGMAModel.GastosDiarios" />
@@ -457,15 +597,36 @@
           <EntitySet Name="Provincias" EntityType="SisGMAModel.Provincias" />
           <EntitySet Name="Regiones" EntityType="SisGMAModel.Regiones" />
           <EntitySet Name="Roles" EntityType="SisGMAModel.Roles" />
+          <EntitySet Name="RolesAccesos" EntityType="SisGMAModel.RolesAccesos" />
           <EntitySet Name="Subcategorias" EntityType="SisGMAModel.Subcategorias" />
           <EntitySet Name="Vehiculos" EntityType="SisGMAModel.Vehiculos" />
+          <AssociationSet Name="FK_ACCESOS_REFERENCE_ACCESOS" Association="SisGMAModel.FK_ACCESOS_REFERENCE_ACCESOS">
+            <End Role="Accesos" EntitySet="Accesos" />
+            <End Role="Accesos1" EntitySet="Accesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACCESOS_REFERENCE_CATEGORI" Association="SisGMAModel.FK_ACCESOS_REFERENCE_CATEGORI">
+            <End Role="CategoriasAcceso" EntitySet="CategoriasAcceso" />
+            <End Role="Accesos" EntitySet="Accesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLESACC_REFERENCE_ACCESOS" Association="SisGMAModel.FK_ROLESACC_REFERENCE_ACCESOS">
+            <End Role="Accesos" EntitySet="Accesos" />
+            <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
           <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI">
             <End Role="Categorias" EntitySet="Categorias" />
             <End Role="Subcategorias" EntitySet="Subcategorias" />
           </AssociationSet>
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_CLIENTES" Association="SisGMAModel.FK_CLIENTES_REFERENCE_CLIENTES">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="ClientesVehiculos" EntitySet="ClientesVehiculos" />
+          </AssociationSet>
           <AssociationSet Name="FK_CLIENTES_REFERENCE_COMUNAS" Association="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS">
             <End Role="Comunas" EntitySet="Comunas" />
             <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTES_REFERENCE_VEHICULO" Association="SisGMAModel.FK_CLIENTES_REFERENCE_VEHICULO">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="ClientesVehiculos" EntitySet="ClientesVehiculos" />
           </AssociationSet>
           <AssociationSet Name="FK_COMUNAS_REFERENCE_PROVINCI" Association="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI">
             <End Role="Provincias" EntitySet="Provincias" />
@@ -519,7 +680,28 @@
             <End Role="Regiones" EntitySet="Regiones" />
             <End Role="Provincias" EntitySet="Provincias" />
           </AssociationSet>
+          <AssociationSet Name="FK_ROLESACC_REFERENCE_ROLES" Association="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Accesos">
+          <Key>
+            <PropertyRef Name="IdAcceso" />
+          </Key>
+          <Property Name="IdAcceso" Type="Int32" Nullable="false" />
+          <Property Name="IdAccesoPadre" Type="Int32" />
+          <Property Name="IdCategoriaAcceso" Type="Int32" />
+          <Property Name="NombreAcceso" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Icono" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="UrlAcceso" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Accesos1" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_ACCESOS" FromRole="Accesos" ToRole="Accesos1" />
+          <NavigationProperty Name="Accesos2" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_ACCESOS" FromRole="Accesos1" ToRole="Accesos" />
+          <NavigationProperty Name="CategoriasAcceso" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_CATEGORI" FromRole="Accesos" ToRole="CategoriasAcceso" />
+          <NavigationProperty Name="RolesAccesos" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ACCESOS" FromRole="Accesos" ToRole="RolesAccesos" />
+        </EntityType>
         <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -528,6 +710,15 @@
           <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Categorias" ToRole="Subcategorias" />
+        </EntityType>
+        <EntityType Name="CategoriasAcceso">
+          <Key>
+            <PropertyRef Name="IdCategoriaAcceso" />
+          </Key>
+          <Property Name="IdCategoriaAcceso" Type="Int32" Nullable="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Accesos" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_CATEGORI" FromRole="CategoriasAcceso" ToRole="Accesos" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -544,7 +735,18 @@
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Clave" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ClientesVehiculos" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_CLIENTES" FromRole="Clientes" ToRole="ClientesVehiculos" />
           <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" FromRole="Clientes" ToRole="Comunas" />
+        </EntityType>
+        <EntityType Name="ClientesVehiculos">
+          <Key>
+            <PropertyRef Name="IdClienteVehiculo" />
+          </Key>
+          <Property Name="IdClienteVehiculo" Type="Int32" Nullable="false" />
+          <Property Name="IdVehiculo" Type="Int32" />
+          <Property Name="IdCliente" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_CLIENTES" FromRole="ClientesVehiculos" ToRole="Clientes" />
+          <NavigationProperty Name="Vehiculos" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_VEHICULO" FromRole="ClientesVehiculos" ToRole="Vehiculos" />
         </EntityType>
         <EntityType Name="Comunas">
           <Key>
@@ -697,6 +899,17 @@
           <Property Name="Rol" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES" FromRole="Roles" ToRole="Operarios" />
+          <NavigationProperty Name="RolesAccesos" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES" FromRole="Roles" ToRole="RolesAccesos" />
+        </EntityType>
+        <EntityType Name="RolesAccesos">
+          <Key>
+            <PropertyRef Name="IdRolAcceso" />
+          </Key>
+          <Property Name="IdRolAcceso" Type="Int32" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="IdAcceso" Type="Int32" />
+          <NavigationProperty Name="Accesos" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ACCESOS" FromRole="RolesAccesos" ToRole="Accesos" />
+          <NavigationProperty Name="Roles" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES" FromRole="RolesAccesos" ToRole="Roles" />
         </EntityType>
         <EntityType Name="Subcategorias">
           <Key>
@@ -721,8 +934,45 @@
           <Property Name="Color" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estanque" Type="Int32" Nullable="false" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClientesVehiculos" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_VEHICULO" FromRole="Vehiculos" ToRole="ClientesVehiculos" />
           <NavigationProperty Name="ModeloVehiculos" Relationship="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE" FromRole="Vehiculos" ToRole="ModeloVehiculos" />
         </EntityType>
+        <Association Name="FK_ACCESOS_REFERENCE_ACCESOS">
+          <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Accesos" Role="Accesos1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accesos">
+              <PropertyRef Name="IdAcceso" />
+            </Principal>
+            <Dependent Role="Accesos1">
+              <PropertyRef Name="IdAccesoPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACCESOS_REFERENCE_CATEGORI">
+          <End Type="SisGMAModel.CategoriasAcceso" Role="CategoriasAcceso" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasAcceso">
+              <PropertyRef Name="IdCategoriaAcceso" />
+            </Principal>
+            <Dependent Role="Accesos">
+              <PropertyRef Name="IdCategoriaAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLESACC_REFERENCE_ACCESOS">
+          <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.RolesAccesos" Role="RolesAccesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accesos">
+              <PropertyRef Name="IdAcceso" />
+            </Principal>
+            <Dependent Role="RolesAccesos">
+              <PropertyRef Name="IdAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
           <End Type="SisGMAModel.Categorias" Role="Categorias" Multiplicity="0..1" />
           <End Type="SisGMAModel.Subcategorias" Role="Subcategorias" Multiplicity="*" />
@@ -735,6 +985,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CLIENTES_REFERENCE_CLIENTES">
+          <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="0..1" />
+          <End Type="SisGMAModel.ClientesVehiculos" Role="ClientesVehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClientesVehiculos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
           <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="0..1" />
           <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="*" />
@@ -744,6 +1006,18 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="IdComuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTES_REFERENCE_VEHICULO">
+          <End Type="SisGMAModel.Vehiculos" Role="Vehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.ClientesVehiculos" Role="ClientesVehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="IdVehiculo" />
+            </Principal>
+            <Dependent Role="ClientesVehiculos">
+              <PropertyRef Name="IdVehiculo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -903,18 +1177,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ROLESACC_REFERENCE_ROLES">
+          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="SisGMAModel.RolesAccesos" Role="RolesAccesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="RolesAccesos">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SisGMAModelStoreContainer" CdmEntityContainer="SisGMAEntities">
+          <EntitySetMapping Name="Accesos">
+            <EntityTypeMapping TypeName="SisGMAModel.Accesos">
+              <MappingFragment StoreEntitySet="Accesos">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UrlAcceso" ColumnName="UrlAcceso" />
+                <ScalarProperty Name="Icono" ColumnName="Icono" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombreAcceso" ColumnName="NombreAcceso" />
+                <ScalarProperty Name="IdCategoriaAcceso" ColumnName="IdCategoriaAcceso" />
+                <ScalarProperty Name="IdAccesoPadre" ColumnName="IdAccesoPadre" />
+                <ScalarProperty Name="IdAcceso" ColumnName="IdAcceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categorias">
             <EntityTypeMapping TypeName="SisGMAModel.Categorias">
               <MappingFragment StoreEntitySet="Categorias">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriasAcceso">
+            <EntityTypeMapping TypeName="SisGMAModel.CategoriasAcceso">
+              <MappingFragment StoreEntitySet="CategoriasAcceso">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="IdCategoriaAcceso" ColumnName="IdCategoriaAcceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -932,6 +1241,15 @@
                 <ScalarProperty Name="RutCliente" ColumnName="RutCliente" />
                 <ScalarProperty Name="IdComuna" ColumnName="IdComuna" />
                 <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientesVehiculos">
+            <EntityTypeMapping TypeName="SisGMAModel.ClientesVehiculos">
+              <MappingFragment StoreEntitySet="ClientesVehiculos">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
+                <ScalarProperty Name="IdClienteVehiculo" ColumnName="IdClienteVehiculo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1072,6 +1390,15 @@
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolesAccesos">
+            <EntityTypeMapping TypeName="SisGMAModel.RolesAccesos">
+              <MappingFragment StoreEntitySet="RolesAccesos">
+                <ScalarProperty Name="IdAcceso" ColumnName="IdAcceso" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdRolAcceso" ColumnName="IdRolAcceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

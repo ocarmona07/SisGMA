@@ -46,13 +46,11 @@
                 </div>
             </div>
             <div class="box-body">
-                <form runat="server" id="frmInternal">
-                    <asp:Label ID="lblName" runat="server" /><br />
-                    <br />
-                    <asp:TextBox ID="tbTest" runat="server" /><br />
-                    <br />
-                    <a id="btnTest" href="#" class="btn btn-danger btn-flat">Test button</a>
-                </form>
+                <asp:Label ID="lblName" runat="server" /><br />
+                <br />
+                <asp:TextBox ID="tbTest" runat="server" /><br />
+                <br />
+                <a id="btnTest" href="#" class="btn btn-danger btn-flat">Test button</a>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

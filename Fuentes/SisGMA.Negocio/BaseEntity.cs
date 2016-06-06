@@ -1,4 +1,4 @@
-﻿namespace SisGMA.Datos
+﻿namespace SisGMA.Negocio
 {
     public class BaseEntity
     {
