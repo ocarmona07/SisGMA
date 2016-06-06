@@ -26,6 +26,7 @@
 </head>
 <body runat="server" id="MasterBody">
     <form id="frmMaster" runat="server">
+        <asp:ScriptManager runat="server" />
         <div class="wrapper">
             <header class="main-header">
                 <a href="Inicio.aspx" class="logo">
@@ -297,12 +298,30 @@
                     <!-- /.tab-pane -->
                 </div>
             </aside>
-            <!-- /.control-sidebar -->
-            <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
-        <!-- ./wrapper -->
+
+        <%-- Modal Alert --%>
+        <div id="modalAlerta" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModalAlerta" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <asp:Label runat="server" ID="lblTituloModalAlerta" /></h4>
+                            </div>
+                            <div class="modal-body">
+                                <asp:Literal runat="server" ID="litDetalleAlerta" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
     </form>
 </body>
 </html>
