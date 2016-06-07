@@ -1,5 +1,4 @@
-USE SisGMA
-GO
+USE SisGMA;
 
 IF EXISTS ( SELECT  1
             FROM    sys.sysreferences r
@@ -109,6 +108,28 @@ IF EXISTS ( SELECT  1
                     AND o.name = 'FK_MODELOVE_REFERENCE_MARCAVEH' )
     ALTER TABLE ModeloVehiculos
     DROP CONSTRAINT FK_MODELOVE_REFERENCE_MARCAVEH
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('Notificaciones')
+                    AND o.name = 'FK_NOTIFICA_REFERENCE_OPERARIO' )
+    ALTER TABLE Notificaciones
+    DROP CONSTRAINT FK_NOTIFICA_REFERENCE_OPERARIO
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
+            WHERE   r.fkeyid = OBJECT_ID('Notificaciones')
+                    AND o.name = 'FK_NOTIFICA_REFERENCE_NIVELNOT' )
+    ALTER TABLE Notificaciones
+    DROP CONSTRAINT FK_NOTIFICA_REFERENCE_NIVELNOT
 GO
 
 IF EXISTS ( SELECT  1
@@ -318,6 +339,20 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
+            WHERE   id = OBJECT_ID('NivelNotificacion')
+                    AND type = 'U' )
+    DROP TABLE NivelNotificacion
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
+            WHERE   id = OBJECT_ID('Notificaciones')
+                    AND type = 'U' )
+    DROP TABLE Notificaciones
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
             WHERE   id = OBJECT_ID('Operarios')
                     AND type = 'U' )
     DROP TABLE Operarios
@@ -402,7 +437,7 @@ GO
 CREATE TABLE Categorias
     (
       IdCategoria INT IDENTITY ,
-      Categoria NVARCHAR(50) NOT NULL ,
+      Categoria NVARCHAR(32) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_CATEGORIAS PRIMARY KEY ( IdCategoria )
     )
@@ -513,7 +548,7 @@ GO
 CREATE TABLE MarcaProductos
     (
       IdMarca INT IDENTITY ,
-      Marca NVARCHAR(50) NOT NULL ,
+      Marca NVARCHAR(32) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_MARCAPRODUCTOS PRIMARY KEY ( IdMarca )
     )
@@ -539,6 +574,33 @@ CREATE TABLE ModeloVehiculos
       IdMarca INT NULL ,
       Modelo NVARCHAR(32) NOT NULL ,
       CONSTRAINT PK_MODELOVEHICULOS PRIMARY KEY ( IdModelo )
+    )
+GO
+
+/*==============================================================*/
+/* Table: NivelNotificacion                                     */
+/*==============================================================*/
+CREATE TABLE NivelNotificacion
+    (
+      IdNivel INT NOT NULL ,
+      Nivel NVARCHAR(32) NOT NULL ,
+      CONSTRAINT PK_NIVELNOTIFICACION PRIMARY KEY ( IdNivel )
+    )
+GO
+
+/*==============================================================*/
+/* Table: Notificaciones                                        */
+/*==============================================================*/
+CREATE TABLE Notificaciones
+    (
+      IdNotificacion INT IDENTITY ,
+      IdOperario INT NULL ,
+      TituloNotificacion NVARCHAR(128) NOT NULL ,
+      Descripcion NVARCHAR(MAX) NULL ,
+      Icono NVARCHAR(32) NULL ,
+      IdNivel INT NOT NULL ,
+      Estado BIT NOT NULL ,
+      CONSTRAINT PK_NOTIFICACIONES PRIMARY KEY ( IdNotificacion )
     )
 GO
 
@@ -572,7 +634,7 @@ CREATE TABLE Productos
       IdSubcategoria INT NULL ,
       IdMarca INT NULL ,
       IdProveedor INT NULL ,
-      Codigo NVARCHAR(20) NOT NULL ,
+      Codigo NVARCHAR(32) NOT NULL ,
       Descripcion NVARCHAR(MAX) NULL ,
       ValorIngreso MONEY NOT NULL ,
       ValorSalida MONEY NOT NULL ,
@@ -650,7 +712,7 @@ CREATE TABLE Subcategorias
     (
       IdSubcategoria INT IDENTITY ,
       IdCategoria INT NULL ,
-      Subcategoria NVARCHAR(50) NOT NULL ,
+      Subcategoria NVARCHAR(32) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_SUBCATEGORIAS PRIMARY KEY ( IdSubcategoria )
     )
@@ -721,6 +783,16 @@ GO
 ALTER TABLE ModeloVehiculos
 ADD CONSTRAINT FK_MODELOVE_REFERENCE_MARCAVEH FOREIGN KEY (IdMarca)
 REFERENCES MarcaVehiculos (IdMarca)
+GO
+
+ALTER TABLE Notificaciones
+ADD CONSTRAINT FK_NOTIFICA_REFERENCE_OPERARIO FOREIGN KEY (IdOperario)
+REFERENCES Operarios (IdOperario)
+GO
+
+ALTER TABLE Notificaciones
+ADD CONSTRAINT FK_NOTIFICA_REFERENCE_NIVELNOT FOREIGN KEY (IdNivel)
+REFERENCES NivelNotificacion (IdNivel)
 GO
 
 ALTER TABLE Operarios
