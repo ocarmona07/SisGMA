@@ -1,82 +1,85 @@
 USE SisGMA
 GO
 
-INSERT INTO MarcaVehiculos VALUES (1, 'Abarth')
-INSERT INTO MarcaVehiculos VALUES (2, 'Alfa Romeo')
-INSERT INTO MarcaVehiculos VALUES (3, 'Aro')
-INSERT INTO MarcaVehiculos VALUES (4, 'Asia')
-INSERT INTO MarcaVehiculos VALUES (5, 'Asia Motors')
-INSERT INTO MarcaVehiculos VALUES (6, 'Aston Martin')
-INSERT INTO MarcaVehiculos VALUES (7, 'Audi')
-INSERT INTO MarcaVehiculos VALUES (8, 'Austin')
-INSERT INTO MarcaVehiculos VALUES (9, 'Auverland')
-INSERT INTO MarcaVehiculos VALUES (10, 'Bentley')
-INSERT INTO MarcaVehiculos VALUES (11, 'Bertone')
-INSERT INTO MarcaVehiculos VALUES (12, 'Bmw')
-INSERT INTO MarcaVehiculos VALUES (13, 'Cadillac')
-INSERT INTO MarcaVehiculos VALUES (14, 'Chevrolet')
-INSERT INTO MarcaVehiculos VALUES (15, 'Chrysler')
-INSERT INTO MarcaVehiculos VALUES (16, 'Citroen')
-INSERT INTO MarcaVehiculos VALUES (17, 'Corvette')
-INSERT INTO MarcaVehiculos VALUES (18, 'Dacia')
-INSERT INTO MarcaVehiculos VALUES (19, 'Daewoo')
-INSERT INTO MarcaVehiculos VALUES (20, 'Daf')
-INSERT INTO MarcaVehiculos VALUES (21, 'Daihatsu')
-INSERT INTO MarcaVehiculos VALUES (22, 'Daimler')
-INSERT INTO MarcaVehiculos VALUES (23, 'Dodge')
-INSERT INTO MarcaVehiculos VALUES (24, 'Ferrari')
-INSERT INTO MarcaVehiculos VALUES (25, 'Fiat')
-INSERT INTO MarcaVehiculos VALUES (26, 'Ford')
-INSERT INTO MarcaVehiculos VALUES (27, 'Galloper')
-INSERT INTO MarcaVehiculos VALUES (28, 'Gmc')
-INSERT INTO MarcaVehiculos VALUES (29, 'Honda')
-INSERT INTO MarcaVehiculos VALUES (30, 'Hummer')
-INSERT INTO MarcaVehiculos VALUES (31, 'Hyundai')
-INSERT INTO MarcaVehiculos VALUES (32, 'Infiniti')
-INSERT INTO MarcaVehiculos VALUES (33, 'Innocenti')
-INSERT INTO MarcaVehiculos VALUES (34, 'Isuzu')
-INSERT INTO MarcaVehiculos VALUES (35, 'Iveco')
-INSERT INTO MarcaVehiculos VALUES (36, 'Iveco-pegaso')
-INSERT INTO MarcaVehiculos VALUES (37, 'Jaguar')
-INSERT INTO MarcaVehiculos VALUES (38, 'Jeep')
-INSERT INTO MarcaVehiculos VALUES (39, 'Kia')
-INSERT INTO MarcaVehiculos VALUES (40, 'Lada')
-INSERT INTO MarcaVehiculos VALUES (41, 'Lamborghini')
-INSERT INTO MarcaVehiculos VALUES (42, 'Lancia')
-INSERT INTO MarcaVehiculos VALUES (43, 'Land-rover')
-INSERT INTO MarcaVehiculos VALUES (44, 'Ldv')
-INSERT INTO MarcaVehiculos VALUES (45, 'Lexus')
-INSERT INTO MarcaVehiculos VALUES (46, 'Lotus')
-INSERT INTO MarcaVehiculos VALUES (47, 'Mahindra')
-INSERT INTO MarcaVehiculos VALUES (48, 'Maserati')
-INSERT INTO MarcaVehiculos VALUES (49, 'Maybach')
-INSERT INTO MarcaVehiculos VALUES (50, 'Mazda')
-INSERT INTO MarcaVehiculos VALUES (51, 'Mercedes-benz')
-INSERT INTO MarcaVehiculos VALUES (52, 'Mg')
-INSERT INTO MarcaVehiculos VALUES (53, 'Mini')
-INSERT INTO MarcaVehiculos VALUES (54, 'Mitsubishi')
-INSERT INTO MarcaVehiculos VALUES (55, 'Morgan')
-INSERT INTO MarcaVehiculos VALUES (56, 'Nissan')
-INSERT INTO MarcaVehiculos VALUES (57, 'Opel')
-INSERT INTO MarcaVehiculos VALUES (58, 'Peugeot')
-INSERT INTO MarcaVehiculos VALUES (59, 'Pontiac')
-INSERT INTO MarcaVehiculos VALUES (60, 'Porsche')
-INSERT INTO MarcaVehiculos VALUES (61, 'Renault')
-INSERT INTO MarcaVehiculos VALUES (62, 'Rolls-royce')
-INSERT INTO MarcaVehiculos VALUES (63, 'Rover')
-INSERT INTO MarcaVehiculos VALUES (64, 'Saab')
-INSERT INTO MarcaVehiculos VALUES (65, 'Santana')
-INSERT INTO MarcaVehiculos VALUES (66, 'Seat')
-INSERT INTO MarcaVehiculos VALUES (67, 'Skoda')
-INSERT INTO MarcaVehiculos VALUES (68, 'Smart')
-INSERT INTO MarcaVehiculos VALUES (69, 'Ssangyong')
-INSERT INTO MarcaVehiculos VALUES (70, 'Subaru')
-INSERT INTO MarcaVehiculos VALUES (71, 'Suzuki')
-INSERT INTO MarcaVehiculos VALUES (72, 'Talbot')
-INSERT INTO MarcaVehiculos VALUES (73, 'Tata')
-INSERT INTO MarcaVehiculos VALUES (74, 'Toyota')
-INSERT INTO MarcaVehiculos VALUES (75, 'Umm')
-INSERT INTO MarcaVehiculos VALUES (76, 'Vaz')
-INSERT INTO MarcaVehiculos VALUES (77, 'Volkswagen')
-INSERT INTO MarcaVehiculos VALUES (78, 'Volvo')
-INSERT INTO MarcaVehiculos VALUES (79, 'Wartburg')
+INSERT  INTO MarcaVehiculos
+        ( IdMarca, Marca )
+VALUES  ( 1, 'Abarth' ),
+        ( 2, 'Alfa Romeo' ),
+        ( 3, 'Aro' ),
+        ( 4, 'Asia' ),
+        ( 5, 'Asia Motors' ),
+        ( 6, 'Aston Martin' ),
+        ( 7, 'Audi' ),
+        ( 8, 'Austin' ),
+        ( 9, 'Auverland' ),
+        ( 10, 'Bentley' ),
+        ( 11, 'Bertone' ),
+        ( 12, 'Bmw' ),
+        ( 13, 'Cadillac' ),
+        ( 14, 'Chevrolet' ),
+        ( 15, 'Chrysler' ),
+        ( 16, 'Citroen' ),
+        ( 17, 'Corvette' ),
+        ( 18, 'Dacia' ),
+        ( 19, 'Daewoo' ),
+        ( 20, 'Daf' ),
+        ( 21, 'Daihatsu' ),
+        ( 22, 'Daimler' ),
+        ( 23, 'Dodge' ),
+        ( 24, 'Ferrari' ),
+        ( 25, 'Fiat' ),
+        ( 26, 'Ford' ),
+        ( 27, 'Galloper' ),
+        ( 28, 'Gmc' ),
+        ( 29, 'Honda' ),
+        ( 30, 'Hummer' ),
+        ( 31, 'Hyundai' ),
+        ( 32, 'Infiniti' ),
+        ( 33, 'Innocenti' ),
+        ( 34, 'Isuzu' ),
+        ( 35, 'Iveco' ),
+        ( 36, 'Iveco-pegaso' ),
+        ( 37, 'Jaguar' ),
+        ( 38, 'Jeep' ),
+        ( 39, 'Kia' ),
+        ( 40, 'Lada' ),
+        ( 41, 'Lamborghini' ),
+        ( 42, 'Lancia' ),
+        ( 43, 'Land-rover' ),
+        ( 44, 'Ldv' ),
+        ( 45, 'Lexus' ),
+        ( 46, 'Lotus' ),
+        ( 47, 'Mahindra' ),
+        ( 48, 'Maserati' ),
+        ( 49, 'Maybach' ),
+        ( 50, 'Mazda' ),
+        ( 51, 'Mercedes-benz' ),
+        ( 52, 'Mg' ),
+        ( 53, 'Mini' ),
+        ( 54, 'Mitsubishi' ),
+        ( 55, 'Morgan' ),
+        ( 56, 'Nissan' ),
+        ( 57, 'Opel' ),
+        ( 58, 'Peugeot' ),
+        ( 59, 'Pontiac' ),
+        ( 60, 'Porsche' ),
+        ( 61, 'Renault' ),
+        ( 62, 'Rolls-royce' ),
+        ( 63, 'Rover' ),
+        ( 64, 'Saab' ),
+        ( 65, 'Santana' ),
+        ( 66, 'Seat' ),
+        ( 67, 'Skoda' ),
+        ( 68, 'Smart' ),
+        ( 69, 'Ssangyong' ),
+        ( 70, 'Subaru' ),
+        ( 71, 'Suzuki' ),
+        ( 72, 'Talbot' ),
+        ( 73, 'Tata' ),
+        ( 74, 'Toyota' ),
+        ( 75, 'Umm' ),
+        ( 76, 'Vaz' ),
+        ( 77, 'Volkswagen' ),
+        ( 78, 'Volvo' ),
+        ( 79, 'Wartburg' )
+GO
