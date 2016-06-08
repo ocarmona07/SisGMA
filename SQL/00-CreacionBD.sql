@@ -461,14 +461,14 @@ GO
 CREATE TABLE Clientes
     (
       IdCliente INT IDENTITY ,
-      IdComuna INT NULL ,
       RutCliente NVARCHAR(10) NOT NULL ,
-      Nombres NVARCHAR(128) NOT NULL ,
-      ApPaterno NVARCHAR(64) NOT NULL ,
-      ApMaterno NVARCHAR(64) NULL ,
-      Direccion NVARCHAR(128) NULL ,
+      Nombres NVARCHAR(32) NOT NULL ,
+      ApPaterno NVARCHAR(32) NOT NULL ,
+      ApMaterno NVARCHAR(32) NULL ,
+      Direccion NVARCHAR(64) NULL ,
+      IdComuna INT NULL ,
       Telefono NVARCHAR(16) NOT NULL ,
-      Email NVARCHAR(128) NULL ,
+      Email NVARCHAR(64) NULL ,
       Clave NVARCHAR(16) NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_CLIENTES PRIMARY KEY ( IdCliente )
@@ -597,6 +597,7 @@ CREATE TABLE Notificaciones
       IdOperario INT NULL ,
       TituloNotificacion NVARCHAR(128) NOT NULL ,
       Descripcion NVARCHAR(MAX) NULL ,
+      Color NVARCHAR(16) NOT NULL ,
       Icono NVARCHAR(32) NULL ,
       IdNivel INT NOT NULL ,
       Estado BIT NOT NULL ,
@@ -611,10 +612,10 @@ CREATE TABLE Operarios
     (
       IdOperario INT IDENTITY ,
       RutOperario NVARCHAR(10) NOT NULL ,
-      Nombres NVARCHAR(128) NOT NULL ,
-      ApPaterno NVARCHAR(64) NOT NULL ,
-      ApMaterno NVARCHAR(64) NOT NULL ,
-      Direccion NVARCHAR(128) NULL ,
+      Nombres NVARCHAR(32) NOT NULL ,
+      ApPaterno NVARCHAR(32) NOT NULL ,
+      ApMaterno NVARCHAR(32) NOT NULL ,
+      Direccion NVARCHAR(64) NULL ,
       IdComuna INT NULL ,
       Telefono NVARCHAR(16) NULL ,
       Imagen NVARCHAR(MAX) NULL ,
@@ -651,7 +652,7 @@ CREATE TABLE Proveedores
     (
       IdProveedor INT IDENTITY ,
       IdGiro INT NULL ,
-      Nombre NVARCHAR(256) NOT NULL ,
+      Nombre NVARCHAR(128) NOT NULL ,
       Telefono INT NULL ,
       Observaciones NVARCHAR(MAX) NULL ,
       CONSTRAINT PK_PROVEEDORES PRIMARY KEY ( IdProveedor )
