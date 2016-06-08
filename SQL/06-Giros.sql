@@ -2,7 +2,7 @@ USE SisGMA
 GO
 
 INSERT  INTO Giros
-        ( CODIGO, NOMBRE, IVA, TRIBUTA, NET )
+        ( Codigo, Nombre, Iva, CatTributaria, Internet )
 VALUES  ( 11111, 'CULTIVO DE TRIGO', 1, 1, 1 ),
         ( 11112, 'CULTIVO DE MAIZ', 1, 1, 1 ),
         ( 11113, 'CULTIVO DE AVENA', 1, 1, 1 ),
