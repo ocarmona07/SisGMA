@@ -122,6 +122,7 @@
     <Content Include="dist\js\pages\dashboard2.js" />
     <Content Include="fonts\ionicons.svg" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Mantenedores\Operadores.aspx" />
     <Content Include="plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="plugins\bootstrap-slider\slider.css" />
     <Content Include="plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1008,6 +1009,13 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenedores\Operadores.aspx.cs">
+      <DependentUpon>Operadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenedores\Operadores.aspx.designer.cs">
+      <DependentUpon>Operadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
