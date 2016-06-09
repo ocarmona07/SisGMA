@@ -48,74 +48,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="CategoriasAccesoDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="CategoriasDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ClientesDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ClientesVehiculosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ComunasDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ControlProduccionDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="GastosDiariosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="GirosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="MarcaProductosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="MarcaVehiculosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ModeloVehiculosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="NivelNotificacionDa.cs" />
+    <Compile Include="NotificacionesDa.cs" />
     <Compile Include="OperariosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedoresDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="ProvinciasDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="RegionesDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="RolesAccesosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="RolesDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="SelectoresDa.cs" />
     <Compile Include="SisGMA.Datos.Da.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="SubcategoriasDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="VehiculosDa.cs">
-      <DependentUpon>SisGMA.Datos.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -123,12 +102,6 @@
       <Project>{b9a42c6a-df31-41a0-8d00-09f217e2f063}</Project>
       <Name>SisGMA.Entidades</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SisGMA.Datos.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SisGMA.Datos.Da.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

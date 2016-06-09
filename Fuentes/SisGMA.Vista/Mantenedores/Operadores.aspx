@@ -4,8 +4,23 @@
     <link rel="stylesheet" href="/plugins/select2/select2.min.css"/>
     <script type="text/javascript" src="/plugins/select2/select2.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $("#btnAgregar").click(function () {
+                $("#modalAlerta").modal("show");
+                return false;
+            });
+
             //$("#<%= ddlRolOperario.ClientID %>").select2();
+            $("#<%= ddlRegion.ClientID %>").select2({
+                language: "es",
+                theme: "flat"
+            });
+            $("#<%= ddlProvincia.ClientID %>").select2({
+                language: "es"
+            });
+            $("#<%= ddlComuna.ClientID %>").select2({
+                language: "es"
+            });
         });
     </script>
 </asp:Content>
@@ -19,14 +34,14 @@
         </ol>
     </section>
     <section class="content">
-        <div class="row">
+        <div id="dataOperador" class="row" style="display: block;">
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <asp:Label ID="lblVentanaEditar" runat="server" /></h3>
                     </div>
-                    <form role="form">
+                    <form id="frmOperador" role="form">
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-6">
@@ -69,20 +84,20 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="Region">Región</label>
-                                        <input type="text" class="form-control" id="Region">
+                                        <label for="<%= ddlRegion.ClientID %>">Región</label>
+                                        <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control" Width="100%"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="Provincia">Provincia</label>
-                                        <input type="text" class="form-control" id="Provincia">
+                                        <label for="<%= ddlProvincia.ClientID %>">Provincia</label>
+                                        <asp:DropDownList ID="ddlProvincia" runat="server" CssClass="form-control" Width="100%"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="Comuna">Comuna</label>
-                                        <input type="text" class="form-control" id="Comuna">
+                                        <label for="<%= ddlComuna.ClientID %>">Comuna</label>
+                                        <asp:DropDownList ID="ddlComuna" runat="server" CssClass="form-control" Width="100%"/>
                                     </div>
                                 </div>
                             </div>
@@ -117,11 +132,40 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                            <button type="reset" id="btnLimpiar" class="btn btn-app pull-left">
+                                <i class="fa fa-eraser"></i>
+                                Limpiar
+                            </button>
+                            <button type="button" id="btnAgregar" class="btn btn-app pull-right">
+                                <i class="fa fa-save"></i>
+                                Aceptar
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <%-- Modal Alert --%>
+    <div id="modalAlerta" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <asp:UpdatePanel ID="upModalAlerta" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                <asp:Label runat="server" ID="lblTituloModalAlerta" /></h4>
+                        </div>
+                        <div class="modal-body">
+                            <asp:Literal runat="server" ID="litDetalleAlerta" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
 </asp:Content>

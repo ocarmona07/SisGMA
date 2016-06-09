@@ -28,13 +28,13 @@
         <asp:ScriptManager runat="server" />
         <div class="wrapper">
             <header class="main-header">
-                <a href="Inicio.aspx" class="logo">
+                <a href="/Inicio.aspx" class="logo">
                     <span class="logo-mini"><b>ASL</b></span>
                     <span class="logo-lg">CarService<b>ASL</b></span>
                 </a>
                 <nav class="navbar navbar-static-top">
-                    <%-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle Navigation</span></a> --%>
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle Navigation</span></a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <li class="dropdown notifications-menu">
@@ -56,13 +56,13 @@
                             <%-- User Account: style can be found in dropdown.less --%>
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                     <span class="hidden-xs">
                                         <asp:Label ID="lblUserName" runat="server" /></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-header">
-                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                         <p>
                                             <%= lblUserName.Text %>
                                             <small>
@@ -94,7 +94,7 @@
                     <%-- Sidebar user panel -->
                         <div class="user-panel">
                             <div class="pull-left image">
-                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                             </div>
                             <div class="pull-left info">
                                 <p><%= lblUserName.Text %></p>
@@ -298,28 +298,6 @@
                 </div>
             </aside>
             <div class="control-sidebar-bg"></div>
-        </div>
-
-        <%-- Modal Alert --%>
-        <div id="modalAlerta" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-            <div class="modal-dialog">
-                <asp:UpdatePanel ID="upModalAlerta" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">
-                                    <asp:Label runat="server" ID="lblTituloModalAlerta" /></h4>
-                            </div>
-                            <div class="modal-body">
-                                <asp:Literal runat="server" ID="litDetalleAlerta" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                            </div>
-                        </div>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>
         </div>
     </form>
 </body>

@@ -1,25 +1,30 @@
 ﻿namespace SisGMA.Negocio
 {
-    using System;
     using System.Linq;
-    using Entidades;
     using Datos;
 
     public class GeneralBo : BaseEntity
     {
         public int CantNotificaciones;
 
-        public string GetNotifications()
+        public string ObtenerNotificaciones()
         {
             var retornoNotifs = string.Empty;
-            var notificaciones = new NotificacionesDa().GetAll();
-            foreach (var notif in notificaciones)
-            {
-                retornoNotifs += CrearNotificacion(notif.Icono, notif.Color, notif.TituloNotificacion);
-            }
+            var notificaciones = new NotificacionesDa().GetAll().Where(n => n.Estado).ToList();
+            retornoNotifs = notificaciones.Aggregate(retornoNotifs,
+                (current, notif) => current + CrearNotificacion(
+                    notif.Icono, notif.Color, notif.TituloNotificacion));
 
             CantNotificaciones = notificaciones.Count;
             return retornoNotifs;
+        }
+
+        public string TextoCantidadNotif()
+        {
+            return CantNotificaciones > 0 ?
+                "Tiene " + CantNotificaciones + " notificaci" +
+                (CantNotificaciones == 1 ? "ón" : "ones") :
+                "No tiene notificaciones";
         }
 
         private string CrearNotificacion(string icon, string color, string text)
@@ -30,7 +35,7 @@
                 link, icon, color, text);
         }
 
-        public string GetMenuLateral()
+        public string ObtenerMenuLateral()
         {
             var menu = "<ul class=\"sidebar-menu\">";
             var categorias = new CategoriasAccesoDa().GetAll();
@@ -55,14 +60,11 @@
                             "<span>" + acceso.NombreAcceso + "</span>" +
                             "</a><ul class=\"treeview-menu\">";
 
-                    foreach (var subacceso in acceso.Accesos1.Where(e => e.IdAccesoPadre != null).ToList())
-                    {
-
-                        menu += "<li><a href=\"" + subacceso.UrlAcceso +
-                                "\" alt=\"" + subacceso.Descripcion + " \" >" +
-                                "<i class=\"fa " + subacceso.Icono + "\"></i>" +
-                                subacceso.NombreAcceso + "</a></li>";
-                    }
+                    menu = acceso.Accesos1.Where(e => e.IdAccesoPadre != null).ToList()
+                        .Aggregate(menu, (current, subacceso) => current +
+                            ("<li><a href=\"" + subacceso.UrlAcceso + "\" alt=\"" +
+                            subacceso.Descripcion + " \" >" + "<i class=\"fa " +
+                            subacceso.Icono + "\"></i>" + subacceso.NombreAcceso + "</a></li>"));
 
                     menu += "</ul></li>";
                 }

@@ -21,8 +21,24 @@
             ddlRolOperario.DataBind();
             ddlRolOperario.Items.Insert(0, _seleccione);
 
+            ddlRegion.DataSource = selectores.ObtenerRegiones();
+            ddlRegion.DataTextField = selectores.Text;
+            ddlRegion.DataValueField = selectores.Value;
+            ddlRegion.DataBind();
+            ddlRegion.Items.Insert(0, _seleccione);
+
             lblVentanaEditar.Text = (false ? "Actualizar" : "Agregar") + " operador";
 
+        }
+
+        protected void OnClick(object sender, EventArgs e)
+        {
+            lblTituloModalAlerta.Text = "";
+            litDetalleAlerta.Text = "";
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(),
+                "modalAlerta", "$('#modalAlerta').modal('show');", true);
+            upModalAlerta.Update();
         }
     }
 }
