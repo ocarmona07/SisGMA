@@ -19,6 +19,7 @@ namespace SisGMA.Entidades
         {
             this.ControlProduccion = new HashSet<ControlProduccion>();
             this.GastosDiarios = new HashSet<GastosDiarios>();
+            this.Notificaciones = new HashSet<Notificaciones>();
         }
     
         public int IdOperario { get; set; }
@@ -40,5 +41,7 @@ namespace SisGMA.Entidades
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GastosDiarios> GastosDiarios { get; set; }
         public virtual Roles Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notificaciones> Notificaciones { get; set; }
     }
 }

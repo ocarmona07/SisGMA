@@ -83,6 +83,12 @@
     <Compile Include="ModeloVehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
+    <Compile Include="NivelNotificacion.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notificaciones.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Operarios.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>

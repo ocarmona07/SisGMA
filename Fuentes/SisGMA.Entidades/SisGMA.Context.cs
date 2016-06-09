@@ -46,5 +46,7 @@ namespace SisGMA.Entidades
         public virtual DbSet<RolesAccesos> RolesAccesos { get; set; }
         public virtual DbSet<Subcategorias> Subcategorias { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
+        public virtual DbSet<NivelNotificacion> NivelNotificacion { get; set; }
+        public virtual DbSet<Notificaciones> Notificaciones { get; set; }
     }
 }

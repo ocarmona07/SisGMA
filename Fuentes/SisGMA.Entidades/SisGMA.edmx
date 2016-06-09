@@ -23,7 +23,7 @@
             <PropertyRef Name="IdCategoria" />
           </Key>
           <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoriasAcceso">
@@ -102,7 +102,7 @@
             <PropertyRef Name="IdMarca" />
           </Key>
           <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Marca" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marca" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="MarcaVehiculos">
@@ -119,6 +119,26 @@
           <Property Name="IdModelo" Type="int" Nullable="false" />
           <Property Name="IdMarca" Type="int" />
           <Property Name="Modelo" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NivelNotificacion">
+          <Key>
+            <PropertyRef Name="IdNivel" />
+          </Key>
+          <Property Name="IdNivel" Type="int" Nullable="false" />
+          <Property Name="Nivel" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notificaciones">
+          <Key>
+            <PropertyRef Name="IdNotificacion" />
+          </Key>
+          <Property Name="IdNotificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOperario" Type="int" />
+          <Property Name="TituloNotificacion" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Color" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Icono" Type="nvarchar" MaxLength="32" />
+          <Property Name="IdNivel" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Operarios">
           <Key>
@@ -145,7 +165,7 @@
           <Property Name="IdSubcategoria" Type="int" />
           <Property Name="IdMarca" Type="int" />
           <Property Name="IdProveedor" Type="int" />
-          <Property Name="Codigo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="ValorIngreso" Type="money" Nullable="false" />
           <Property Name="ValorSalida" Type="money" Nullable="false" />
@@ -199,7 +219,7 @@
           </Key>
           <Property Name="IdSubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCategoria" Type="int" />
-          <Property Name="Subcategoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Subcategoria" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Vehiculos">
@@ -332,6 +352,30 @@
             </Principal>
             <Dependent Role="ModeloVehiculos">
               <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICA_REFERENCE_NIVELNOT">
+          <End Role="NivelNotificacion" Type="Self.NivelNotificacion" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NivelNotificacion">
+              <PropertyRef Name="IdNivel" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdNivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICA_REFERENCE_OPERARIO">
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdOperario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -480,6 +524,8 @@
           <EntitySet Name="MarcaProductos" EntityType="Self.MarcaProductos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarcaVehiculos" EntityType="Self.MarcaVehiculos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModeloVehiculos" EntityType="Self.ModeloVehiculos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NivelNotificacion" EntityType="Self.NivelNotificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operarios" EntityType="Self.Operarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
@@ -528,6 +574,14 @@
           <AssociationSet Name="FK_MODELOVE_REFERENCE_MARCAVEH" Association="Self.FK_MODELOVE_REFERENCE_MARCAVEH">
             <End Role="MarcaVehiculos" EntitySet="MarcaVehiculos" />
             <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICA_REFERENCE_NIVELNOT" Association="Self.FK_NOTIFICA_REFERENCE_NIVELNOT">
+            <End Role="NivelNotificacion" EntitySet="NivelNotificacion" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICA_REFERENCE_OPERARIO" Association="Self.FK_NOTIFICA_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_OPERARIO_REFERENCE_COMUNAS" Association="Self.FK_OPERARIO_REFERENCE_COMUNAS">
             <End Role="Comunas" EntitySet="Comunas" />
@@ -684,7 +738,17 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolesAccesos" EntitySet="RolesAccesos" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="NivelNotificacion" EntityType="SisGMAModel.NivelNotificacion" />
+          <EntitySet Name="Notificaciones" EntityType="SisGMAModel.Notificaciones" />
+          <AssociationSet Name="FK_NOTIFICA_REFERENCE_NIVELNOT" Association="SisGMAModel.FK_NOTIFICA_REFERENCE_NIVELNOT">
+            <End Role="NivelNotificacion" EntitySet="NivelNotificacion" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICA_REFERENCE_OPERARIO" Association="SisGMAModel.FK_NOTIFICA_REFERENCE_OPERARIO">
+            <End Role="Operarios" EntitySet="Operarios" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Accesos">
           <Key>
             <PropertyRef Name="IdAcceso" />
@@ -707,7 +771,7 @@
             <PropertyRef Name="IdCategoria" />
           </Key>
           <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Categorias" ToRole="Subcategorias" />
         </EntityType>
@@ -799,7 +863,7 @@
             <PropertyRef Name="IdMarca" />
           </Key>
           <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Marca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Marca" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO" FromRole="MarcaProductos" ToRole="Productos" />
         </EntityType>
@@ -841,6 +905,7 @@
           <NavigationProperty Name="ControlProduccion" Relationship="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="ControlProduccion" />
           <NavigationProperty Name="GastosDiarios" Relationship="SisGMAModel.FK_GASTOSDI_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="GastosDiarios" />
           <NavigationProperty Name="Roles" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_ROLES" FromRole="Operarios" ToRole="Roles" />
+          <NavigationProperty Name="Notificaciones" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_OPERARIO" FromRole="Operarios" ToRole="Notificaciones" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -850,7 +915,7 @@
           <Property Name="IdSubcategoria" Type="Int32" />
           <Property Name="IdMarca" Type="Int32" />
           <Property Name="IdProveedor" Type="Int32" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValorIngreso" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ValorSalida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
@@ -917,7 +982,7 @@
           </Key>
           <Property Name="IdSubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCategoria" Type="Int32" />
-          <Property Name="Subcategoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subcategoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Categorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Subcategorias" ToRole="Categorias" />
           <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" FromRole="Subcategorias" ToRole="Productos" />
@@ -1189,6 +1254,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NivelNotificacion">
+          <Key>
+            <PropertyRef Name="IdNivel" />
+          </Key>
+          <Property Name="IdNivel" Type="Int32" Nullable="false" />
+          <Property Name="Nivel" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notificaciones" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_NIVELNOT" FromRole="NivelNotificacion" ToRole="Notificaciones" />
+        </EntityType>
+        <EntityType Name="Notificaciones">
+          <Key>
+            <PropertyRef Name="IdNotificacion" />
+          </Key>
+          <Property Name="IdNotificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOperario" Type="Int32" />
+          <Property Name="TituloNotificacion" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Icono" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="IdNivel" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="NivelNotificacion" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_NIVELNOT" FromRole="Notificaciones" ToRole="NivelNotificacion" />
+          <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_OPERARIO" FromRole="Notificaciones" ToRole="Operarios" />
+        </EntityType>
+        <Association Name="FK_NOTIFICA_REFERENCE_NIVELNOT">
+          <End Type="SisGMAModel.NivelNotificacion" Role="NivelNotificacion" Multiplicity="1" />
+          <End Type="SisGMAModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NivelNotificacion">
+              <PropertyRef Name="IdNivel" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdNivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICA_REFERENCE_OPERARIO">
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operarios">
+              <PropertyRef Name="IdOperario" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdOperario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1423,6 +1535,28 @@
                 <ScalarProperty Name="Patente" ColumnName="Patente" />
                 <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
                 <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NivelNotificacion">
+            <EntityTypeMapping TypeName="SisGMAModel.NivelNotificacion">
+              <MappingFragment StoreEntitySet="NivelNotificacion">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notificaciones">
+            <EntityTypeMapping TypeName="SisGMAModel.Notificaciones">
+              <MappingFragment StoreEntitySet="Notificaciones">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+                <ScalarProperty Name="Icono" ColumnName="Icono" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TituloNotificacion" ColumnName="TituloNotificacion" />
+                <ScalarProperty Name="IdOperario" ColumnName="IdOperario" />
+                <ScalarProperty Name="IdNotificacion" ColumnName="IdNotificacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

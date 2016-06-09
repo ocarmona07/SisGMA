@@ -52,8 +52,8 @@
             lblTituloModalAlerta.Text = "";
             litDetalleAlerta.Text = "";
 
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modalAlerta", "$('#modalAlerta').modal();",
-                true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(),
+                "modalAlerta", "$('#modalAlerta').modal('show');", true);
             upModalAlerta.Update();
         }
     }

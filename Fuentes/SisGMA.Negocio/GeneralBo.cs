@@ -11,17 +11,23 @@
 
         public string GetNotifications()
         {
-            var notifs = CrearNotificacion();
-            CantNotificaciones = 1;
-            return notifs;
+            var retornoNotifs = string.Empty;
+            var notificaciones = new NotificacionesDa().GetAll();
+            foreach (var notif in notificaciones)
+            {
+                retornoNotifs += CrearNotificacion(notif.Icono, notif.Color, notif.TituloNotificacion);
+            }
+
+            CantNotificaciones = notificaciones.Count;
+            return retornoNotifs;
         }
 
-        private string CrearNotificacion()
+        private string CrearNotificacion(string icon, string color, string text)
         {
-            var icon = "fa-users";
-            var link = "#";
-            var text = "5 new members joined today";
-            return string.Format("<li><a href=\"{0}\"><i class=\"fa {1} text-aqua\"></i>{2}</a></li>", link, icon, text);
+            const string link = "Notificaciones.aspx";
+            return string.Format(
+                "<li><a href=\"{0}\"><i class=\"fa {1} {2}\"></i>{3}</a></li>",
+                link, icon, color, text);
         }
 
         public string GetMenuLateral()
