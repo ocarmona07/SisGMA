@@ -600,6 +600,7 @@ CREATE TABLE Notificaciones
       Color NVARCHAR(16) NOT NULL ,
       Icono NVARCHAR(32) NULL ,
       IdNivel INT NOT NULL ,
+      FechaHora DATETIME NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_NOTIFICACIONES PRIMARY KEY ( IdNotificacion )
     )

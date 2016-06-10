@@ -28,12 +28,11 @@ VALUES  ( N'159888207' ,
 GO
 
 INSERT  INTO dbo.Notificaciones
-        ( IdOperario, TituloNotificacion, Descripcion, Color, Icono, IdNivel,
-          Estado )
+        ( IdOperario, TituloNotificacion, Descripcion, Color, Icono, IdNivel, FechaHora, Estado )
 VALUES  ( 1, N'Prueba de notificación',
           N'Notificación con fines de pruebas, despliegue y muestra de información.',
-          N'text-aqua', N'fa-info-circle', 1, 1 ),
+          N'text-aqua', N'fa-info-circle', 1, GETDATE(), 1 ),
         ( 1, N'Advertencia de sistema',
           N'Notificación con fines de pruebas de advertencia.',
-          N'text-yellow', N'fa-exclamation-triangle', 3, 1 )
+          N'text-yellow', N'fa-exclamation-triangle', 3, GETDATE(),1 )
 GO
