@@ -40,8 +40,8 @@ namespace SisGMA.Entidades
         public virtual ICollection<ControlProduccion> ControlProduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GastosDiarios> GastosDiarios { get; set; }
-        public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notificaciones> Notificaciones { get; set; }
+        public virtual Roles Roles { get; set; }
     }
 }

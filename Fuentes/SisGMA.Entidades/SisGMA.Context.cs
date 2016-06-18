@@ -37,6 +37,8 @@ namespace SisGMA.Entidades
         public virtual DbSet<MarcaProductos> MarcaProductos { get; set; }
         public virtual DbSet<MarcaVehiculos> MarcaVehiculos { get; set; }
         public virtual DbSet<ModeloVehiculos> ModeloVehiculos { get; set; }
+        public virtual DbSet<NivelNotificacion> NivelNotificacion { get; set; }
+        public virtual DbSet<Notificaciones> Notificaciones { get; set; }
         public virtual DbSet<Operarios> Operarios { get; set; }
         public virtual DbSet<Productos> Productos { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
@@ -46,7 +48,5 @@ namespace SisGMA.Entidades
         public virtual DbSet<RolesAccesos> RolesAccesos { get; set; }
         public virtual DbSet<Subcategorias> Subcategorias { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
-        public virtual DbSet<NivelNotificacion> NivelNotificacion { get; set; }
-        public virtual DbSet<Notificaciones> Notificaciones { get; set; }
     }
 }

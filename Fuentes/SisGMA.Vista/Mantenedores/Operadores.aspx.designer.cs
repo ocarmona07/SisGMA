@@ -58,30 +58,12 @@ namespace SisGMA.Vista.Mantenedores {
         protected global::System.Web.UI.WebControls.DropDownList ddlComuna;
         
         /// <summary>
-        /// Control upModalAlerta.
+        /// Control gvListaOperadores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upModalAlerta;
-        
-        /// <summary>
-        /// Control lblTituloModalAlerta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTituloModalAlerta;
-        
-        /// <summary>
-        /// Control litDetalleAlerta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litDetalleAlerta;
+        protected global::System.Web.UI.WebControls.GridView gvListaOperadores;
     }
 }

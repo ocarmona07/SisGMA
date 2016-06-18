@@ -21,12 +21,12 @@ namespace SisGMA.Entidades
         }
     
         public int IdCliente { get; set; }
-        public Nullable<int> IdComuna { get; set; }
         public string RutCliente { get; set; }
         public string Nombres { get; set; }
         public string ApPaterno { get; set; }
         public string ApMaterno { get; set; }
         public string Direccion { get; set; }
+        public Nullable<int> IdComuna { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string Clave { get; set; }

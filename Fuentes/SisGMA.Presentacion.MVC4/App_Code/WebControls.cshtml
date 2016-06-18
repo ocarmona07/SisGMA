@@ -1,0 +1,73 @@
+﻿@using System.Web.Mvc
+@* Generador de Controles Web (MvcHtmlString) *@
+
+@* Titulos *@
+
+@helper TituloPrincipal(string titulo)
+{
+    <h2>@titulo</h2>
+}
+
+@* Botones *@
+
+@helper BotonNormal()
+{
+    
+}
+
+@* Modales *@
+
+@helper ModalConfirmar(string idTitulo = "mdlConfirmTitulo", string idContenido = "mdlConfirmContenido", string idBtnAceptar = "btnConfirmAceptar")
+{
+    <div id="modalConfirm" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="@idTitulo" class="modal-title"></h4>
+                </div>
+                <div id="@idContenido" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="@idBtnAceptar" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper ModalInformar(string idTitulo = "mdlInfoTitulo", string idContenido = "mdlInfoContenido")
+{
+    <div id="modalAlert" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="@idTitulo" class="modal-title"></h4>
+                </div>
+                <div class="modal-body" id="@idContenido"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@* Funciones generales *@
+
+@functions{
+    private class WebControllers
+    {
+        public static string[] GetStyles()
+        {
+            var defaultStylesFolder = "~/Styles/";
+            var styles = new[]
+            {
+                defaultStylesFolder + "bootstrap.min.css",
+                defaultStylesFolder + "font-awesome.min.css",
+                defaultStylesFolder + "AdminLTE.min.css",
+                defaultStylesFolder + "skins/_all-skins.min.css"
+            };
+            return styles;
+        }
+    }
+}

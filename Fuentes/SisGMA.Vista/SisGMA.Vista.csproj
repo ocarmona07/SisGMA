@@ -57,8 +57,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\ionicons.css" />
-    <Content Include="css\ionicons.min.css" />
     <Content Include="dist\css\AdminLTE.css" />
     <Content Include="dist\css\AdminLTE.min.css" />
     <Content Include="dist\css\skins\skin-black-light.css" />
@@ -120,7 +118,6 @@
     <Content Include="dist\js\demo.js" />
     <Content Include="dist\js\pages\dashboard.js" />
     <Content Include="dist\js\pages\dashboard2.js" />
-    <Content Include="fonts\ionicons.svg" />
     <Content Include="Inicio.aspx" />
     <Content Include="Mantenedores\Operadores.aspx" />
     <Content Include="plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -929,12 +926,7 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.aspx" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap.css.map" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -974,19 +966,12 @@
     <Content Include="plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
-    <Content Include="fonts\ionicons.eot" />
-    <Content Include="fonts\ionicons.ttf" />
-    <Content Include="fonts\ionicons.woff" />
-    <None Include="scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="scripts\jquery-2.2.2.js" />
-    <Content Include="scripts\jquery-2.2.2.min.js" />
     <Content Include="scripts\npm.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="scripts\jquery-2.2.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.Master.cs">

@@ -24,7 +24,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body runat="server" id="MasterBody">
-    <form id="frmMaster" runat="server">
+    <form id="frmMaster" runat="server" action="#">
         <asp:ScriptManager runat="server" />
         <div class="wrapper">
             <header class="main-header">

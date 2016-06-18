@@ -1,0 +1,33 @@
+﻿<div id="listaOperadores" class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-body">
+                <asp:GridView ID="gvListaOperadores" runat="server" AutoGenerateColumns="False" GridLines="None" role="grid"
+                              CssClass="table table-bordered table-hover dataTable" OnRowDataBound="ListaOperadoresOnRowDataBound">
+                    <emptydatatemplate>No hay operarios para mostrar</emptydatatemplate>
+                    <columns>
+                        <asp:templatefield headertext="RUT">
+                            <itemtemplate>
+                                <asp:Label ID="lblRutOperario" runat="server" Text="N/D"/>
+                            </itemtemplate>
+                        </asp:templatefield>
+                        <asp:boundfield datafield="Nombres" headertext="Nombre(s)"/>
+                        <asp:boundfield datafield="ApPaterno" headertext="Apellido Paterno"/>
+                        <asp:boundfield datafield="ApMaterno" headertext="Apellido Materno"/>
+                        <asp:boundfield datafield="Roles.Rol" headertext="Rol"/>
+                        <asp:templatefield headertext="Estado">
+                            <itemtemplate>
+                                <asp:Label ID="lblEstado" runat="server" Text="Inactivo"/>
+                            </itemtemplate>
+                        </asp:templatefield>
+                        <asp:templatefield headertext="Acciones">
+                            <itemtemplate>
+                                <a id="btnEditarOperario" class="btn btn-flat btn-xs btn-warning" data-id='<%# Eval("IdOperario") %>'>Editar</a>
+                            </itemtemplate>
+                        </asp:templatefield>
+                    </columns>
+                </asp:GridView>
+            </div>
+        </div>
+    </div>
+</div>

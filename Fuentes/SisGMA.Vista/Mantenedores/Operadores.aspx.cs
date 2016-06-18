@@ -1,14 +1,14 @@
 ﻿namespace SisGMA.Vista.Mantenedores
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
+    using System.Web.Script.Serialization;
+    using System.Web.Services;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using Negocio;
+    using Entidades;
 
-    public partial class Operadores : System.Web.UI.Page
+    public partial class Operadores : Page
     {
         private readonly ListItem _seleccione = new ListItem("Seleccione una opción...", "");
 
@@ -29,16 +29,54 @@
 
             lblVentanaEditar.Text = (false ? "Actualizar" : "Agregar") + " operador";
 
+            gvListaOperadores.DataSource = new OperariosBo().GetAll();
+            gvListaOperadores.DataBind();
+            gvListaOperadores.HeaderRow.TableSection = TableRowSection.TableHeader;
+            gvListaOperadores.FooterRow.TableSection = TableRowSection.TableFooter;
         }
 
-        protected void OnClick(object sender, EventArgs e)
+        protected void ListaOperadoresOnRowDataBound(object sender, GridViewRowEventArgs e)
         {
-            lblTituloModalAlerta.Text = "";
-            litDetalleAlerta.Text = "";
+            if (e.Row.RowType != DataControlRowType.DataRow) return;
 
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(),
-                "modalAlerta", "$('#modalAlerta').modal('show');", true);
-            upModalAlerta.Update();
+            var operario = (Operarios) e.Row.DataItem;
+            var lblRut = (Label) e.Row.FindControl("lblRutOperario");
+            if (lblRut != null)
+            {
+                var rut = operario.RutOperario;
+                var rutNros = int.Parse(rut.Substring(0, rut.Length - 1));
+                lblRut.Text = string.Format("{0:N0}-{1}", rutNros, rut.Substring(rut.Length - 1, 1));
+            }
+
+            var lblEstado = (Label) e.Row.FindControl("lblEstado");
+            if (lblEstado != null)
+            {
+                lblEstado.Text = operario.Estado ? "Activo" : "Inactivo";
+            }
+        }
+
+        [WebMethod]
+        public static string ObtenerOperario(string idOperario)
+        {
+            int idOper;
+            var serializer = new JavaScriptSerializer();
+            var response = serializer.Serialize(new {});
+            if (int.TryParse(idOperario, out idOper))
+            {
+                var operariosBo = new OperariosBo();
+                var operario = operariosBo.Get(idOper);
+                if (operariosBo.IsValid)
+                {
+                    // TODO: Cargar data
+                    response = serializer.Serialize(operario);
+                }
+                else
+                {
+                    response = serializer.Serialize(new { Error = operariosBo.ErrorMessage });
+                }
+            }
+
+            return response;
         }
     }
 }

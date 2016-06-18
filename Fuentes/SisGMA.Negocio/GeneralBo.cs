@@ -1,11 +1,18 @@
 ﻿namespace SisGMA.Negocio
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using Entidades;
     using Datos;
 
     public class GeneralBo : BaseEntity
     {
         public int CantNotificaciones;
+
+        public List<Notificaciones> GetNotificaciones()
+        {
+            return new NotificacionesDa().GetAll().Where(n => n.Estado).ToList();
+        }
 
         public string ObtenerNotificaciones()
         {
@@ -33,6 +40,11 @@
             return string.Format(
                 "<li><a href=\"{0}\"><i class=\"fa {1} {2}\"></i>{3}</a></li>",
                 link, icon, color, text);
+        }
+
+        public List<CategoriasAcceso> GetMenu()
+        {
+            return new CategoriasAccesoDa().GetAll();
         }
 
         public string ObtenerMenuLateral()
