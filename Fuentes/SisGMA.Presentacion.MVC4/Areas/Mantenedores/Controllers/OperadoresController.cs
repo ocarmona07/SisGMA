@@ -13,16 +13,25 @@
         // GET: /Mantenedores/Operadores/
         public ActionResult Index()
         {
-            var operador = new OperariosBo().Get(1);
-            var model = new PresentacionViewModel
+            var model = new OperadoresViewModel
             {
-                Notificaciones = PresentacionViewModel.ToViewModels(new GeneralBo().GetNotificaciones()),
-                Usuario = string.Format("{0} {1}", operador.Nombres, operador.ApPaterno),
-                NombreRol = operador.Roles.Rol,
-                //SkinUsuario = "skin-green-light"
+                TituloForm = "Crear operario"
             };
+
             return View(model);
         }
 
+        public JsonResult ObtenerOperador(int idOperador)
+        {
+            var model = new OperadoresViewModel();
+            var operariosBo = new OperariosBo();
+            var operador = operariosBo.Get(1);
+            if (operariosBo.IsValid)
+            {
+                model = new OperadoresViewModel().ToViewModel(operador);
+                model.TituloForm = "Actualizar operario";
+            }
+            return Json(model);
+        }
     }
 }

@@ -1,7 +1,18 @@
 ﻿@using System.Web.Optimization
+@using SisGMA.Negocio
 @using SisGMA.Presentacion.MVC4.Models
 
-@model PresentacionViewModel
+@{
+    var operador = new OperariosBo().Get(1);
+    var viewModel = new PresentacionViewModel
+    {
+        Notificaciones = PresentacionViewModel.ToViewModels(new GeneralBo().GetNotificaciones()),
+        Usuario = string.Format("{0} {1}", operador.Nombres, operador.ApPaterno),
+        NombreRol = operador.Roles.Rol,
+        //SkinUsuario = "skin-green-light"
+    };
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +29,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition sidebar-mini @Principal.MasterSkin(Model.SkinUsuario)">
+<body class="hold-transition sidebar-mini @Principal.MasterSkin(viewModel.SkinUsuario)">
     <div class="wrapper">
         <header class="main-header">
             <a href="/" class="logo">
@@ -31,19 +42,19 @@
                 </a>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        @Principal.Notificaciones(Model.Notificaciones)
+                        @Principal.Notificaciones(viewModel.Notificaciones)
                         @* User Account: style can be found in dropdown.less *@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="/Images/demo/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">@Model.Usuario</span>
+                                <span class="hidden-xs">@viewModel.Usuario</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
                                     <img src="/Images/demo/user2-160x160.jpg" class="img-circle" alt="User Image">
                                     <p>
-                                        @Model.Usuario
-                                        <small>@Model.NombreRol</small>
+                                        @viewModel.Usuario
+                                        <small>@viewModel.NombreRol</small>
                                     </p>
                                 </li>
                                 <li class="user-footer">

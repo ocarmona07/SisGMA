@@ -3,6 +3,8 @@
     ViewBag.Title = "SisGMA - Mantenedores - " + ViewBag.Section;
 }
 
+@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
+
 <section class="content-header">
     <h1>Operadores</h1>
     <ol class="breadcrumb">
@@ -12,7 +14,8 @@
     </ol>
 </section>
 <section class="content">
-    @Html.Partial("Partials/FormularioPartial")
+    @*Html.Partial("Partials/FormularioPartial", Model)*@
+    @Html.Partial("Partials/ListaOperadoresPartial", Model)
 </section>
 
 @section Modals
@@ -24,7 +27,10 @@
 @section Scripts
 {
     @Styles.Render("/plugins/select2/select2.min.css")
+    @Styles.Render("/plugins/datatables/dataTables.bootstrap.css")
     @Scripts.Render("/plugins/select2/select2.min.js")
+    @Scripts.Render("/plugins/datatables/jquery.dataTables.min.js")
+    @Scripts.Render("/plugins/datatables/dataTables.bootstrap.min.js")
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnEditarOperario").click(function () {
@@ -55,10 +61,16 @@
             });
 
             $("#btnCancelar").click(function () {
-                $("#modalConfirm").modal("show");
+                $("#tbRutOperador").val("@Model.RutOperario");
+                $("#tbNombres").val("@Model.Nombres");
+                $("#tbApPaterno").val("@Model.ApPaterno");
+                $("#tbApMaterno").val("@Model.ApMaterno");
+                $("#tbDireccion").val("@Model.Direccion");
+                $("#tbTelefono").val("@Model.Telefono");
+                /*$("#modalConfirm").modal("show");
                 $("#dataOperador").hide();
                 // TODO: Resetear formulario
-                $("#listaOperadores").show();
+                $("#listaOperadores").show();//*/
             });
 
             $("#btnAgregar").click(function () {
@@ -70,14 +82,43 @@
             });
 
             //$("#<%= ddlRolOperario.ClientID %>").select2();
-            $("#<%= ddlRegion.ClientID %>").select2({
-                language: "es"
+            $("#ddlRegion").select2({
+                "language": "es"
             });
-            $("#<%= ddlProvincia.ClientID %>").select2({
-                language: "es"
+            $("#ddlProvincia").select2({
+                "language": "es"
             });
-            $("#<%= ddlComuna.ClientID %>").select2({
-                language: "es"
+            $("#ddlComuna").select2({
+                "language": "es"
+            });
+
+            $('#tblOperadores').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "oLanguage": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "No hay datos para mostrar",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                }
             });
         });
     </script>

@@ -1,114 +1,63 @@
-﻿@using SisGMA.Entidades
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
 
-<div id="dataOperador" class="row">
+<div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">@ViewBag.TituloForm</h3>
+                <h3 class="box-title">@Model.TituloForm</h3>
+                @if (Model.IdOperario > 0)
+                {
+                    @WebControls.CampoOculto("hdnIdOperario", Model.IdOperario.ToString())
+                }
             </div>
             <form id="frmOperador" role="form">
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tbRutOperador">RUT</label>
-                                <input type="text" class="form-control" id="tbRutOperador" maxlength="12" placeholder="Ej: 12.345.678-9">
-                            </div>
+                            @WebControls.InputTextBoxFormGroup("RUT Operador", "tbRutOperador", "Ej: 12.345.678-9", 12)
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="ddlRolOperario">Rol</label>
-                                <select ID="ddlRolOperario" class="form-control"></select>
-                            </div>
+                            @WebControls.DropDownListFormGroup("Rol", "ddlRolOperario", new Dictionary<string, string>{{"Test", "1"}})
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tbNombres">Nombres</label>
-                                <input type="text" class="form-control" id="tbNombres" maxlength="32" placeholder="Nombre(s) del operador">
-                            </div>
+                            @WebControls.InputTextBoxFormGroup("Nombre(s)", "tbNombres", "Nombre(s) del operador", 32)
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tbApPaterno">Apellido Paterno</label>
-                                <input type="text" class="form-control" id="tbApPaterno" maxlength="32" placeholder="Apellido paterno">
-                            </div>
+                            @WebControls.InputTextBoxFormGroup("Apellido Paterno", "tbApPaterno", "Apellido paterno", 32)
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="tbApMaterno">Apellido Materno</label>
-                                <input type="text" class="form-control" id="tbApMaterno" maxlength="32" placeholder="Apellido Materno">
-                            </div>
+                            @WebControls.InputTextBoxFormGroup("Apellido Materno", "tbApMaterno", "Apellido Materno", 32)
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="tbDireccion">Dirección</label>
-                        <input type="text" class="form-control" id="tbDireccion" maxlength="64" placeholder="Dirección">
-                    </div>
+                    @WebControls.InputTextBoxFormGroup("Dirección", "tbDireccion", "Dirección", 64)
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ddlRegion">Región</label>
-                                <select ID="ddlRegion" class="form-control" Width="100%"></select>
-                            </div>
+                            @WebControls.DropDownListFormGroup("Región", "ddlRegion", new Dictionary<string, string> { { "Chile", "1" } })
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ddlProvincia">Provincia</label>
-                                <select ID="ddlProvincia" class="form-control" Width="100%"></select>
-                            </div>
+                            @WebControls.DropDownListFormGroup("Provincia", "ddlProvincia", new Dictionary<string, string> { { "Chile", "1" } })
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ddlComuna">Comuna</label>
-                                <select ID="ddlComuna" class="form-control" Width="100%"></select>
-                            </div>
+                            @WebControls.DropDownListFormGroup("Comuna", "ddlComuna", new Dictionary<string, string> { { "Chile", "1" } })
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tbTelefono">Teléfono</label>
-                                <input type="tel" class="form-control" id="tbTelefono" maxlength="16" placeholder="Ej: +569123456789">
-                            </div>
-                            <div class="form-group">
-                                <label for="tbClave">Contraseña</label>
-                                <input type="password" class="form-control" maxlength="16" id="tbClave" placeholder="Mínimo 6 - Máximo 16">
-                            </div>
-                            <div class="form-group">
-                                <label for="chkEstado">Estado</label>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" id="chkEstado" checked="checked">
-                                        Activo
-                                    </label>
-                                </div>
-                            </div>
+                            @WebControls.InputEspecialFormGroup("Teléfono", "tbTelefono", "tel", "Ej: +569123456789", 16)
+                            @WebControls.InputEspecialFormGroup("Contraseña", "tbClave", "password", "Entre 6 y 16 letras y/o números", 16)
+                            @WebControls.CheckBoxFormGroup("Estado", "chkEstado", "Activo", check: true)
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fupImagenOperador">Imagen</label>
-                                <input type="file" id="fupImagenOperador">
-                                <p class="help-block">Agregue una imagen para el operador</p>
-                            </div>
-                            <div style="border: 1px dashed black; width: 160px; height: 160px;"></div>
+                            @WebControls.ImageUpload("Imagen de referencia", "fupImagenOperador", placeholder: "Agregue una imagen para el operador")
                         </div>
                     </div>
                 </div>
                 <div class="box-footer text-center">
-                    <button type="button" id="btnCancelar" class="btn btn-flat btn-warning" style="width: 120px;">
-                        <i class="fa fa-reply"></i>
-                        Cancelar
-                    </button>
-                    <button type="reset" id="btnLimpiar" class="btn btn-flat btn-danger pull-left" style="width: 120px;">
-                        <i class="fa fa-eraser"></i>
-                        Limpiar
-                    </button>
-                    <button type="button" id="btnAgregar" class="btn btn-flat btn-success pull-right" style="width: 120px;">
-                        <i class="fa fa-save"></i>
-                        Aceptar
-                    </button>
+                    @WebControls.BotonCancelar(alineado: "pull-left")
+                    @WebControls.BotonLimpiar()
+                    @WebControls.BotonAceptar(alineado: "pull-right")
                 </div>
             </form>
         </div>

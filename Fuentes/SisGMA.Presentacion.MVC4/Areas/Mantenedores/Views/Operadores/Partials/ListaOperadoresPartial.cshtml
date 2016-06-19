@@ -1,8 +1,11 @@
-﻿<div id="listaOperadores" class="row">
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
+
+<div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-body">
-                <asp:GridView ID="gvListaOperadores" runat="server" AutoGenerateColumns="False" GridLines="None" role="grid"
+                @WebControls.Tabla("tblOperadores")
+                @*<asp:GridView ID="gvListaOperadores" runat="server" AutoGenerateColumns="False" GridLines="None" role="grid"
                               CssClass="table table-bordered table-hover dataTable" OnRowDataBound="ListaOperadoresOnRowDataBound">
                     <emptydatatemplate>No hay operarios para mostrar</emptydatatemplate>
                     <columns>
@@ -26,7 +29,7 @@
                             </itemtemplate>
                         </asp:templatefield>
                     </columns>
-                </asp:GridView>
+                </asp:GridView>*@
             </div>
         </div>
     </div>

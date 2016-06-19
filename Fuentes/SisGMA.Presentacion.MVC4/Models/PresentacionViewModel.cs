@@ -18,11 +18,11 @@
             {
                 list = notificaciones.Select(o => new NotificacionesViewModel
                 {
+                    IdNotificacion = o.IdNotificacion,
                     IdOperario = o.IdOperario,
                     Descripcion = o.Descripcion,
                     Color = o.Color,
                     Icono = o.Icono,
-                    IdNotificacion = o.IdNotificacion,
                     TituloNotificacion = o.TituloNotificacion,
                     IdNivel = o.IdNivel,
                     Estado = o.Estado

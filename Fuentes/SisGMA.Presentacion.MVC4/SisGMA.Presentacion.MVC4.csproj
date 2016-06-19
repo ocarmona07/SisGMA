@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="Areas\Mantenedores\Controllers\OperadoresController.cs" />
     <Compile Include="Areas\Mantenedores\MantenedoresAreaRegistration.cs" />
+    <Compile Include="Areas\Mantenedores\Models\OperadoresViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1017,7 +1018,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Mantenedores\Models\" />
     <Folder Include="Areas\Mantenedores\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
