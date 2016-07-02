@@ -40,11 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneralBo.cs" />
-    <Compile Include="BaseEntity.cs" />
     <Compile Include="ClientesBo.cs" />
     <Compile Include="OperariosBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectorsBo.cs" />
+    <Compile Include="SystemBo\SelectorsBo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SisGMA.Datos\SisGMA.Datos.csproj">

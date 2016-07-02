@@ -1,21 +1,31 @@
-﻿@{
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
+@{
     ViewBag.Section = "Operadores";
     ViewBag.Title = "SisGMA - Mantenedores - " + ViewBag.Section;
+    var message = new SisGMA.Presentacion.MVC4.BaseLayout().GetMessage("Operadores", "CrearOperador", "IngresoOperadorOk");
+    if (message != null && message.Any())
+    {
+        ViewBag.MessageTitle = message["Title"];
+        ViewBag.MessageContent = message["Message"];
+    }
 }
 
-@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
-
 <section class="content-header">
-    <h1>Operadores</h1>
+    <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-home"></i>Inicio</a></li>
-        <li><a href="#">Mantenedores</a></li>
+        <li><a href="@Url.Action("Index", "Inicio", new {area = ""})"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="@Url.Action("Index", "Mantenedores", new { area = "" })">Mantenedores</a></li>
         <li class="active">@ViewBag.Section</li>
     </ol>
 </section>
 <section class="content">
-    @*Html.Partial("Partials/FormularioPartial", Model)*@
-    @Html.Partial("Partials/ListaOperadoresPartial", Model)
+    <div id="divMessage"></div>
+    <div id="divFormulario" class="hide">
+        @Html.Partial("Partials/FormularioPartial", Model)
+    </div>
+    <div id="divLista">
+        @Html.Partial("Partials/ListaOperadoresPartial", Model)
+    </div>
 </section>
 
 @section Modals
@@ -35,6 +45,7 @@
         $(document).ready(function () {
             $("#btnEditarOperario").click(function () {
                 // TODO: cargar operario
+                $("#mdlInfoTitulo").html($(this).attr("data-id"));
                 $("#modalAlert").modal("show");
                 var response = "";
                 //$.ajax({
@@ -81,7 +92,6 @@
                 });
             });
 
-            //$("#<%= ddlRolOperario.ClientID %>").select2();
             $("#ddlRegion").select2({
                 "language": "es"
             });
@@ -92,13 +102,13 @@
                 "language": "es"
             });
 
-            $('#tblOperadores').DataTable({
+            $('#tblOperarios').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
-                "info": true,
-                "autoWidth": false,
+                "info": false,
+                "autoWidth": true,
                 "oLanguage": {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros",

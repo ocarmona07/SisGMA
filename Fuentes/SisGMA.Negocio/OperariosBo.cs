@@ -1,43 +1,34 @@
-﻿namespace SisGMA.Negocio
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using Entidades;
-    using Datos;
+﻿using System.Collections.Generic;
+using SisGMA.Entidades;
+using SisGMA.Datos.UsuariosDa;
+using SisGMA.Entidades.Common;
 
+namespace SisGMA.Negocio
+{
     public class OperariosBo : BaseEntity
     {
         public List<Operarios> GetAll()
         {
-            var datos = new OperariosDa();
-            var response = datos.GetAll();
-            IsValid = datos.IsValid;
-            ErrorMessage = datos.ErrorMessage;
-            return response;
-        }
-
-        public List<Operarios> DisplayOperadores()
-        {
-            var response = GetAll().Select(o => new Operarios{IdOperario = o.IdOperario}).ToList();
-            return response;
+            var response = new OperariosDa();
+            IsValid = response.IsValid;
+            ErrorMessage = response.ErrorMessage;
+            return response.GetAll();
         }
 
         public Operarios Get(int idItem)
         {
-            var datos = new OperariosDa();
-            var response = datos.Get(idItem);
-            IsValid = datos.IsValid;
-            ErrorMessage = datos.ErrorMessage;
-            return response;
+            var response = new OperariosDa();
+            IsValid = response.IsValid;
+            ErrorMessage = response.ErrorMessage;
+            return response.Get(idItem);
         }
 
         public Operarios Insert(Operarios item)
         {
-            var datos = new OperariosDa();
-            var response = datos.Insert(item);
-            IsValid = datos.IsValid;
-            ErrorMessage = datos.ErrorMessage;
-            return response;
+            var response = new OperariosDa();
+            IsValid = response.IsValid;
+            ErrorMessage = response.ErrorMessage;
+            return response.Insert(item);
         }
     }
 }

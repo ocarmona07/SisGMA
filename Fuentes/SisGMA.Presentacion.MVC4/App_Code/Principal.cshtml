@@ -66,7 +66,7 @@
     <!-- /.search form -->*@
     @* sidebar menu: : style can be found in sidebar.less *@
     <ul class="sidebar-menu">
-        @foreach (var categoria in new GeneralBo().GetMenu())
+        @foreach (var categoria in new GeneralBo().GetMenu().Where(item => item.Estado).ToList())
         {
             <li class="header">@categoria.Categoria</li>
             foreach (var acceso in categoria.Accesos.Where(e => e.IdAccesoPadre == null).ToList())

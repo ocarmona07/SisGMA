@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Section = "Clientes";
+    ViewBag.Title = "SisGMA - Mantenedores - " + ViewBag.Section;
+    //var message = new SisGMA.Presentacion.MVC4.BaseLayout().GetMessage("Operadores", "CrearOperador", "IngresoOperadorOk");
+    //if (message != null && message.Any())
+    //{
+    //    ViewBag.MessageTitle = message["Title"];
+    //    ViewBag.MessageContent = message["Message"];
+    //}
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Section</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Inicio", new { area = "" })"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="@Url.Action("Index", "Mantenedores", new { area = "" })">Mantenedores</a></li>
+        <li class="active">@ViewBag.Section</li>
+    </ol>
+</section>
+<section class="content">
+    <div id="divMessage"></div>
+    <div id="divFormulario" class="hide">
+        @*@Html.Partial("Partials/FormularioPartial", Model)*@
+    </div>
+    <div id="divLista">
+        @*@Html.Partial("Partials/ListaOperadoresPartial", Model)*@
+    </div>
+</section>

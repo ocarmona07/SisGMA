@@ -1,26 +1,19 @@
-﻿namespace SisGMA.Negocio
-{
-    using Entidades;
-    using Datos;
+﻿using SisGMA.Entidades;
+using SisGMA.Entidades.Common;
+using SisGMA.Datos;
 
+namespace SisGMA.Negocio
+{
     public class ClientesBo : BaseEntity
     {
         public Clientes Get(int idItem)
         {
-            var datos = new ClientesDa();
-            var response = datos.Get(idItem);
-            IsValid = datos.IsValid;
-            ErrorMessage = datos.ErrorMessage;
-            return response;
+            return new ClientesDa().Get(idItem);
         }
 
         public Clientes Insert(Clientes item)
         {
-            var datos = new ClientesDa();
-            var response = datos.Insert(item);
-            IsValid = datos.IsValid;
-            ErrorMessage = datos.ErrorMessage;
-            return response;
+            return new ClientesDa().Insert(item);
         }
 
 

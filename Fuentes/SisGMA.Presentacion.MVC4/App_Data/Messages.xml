@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Messages>
+  <Operadores>
+    <CrearOperador>
+      <IngresoOperadorOk Title="Operario ingresado">Se ha ingresado el operario correctamente</IngresoOperadorOk>
+      <IngresoOperadorError Title="Error al guardar">Ha ocurrido un error al crear el operador</IngresoOperadorError>
+      <ActualizarOperadorOk Title="Operario actualizado">Se ha actualizado el operario correctamente</ActualizarOperadorOk>
+      <ActualizarOperadorError Title="Error al actualizar">Ha ocurrido un error al actualizar el operador</ActualizarOperadorError>
+    </CrearOperador>
+  </Operadores>
+</Messages>

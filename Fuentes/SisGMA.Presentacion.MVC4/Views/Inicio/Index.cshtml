@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Section = "Inicio";
+    ViewBag.Title = "SisGMA - " + ViewBag.Section;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Section</h1>
+    <ol class="breadcrumb">
+        <li class="active"><a href="@Url.Action("Index", "Inicio", new {area = ""})"><i class="fa fa-home"></i>Inicio</a></li>
+    </ol>
+</section>
+<section class="content">
+    <h3>Test</h3>
+    <h2>Cafest</h2>
+</section>

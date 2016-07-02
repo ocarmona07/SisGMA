@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Section = "Mantenedores";
+    ViewBag.Title = "SisGMA - " + ViewBag.Section;
+    var menuItems = new SisGMA.Negocio.GeneralBo().GetMenu().FirstOrDefault(cat => cat.IdCategoriaAcceso == 2) ??
+        new SisGMA.Entidades.CategoriasAcceso();
+    var boxColors = new[] { "bg-aqua", "bg-green", "bg-yellow", "bg-red", "bg-purple" };
+    var counter = 0;
+}
+
+<section class="content-header">
+    <h1>@ViewBag.Section</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Inicio", new { area = "" })"><i class="fa fa-home"></i>Inicio</a></li>
+        <li class="active">@ViewBag.Section</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        @foreach (var item in menuItems.Accesos)
+        {
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box @boxColors[counter]">
+                    <div class="inner">
+                        <h3>@(counter + 1)</h3>
+                        <p>@item.NombreAcceso</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa @item.Icono"></i>
+                    </div>
+                    <a href="@item.UrlAcceso" class="small-box-footer">Ingresar <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            counter++;
+            if (counter > 4)
+            {
+                counter = 0;
+            }
+        }
+    </div>
+</section>

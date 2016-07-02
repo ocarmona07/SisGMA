@@ -62,6 +62,7 @@
     <Compile Include="ClientesVehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Comunas.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>

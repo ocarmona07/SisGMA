@@ -1,4 +1,4 @@
-﻿namespace SisGMA.Presentacion.MVC4.Controllers
+﻿namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class HomeController : Controller
+    public class ProveedoresController : Controller
     {
-        // GET: /View/
+        // GET: /Mantenedores/Proveedores/
         public ActionResult Index()
         {
             return View();

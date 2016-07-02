@@ -126,10 +126,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BaseLayout.cs" />
+    <Compile Include="Areas\Mantenedores\Controllers\AccesosController.cs" />
+    <Compile Include="Areas\Mantenedores\Controllers\ClientesController.cs" />
+    <Compile Include="Areas\Mantenedores\Controllers\InventarioController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\OperadoresController.cs" />
+    <Compile Include="Areas\Mantenedores\Controllers\ProveedoresController.cs" />
     <Compile Include="Areas\Mantenedores\MantenedoresAreaRegistration.cs" />
     <Compile Include="Areas\Mantenedores\Models\OperadoresViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\MantenedoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -141,6 +148,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\Messages.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\demo\avatar.png" />
@@ -1017,8 +1027,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Areas\Mantenedores\Views\Shared\" />
+    <Content Include="Areas\Mantenedores\Views\Clientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1103,6 +1112,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Mantenedores\Views\Operadores\Partials\FormularioPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Proveedores\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Accesos\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inicio\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Mantenedores\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

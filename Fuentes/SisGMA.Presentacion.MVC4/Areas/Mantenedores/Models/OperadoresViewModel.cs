@@ -19,6 +19,7 @@
         public string Telefono { get; set; }
         public string Imagen { get; set; }
         public int IdRol { get; set; }
+        public string Rol { get; set; }
         public string Clave { get; set; }
         public bool Estado { get; set; }
 
@@ -43,6 +44,7 @@
                     Telefono = operario.Telefono,
                     Imagen = operario.Imagen,
                     IdRol = operario.IdRol ?? 0,
+                    Rol = operario.Roles.Rol,
                     Clave = operario.Clave,
                     Estado = operario.Estado
                 };
@@ -70,6 +72,7 @@
                     Telefono = o.Telefono,
                     Imagen = o.Imagen,
                     IdRol = o.IdRol ?? 0,
+                    Rol = o.Roles.Rol,
                     Clave = o.Clave,
                     Estado = o.Estado
                 }).ToList();

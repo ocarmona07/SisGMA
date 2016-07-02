@@ -6,9 +6,10 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class HomeController : Controller
+    public class InicioController : Controller
     {
-        // GET: /View/
+        // GET: /Inicio/
+
         public ActionResult Index()
         {
             return View();

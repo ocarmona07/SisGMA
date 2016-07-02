@@ -1,10 +1,8 @@
 ﻿namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+    using Entidades;
     using Models;
     using Negocio;
 
@@ -15,7 +13,8 @@
         {
             var model = new OperadoresViewModel
             {
-                TituloForm = "Crear operario"
+                TituloForm = "Crear operario",
+                ListaOperadores = new OperadoresViewModel().ToViewModels(new OperariosBo().GetAll())
             };
 
             return View(model);
@@ -32,6 +31,13 @@
                 model.TituloForm = "Actualizar operario";
             }
             return Json(model);
+        }
+
+        public JsonResult ObtenerListaOperadores()
+        {
+            var response = new List<Operarios>();
+
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

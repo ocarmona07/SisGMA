@@ -47,54 +47,38 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesosDa.cs">
+    <Compile Include="SystemDa\AccesosDa.cs">
     </Compile>
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="CategoriasAccesoDa.cs">
+    <Compile Include="SystemDa\CategoriasAccesoDa.cs">
     </Compile>
-    <Compile Include="CategoriasDa.cs">
+    <Compile Include="InventarioDa\CategoriasDa.cs">
     </Compile>
-    <Compile Include="ClientesDa.cs">
+    <Compile Include="ClientesDa\ClientesDa.cs">
     </Compile>
-    <Compile Include="ClientesVehiculosDa.cs">
+    <Compile Include="ClientesDa\ClientesVehiculosDa.cs">
     </Compile>
-    <Compile Include="ComunasDa.cs">
+    <Compile Include="UsuariosDa\ControlProduccionDa.cs">
     </Compile>
-    <Compile Include="ControlProduccionDa.cs">
+    <Compile Include="InventarioDa\GastosDiariosDa.cs">
     </Compile>
-    <Compile Include="GastosDiariosDa.cs">
+    <Compile Include="InventarioDa\MarcaProductosDa.cs">
     </Compile>
-    <Compile Include="GirosDa.cs">
+    <Compile Include="SystemDa\NotificacionesDa.cs" />
+    <Compile Include="UsuariosDa\OperariosDa.cs">
     </Compile>
-    <Compile Include="MarcaProductosDa.cs">
-    </Compile>
-    <Compile Include="MarcaVehiculosDa.cs">
-    </Compile>
-    <Compile Include="ModeloVehiculosDa.cs">
-    </Compile>
-    <Compile Include="NivelNotificacionDa.cs" />
-    <Compile Include="NotificacionesDa.cs" />
-    <Compile Include="OperariosDa.cs">
-    </Compile>
-    <Compile Include="ProductosDa.cs">
+    <Compile Include="InventarioDa\ProductosDa.cs">
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProveedoresDa.cs">
+    <Compile Include="InventarioDa\ProveedoresDa.cs">
     </Compile>
-    <Compile Include="ProvinciasDa.cs">
+    <Compile Include="SystemDa\RolesAccesosDa.cs">
     </Compile>
-    <Compile Include="RegionesDa.cs">
+    <Compile Include="SystemDa\RolesDa.cs">
     </Compile>
-    <Compile Include="RolesAccesosDa.cs">
+    <Compile Include="SystemDa\SelectoresDa.cs" />
+    <Compile Include="InventarioDa\SubcategoriasDa.cs">
     </Compile>
-    <Compile Include="RolesDa.cs">
-    </Compile>
-    <Compile Include="SelectoresDa.cs" />
-    <Compile Include="SisGMA.Datos.Da.cs">
-    </Compile>
-    <Compile Include="SubcategoriasDa.cs">
-    </Compile>
-    <Compile Include="VehiculosDa.cs">
+    <Compile Include="VehiculosDa\VehiculosDa.cs">
     </Compile>
   </ItemGroup>
   <ItemGroup>
