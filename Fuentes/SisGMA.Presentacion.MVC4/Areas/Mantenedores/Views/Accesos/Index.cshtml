@@ -1,14 +1,12 @@
-﻿@{
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+@{
     ViewBag.Section = "Accesos";
-    ViewBag.Title = "SisGMA - Mantenedores - " + ViewBag.Section;
-    //var message = new SisGMA.Presentacion.MVC4.BaseLayout().GetMessage("Operadores", "CrearOperador", "IngresoOperadorOk");
-    //if (message != null && message.Any())
-    //{
-    //    ViewBag.MessageTitle = message["Title"];
-    //    ViewBag.MessageContent = message["Message"];
-    //}
+    ViewBag.Title = "Mantenedores - " + ViewBag.Section;
 }
-
+@section Styles
+{<link href="/Plugins/fapicker/css/fontawesome-iconpicker.min.css" rel="stylesheet" />}
+@section Scripts
+{<script src="~/Plugins/fapicker/js/fontawesome-iconpicker.min.js"></script>}
 <section class="content-header">
     <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
@@ -19,10 +17,27 @@
 </section>
 <section class="content">
     <div id="divMessage"></div>
-    <div id="divFormulario" class="hide">
-        @*@Html.Partial("Partials/FormularioPartial", Model)*@
-    </div>
-    <div id="divLista">
-        @*@Html.Partial("Partials/ListaOperadoresPartial", Model)*@
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tabAccesos" data-toggle="tab" aria-expanded="True">Accesos</a></li>
+            <li><a href="#tabCategorias" data-toggle="tab" aria-expanded="False">Categorias</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tabAccesos">
+                @Html.Partial("Partials/ListaAccesosPartial", Model)
+            </div>
+            <div class="tab-pane" id="tabCategorias">
+                @Html.Partial("Partials/ListaCategoriasPartial", Model)
+            </div>
+        </div>
     </div>
 </section>
+@section Modals
+{
+    <div id="divModalAcceso">
+        @Html.Partial("Partials/ModalAccesoPartial", Model)
+    </div>
+    <div id="divModalCategoria">
+        @Html.Partial("Partials/ModalCategoriaPartial", Model)
+    </div>
+}

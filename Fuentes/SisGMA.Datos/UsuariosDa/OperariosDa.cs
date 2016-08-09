@@ -41,6 +41,10 @@ namespace SisGMA.Datos.UsuariosDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public Operarios Get(int idItem)
@@ -87,15 +91,7 @@ namespace SisGMA.Datos.UsuariosDa
         {
             try
             {
-                _sisGmaEntities.Operarios.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Nombres).IsModified = true;
-                entry.Property(o => o.ApPaterno).IsModified = true;
-                entry.Property(o => o.ApMaterno).IsModified = true;
-                entry.Property(o => o.Direccion).IsModified = true;
-                entry.Property(o => o.Telefono).IsModified = true;
-                entry.Property(o => o.IdComuna).IsModified = true;
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -110,6 +106,44 @@ namespace SisGMA.Datos.UsuariosDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
+        public bool UpdateEstado(int idItem, bool estado)
+        {
+            try
+            {
+                var item = _sisGmaEntities.Operarios.FirstOrDefault(o => o.IdOperario == idItem);
+                if (item != null)
+                {
+                    item.Estado = estado;
+                    _sisGmaEntities.Entry(item).State = EntityState.Modified;
+                    return _sisGmaEntities.SaveChanges() > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return false;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -132,6 +166,10 @@ namespace SisGMA.Datos.UsuariosDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

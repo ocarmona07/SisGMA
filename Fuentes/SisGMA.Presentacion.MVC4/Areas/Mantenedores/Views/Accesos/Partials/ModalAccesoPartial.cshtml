@@ -1,0 +1,147 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+<div id="modalAcceso" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="frmAcceso" role="form" @(Model.DatosAcceso.IdAcceso > 0 ? "data-id=" + Model.DatosAcceso.IdAcceso : null)>
+                <div class="modal-header">
+                    <h4 class="modal-title">@Model.TituloModalAcceso</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            @WebControls.InputTextBoxFormGroup("ID", "tbIdAcceso", Model.DatosAcceso.IdAcceso.ToString(), maxLenght: 6)
+                        </div>
+                        <div class="col-md-5">
+                            @WebControls.DropDownListFormGroup("Categoria", "ddlCategoria", Model.DdlListaCategorias(), Model.DatosAcceso.IdCategoriaAcceso.ToString())
+                        </div>
+                        <div class="col-md-5">
+                            @if (Model.DatosAcceso.IdAcceso > 0)
+                            {
+                                @WebControls.DropDownListFormGroup("Acceso Padre", "ddlAccesoPadre", Model.DdlListaAccesos(Model.DatosAcceso.IdCategoriaAcceso), Model.DatosAcceso.IdAccesoPadre.ToString(), "Ninguno")
+                            }
+                            else
+                            {
+                                @WebControls.DropDownListFormGroup("Acceso Padre", "ddlAccesoPadre", new Dictionary<string, string>(), "", "Ninguno")
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @WebControls.InputTextBoxFormGroup("Nombre del Acceso", "tbNombreAcceso", Model.DatosAcceso.NombreAcceso, maxLenght: 32, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.InputIconFormGroup("Icono", "tbIcono", Model.DatosAcceso.Icono, maxLenght: 32, requerido: true)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @WebControls.InputTextBoxFormGroup("Descripción", "tbDescripcion", Model.DatosAcceso.Descripcion, maxLenght: 256, requerido: true)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @WebControls.InputTextBoxFormGroup("URL de Acceso", "tbUrlAcceso", Model.DatosAcceso.UrlAcceso, maxLenght: 512, requerido: true)
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnAceptarAcceso" class="btn btn-flat btn-success">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tbIcono").iconpicker({
+            templates: {
+                search: '<input type="search" class="form-control iconpicker-search" placeholder="Buscar por nombre..." />'
+            }
+        });
+        $("#ddlCategoria").on("change", function () {
+            $("#ddlAccesoPadre option").remove();
+            var catNinguno = "<option value>Ninguno</option>";
+            var idCategoria = this.value;
+            if (idCategoria !== "") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ObtenerAccesosPorCategoria", "Accesos", new { area = "Mantenedores" })",
+                    data: {idCategoria: idCategoria},
+                    success: function(response) {
+                        if (response !== "") {
+                            $("#ddlAccesoPadre").html(catNinguno + response);
+                        } else {
+                            $("#ddlAccesoPadre").html(catNinguno);
+                        }
+                    },
+                    error: function () {
+                        $("#ddlAccesoPadre").html(catNinguno);
+                    }
+                });
+            } else {
+                $("#ddlAccesoPadre").html(catNinguno);
+            }
+        });
+        $("#btnAceptarAcceso").click(function () {
+            if ($("#tbIdAcceso").val() === "") {
+                alert('Debe colocar un ID para el acceso');
+                return false;
+            }
+            if ($("#ddlCategoria option:selected").val() === "") {
+                alert('Debe seleccionar una categoría');
+                return false;
+            }
+            if ($('#tbNombreAcceso').val() === '') {
+                alert('Debe colocar un nombre para el acceso');
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarAcceso", "Accesos", new {area = "Mantenedores"})",
+                data: {
+                    idAcceso: @(Model.DatosAcceso.IdAcceso > 0 ? MvcHtmlString.Create(Model.DatosAcceso.IdAcceso.ToString()) : MvcHtmlString.Create("$('#tbIdAcceso').val()")),
+                    idCategoriaAcceso: $("#ddlCategoria option:selected").val(),
+                    idAccesoPadre: $("#ddlAccesoPadre option:selected").val(),
+                    nombreAcceso: $("#tbNombreAcceso").val(),
+                    descripcion: $("#tbDescripcion").val(),
+                    icono: $("#tbIcono").val(),
+                    estado: "@Model.DatosAcceso.Estado",
+                    urlAcceso: $("#tbUrlAcceso").val()
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloModalAcceso)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosAcceso.IdAcceso > 0 ? "actualizado" : "agregado") correctamente");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaAccesos", "Accesos", new {area = "Mantenedores"})",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabAccesos").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosAcceso.IdAcceso > 0 ? "actualizar" : "agregar") los datos.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+            $("#modalAcceso").modal("hide");
+            return true;
+        });
+    });
+</script>

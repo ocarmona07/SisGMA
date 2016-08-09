@@ -1,65 +1,125 @@
 ﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
-
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">@Model.TituloForm</h3>
-                @if (Model.IdOperario > 0)
-                {
-                    @WebControls.CampoOculto("hdnIdOperario", Model.IdOperario.ToString())
-                }
             </div>
-            <form id="frmOperador" role="form">
-                <div class="box-body">
+            <div class="box-body">
+                <form id="frmOperador" role="form" @(Model.IdOperario > 0 ? "data-id=" + Model.IdOperario : null)>
                     <div class="row">
                         <div class="col-md-6">
-                            @WebControls.InputTextBoxFormGroup("RUT Operador", "tbRutOperador", "Ej: 12.345.678-9", 12)
+                            @WebControls.InputTextBoxFormGroup("RUT Operador", "tbRutOperador", Model.RutOperario, "Ej: 12.345.678-9", 12, requerido: true)
                         </div>
                         <div class="col-md-6">
-                            @WebControls.DropDownListFormGroup("Rol", "ddlRolOperario", new Dictionary<string, string> { { "Test", "1" } })
+                            @WebControls.DropDownListFormGroup("Rol", "ddlRolOperario", Model.ListaRoles(), Model.IdRol.ToString())
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            @WebControls.InputTextBoxFormGroup("Nombre(s)", "tbNombres", "Nombre(s) del operador", 32)
+                            @WebControls.InputTextBoxFormGroup("Nombre(s)", "tbNombres", Model.Nombres, "Nombre(s) del operador", 32, requerido: true)
                         </div>
                         <div class="col-md-4">
-                            @WebControls.InputTextBoxFormGroup("Apellido Paterno", "tbApPaterno", "Apellido paterno", 32)
+                            @WebControls.InputTextBoxFormGroup("Apellido Paterno", "tbApPaterno", Model.ApPaterno, "Apellido paterno", 32, requerido: true)
                         </div>
                         <div class="col-md-4">
-                            @WebControls.InputTextBoxFormGroup("Apellido Materno", "tbApMaterno", "Apellido Materno", 32)
+                            @WebControls.InputTextBoxFormGroup("Apellido Materno", "tbApMaterno", Model.ApMaterno, "Apellido Materno", 32, requerido: true)
                         </div>
                     </div>
-                    @WebControls.InputTextBoxFormGroup("Dirección", "tbDireccion", "Dirección", 64)
+                    @WebControls.InputTextBoxFormGroup("Dirección", "tbDireccion", Model.Direccion, "Dirección", 64)
                     <div class="row">
                         <div class="col-md-4">
-                            @WebControls.DropDownListFormGroup("Región", "ddlRegion", new Dictionary<string, string> { { "Chile", "1" } })
+                            @WebControls.DropDownListFormGroup("Región", "ddlRegion", Model.ListaRegiones(), Model.IdRegion.ToString())
                         </div>
                         <div class="col-md-4">
-                            @WebControls.DropDownListFormGroup("Provincia", "ddlProvincia", new Dictionary<string, string> { { "Chile", "1" } })
+                            @WebControls.DropDownListFormGroup("Provincia", "ddlProvincia", Model.ListaProvincias(), Model.IdProvincia.ToString())
                         </div>
                         <div class="col-md-4">
-                            @WebControls.DropDownListFormGroup("Comuna", "ddlComuna", new Dictionary<string, string> { { "Chile", "1" } })
+                            @WebControls.DropDownListFormGroup("Comuna", "ddlComuna", Model.ListaComunas(), Model.IdComuna.ToString())
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            @WebControls.InputEspecialFormGroup("Teléfono", "tbTelefono", "tel", "Ej: +569123456789", 16)
-                            @WebControls.InputEspecialFormGroup("Contraseña", "tbClave", "password", "Entre 6 y 16 letras y/o números", 16)
-                            @WebControls.CheckBoxFormGroup("Estado", "chkEstado", "Activo", check: true)
+                            @WebControls.InputEspecialFormGroup("Teléfono", "tbTelefono", Model.Telefono, "tel", "Ej: +569123456789", 16)
+                            @WebControls.InputPasswordFormGroup("Contraseña", "tbClave", Model.Clave, 16)
+                            @WebControls.CheckBoxFormGroup("Estado", "chkEstado", "Activo", isChecked: Model.Estado)
                         </div>
                         <div class="col-md-6">
                             @WebControls.ImageUpload("Imagen de referencia", "fupImagenOperador", placeholder: "Agregue una imagen para el operador")
                         </div>
                     </div>
-                </div>
-                <div class="box-footer text-center">
-                    @WebControls.BotonCancelar(alineado: "pull-left")
-                    @WebControls.BotonLimpiar()
-                    @WebControls.BotonAceptar(alineado: "pull-right")
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="box-footer text-center">
+                @WebControls.BotonCancelar(alineado: "pull-left")
+                @WebControls.BotonLimpiar()
+                @WebControls.BotonAceptar(alineado: "pull-right")
+            </div>
+            @WebControls.CargandoBox()
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnCancelar").click(function () {
+            $("#divFormulario").addClass("hide");
+            $("#divLista").removeClass("hide");
+        });
+
+        $("#btnLimpiar").click(function () {
+            $("#frmOperador").attr("data-id", null);
+            $("#frmOperador")
+                .find("#imgfupImagenOperador").html("").end()
+                .find(":radio, :checkbox").removeAttr("checked").end()
+                .find("textarea, :text, [type=tel], select").val("");
+        });
+
+        $("#btnAgregar").click(function () {
+            $("#mdlConfirmTitulo").html("@Model.TituloForm");
+            $("#mdlConfirmContenido").html("¿Esta seguro que desea guardar los cambios?");
+            $("#modalConfirm").modal("show");
+        });
+
+        $("#btnConfirmAceptar").click(function () {
+            $("#divFormulario .box.box-primary").append('@WebControls.CargandoBox()');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarOperador", "Operadores", new { area = "Mantenedores" })",
+                data: {
+                    idOperador: @Model.IdOperario,
+                    rutOperador: $("#tbRutOperador").val(),
+                    nombres: $("#tbNombres").val(),
+                    apPaterno: $("#tbApPaterno").val(),
+                    apMaterno: $("#tbApMaterno").val(),
+                    direccion: $("#tbDireccion").val(),
+                    idComuna: $("#ddlComuna :selected").val(),
+                    telefono: $("#tbTelefono").val(),
+                    imagen: "",
+                    idRol: $("#ddlRolOperario :selected").val(),
+                    clave: $("#tbClave").val(),
+                    estado: $("#chkEstado:checked").length > 0
+                },
+                success: function(response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloForm)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.IdOperario > 0 ? "actualizado" :"agregado") correctamente");
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.IdOperario > 0 ? "actualizar" :"agregar") los datos.");
+                    }
+
+                    return true;
+                },
+                error: function (xhr) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText);
+                    return false;
+                }
+            });
+            $("#modalConfirm").modal("hide");
+            $("#divFormulario").addClass("hide");
+            $("#divFormulario .box .overlay").remove();
+            $("#divLista").removeClass("hide");
+        });
+    });
+</script>

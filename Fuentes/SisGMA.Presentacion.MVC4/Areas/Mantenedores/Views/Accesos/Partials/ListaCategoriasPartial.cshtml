@@ -1,0 +1,107 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+<div class="row margin-bottom">
+    <div class="col-md-12 text-center">
+        @WebControls.BotonCrear("Agregar Categoria", "btnCrearCategoria", "200px")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.ListaCategorias != null)
+        {
+            <table id="tblCategorias" class="table table-bordered table-hover dataTable" role="grid">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var acceso in Model.ListaCategorias)
+                    {
+                        <tr>
+                            <td>@acceso.IdCategoriaAcceso</td>
+                            <td>@acceso.Categoria</td>
+                            <td id="estado">
+                                <a class="btn btn-flat btn-xs @(acceso.Estado ? "btn-success" : "btn-danger")" data-id="@acceso.IdCategoriaAcceso">@(acceso.Estado ? "Activo" : "Inactivo")</a>
+                            </td>
+                            <td id="acciones">
+                                <a class="btn btn-flat btn-xs btn-warning" data-id="@acceso.IdCategoriaAcceso">Editar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btnCrearCategoria").click(function () {
+        $("#frmCategoria").attr("data-id", null);
+        $("#frmCategoria")
+            .find(".modal-body .row .hide").removeClass("hide").end()
+            .find(".modal-header h4").text("Crear Categoría").end()
+            .find("textarea, :text, select").val("");
+        $("#modalCategoria").modal("show");
+    });
+
+    $("#tblCategorias #estado a").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CambiarEstadoCategoria", "Accesos", new {area = "Mantenedores"})",
+            data: {
+                idCategoria: $(this).data("id"),
+                estado: $(this).hasClass("btn-danger")
+            },
+            success: function (response) {
+                if (response) {
+                    $("#divMessage").html('@WebControls.AlertaCompletado("Estado de la categoría")');
+                    $("#alertSuccessMensaje").html("Se cambió el estado correctamente");
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("ObtenerListaCategorias", "Accesos", new {area = "Mantenedores"})",
+                        success: function (response) {
+                            if (response !== "") {
+                                $("#tabCategorias").html(response);
+                            } else {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                            $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                } else {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Estado de la categoría")');
+                    $("#alertDangerMensaje").html("Error al cambiar el estado.");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+            }
+        });
+    });
+
+    $("#tblCategorias #acciones a").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ObtenerDatosCategoria", "Accesos", new {area = "Mantenedores"})",
+            data: { idCategoria: $(this).data("id") },
+            success: function (response) {
+                if (response !== "") {
+                    $("#divModalCategoria").html(response);
+                    $("#modalCategoria").modal("show");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#modalCategoria").modal("hide");
+                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+            }
+        });
+    });
+</script>

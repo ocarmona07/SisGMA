@@ -41,13 +41,17 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public Accesos Get(int idItem)
         {
             try
             {
-                return _sisGmaEntities.Accesos.FirstOrDefault(o => o.IdAcceso == idItem); // TODO: Reemplazar Id
+                return _sisGmaEntities.Accesos.FirstOrDefault(o => o.IdAcceso == idItem);
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -87,9 +91,7 @@ namespace SisGMA.Datos.SystemDa
         {
             try
             {
-                _sisGmaEntities.Accesos.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -105,13 +107,51 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
+        public bool UpdateEstado(int idAcceso, bool estado)
+        {
+            try
+            {
+                var item = _sisGmaEntities.Accesos.FirstOrDefault(o => o.IdAcceso == idAcceso);
+                if (item != null)
+                {
+                    item.Estado = estado;
+                    _sisGmaEntities.Entry(item).State = EntityState.Modified;
+                    return _sisGmaEntities.SaveChanges() > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return false;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public bool Delete(int idItem)
         {
             try
             {
-                var entry = _sisGmaEntities.Accesos.FirstOrDefault(o => o.IdAcceso == idItem); // TODO: Reemplazar Id
+                var entry = _sisGmaEntities.Accesos.FirstOrDefault(o => o.IdAcceso == idItem);
                 _sisGmaEntities.Entry(entry).State = EntityState.Deleted;
                 return _sisGmaEntities.SaveChanges() > 0;
             }
@@ -126,6 +166,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

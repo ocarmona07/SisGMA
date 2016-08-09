@@ -41,6 +41,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public Notificaciones Get(int idItem)
@@ -87,14 +91,7 @@ namespace SisGMA.Datos.SystemDa
         {
             try
             {
-                _sisGmaEntities.Notificaciones.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.IdOperario).IsModified = true;
-                entry.Property(o => o.TituloNotificacion).IsModified = true;
-                entry.Property(o => o.Descripcion).IsModified = true;
-                entry.Property(o => o.Icono).IsModified = true;
-                entry.Property(o => o.IdNivel).IsModified = true;
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -109,6 +106,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -131,6 +132,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

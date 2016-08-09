@@ -1,9 +1,9 @@
-﻿using SisGMA.Entidades;
-using SisGMA.Entidades.Common;
-using SisGMA.Datos;
-
-namespace SisGMA.Negocio
+﻿namespace SisGMA.Negocio
 {
+    using Entidades;
+    using Entidades.Common;
+    using Datos;
+
     public class ClientesBo : BaseEntity
     {
         public Clientes Get(int idItem)
@@ -15,7 +15,5 @@ namespace SisGMA.Negocio
         {
             return new ClientesDa().Insert(item);
         }
-
-
     }
 }

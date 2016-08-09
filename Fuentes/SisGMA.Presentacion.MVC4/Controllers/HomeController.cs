@@ -11,6 +11,7 @@
         // GET: /View/
         public ActionResult Index()
         {
+            Response.Redirect("/Inicio");
             return View();
         }
     }

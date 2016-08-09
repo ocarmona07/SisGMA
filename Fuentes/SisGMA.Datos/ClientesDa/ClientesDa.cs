@@ -50,6 +50,10 @@ namespace SisGMA.Datos
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public Clientes Get(int idItem)
@@ -96,16 +100,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                _sisGmaEntities.Clientes.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Nombres).IsModified = true; // TODO: Reemplazar atributos
-                entry.Property(o => o.ApPaterno).IsModified = true;
-                entry.Property(o => o.ApMaterno).IsModified = true;
-                entry.Property(o => o.Direccion).IsModified = true;
-                entry.Property(o => o.Email).IsModified = true;
-                entry.Property(o => o.Telefono).IsModified = true;
-                entry.Property(o => o.IdComuna).IsModified = true;
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -120,6 +115,10 @@ namespace SisGMA.Datos
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -142,6 +141,10 @@ namespace SisGMA.Datos
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

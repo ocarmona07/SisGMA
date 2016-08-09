@@ -1,0 +1,82 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+<div id="modalCategoria" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="frmCategoria" role="form" @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "data-id=" + Model.DatosCategoria.IdCategoriaAcceso : null)>
+                <div class="modal-header">
+                    <h4 class="modal-title">@Model.TituloModalCategoria</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "hide" : "")">
+                            @WebControls.InputTextBoxFormGroup("ID", "tbIdCategoria", Model.DatosCategoria.IdCategoriaAcceso.ToString(), maxLenght: 6, requerido: true)
+                        </div>
+                        <div class="col-md-10">
+                            @WebControls.InputTextBoxFormGroup("Nombre de la Categoría", "tbNombreCategoria", Model.DatosCategoria.Categoria, maxLenght: 32, requerido: true)
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnAceptarCategoria" class="btn btn-flat btn-success">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnAceptarCategoria").click(function () {
+            if ($("#tbIdCategoria").val() === "" && !$("#frmCategoria .modal-body .row .col-md-2").hasClass("hide")) {
+                alert('Debe colocar un ID para la categoría');
+                return false;
+            }
+            if ($('#tbNombreCategoria').val() === '') {
+                alert('Debe colocar un nombre para la categoría');
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarCategoria", "Accesos", new {area = "Mantenedores"})",
+                data: {
+                    idCategoria: @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? MvcHtmlString.Create(Model.DatosCategoria.IdCategoriaAcceso.ToString()) : MvcHtmlString.Create("$('#tbIdCategoria').val()")),
+                    categoria: $("#tbNombreCategoria").val(),
+                    estado: "@Model.DatosCategoria.Estado"
+                    },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloModalCategoria)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "actualizado" :"agregado") correctamente");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaCategorias", "Accesos", new {area = "Mantenedores"})",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabCategorias").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "actualizar" :"agregar") los datos.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+            $("#modalCategoria").modal("hide");
+            return true;
+        });
+    });
+</script>

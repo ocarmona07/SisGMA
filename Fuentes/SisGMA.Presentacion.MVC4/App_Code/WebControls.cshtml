@@ -4,15 +4,20 @@
 @* Titulos *@
 
 @helper TituloPrincipal(string titulo)
-{
-    <h2>@titulo</h2>
-}
+{<h2>@titulo</h2>}
 
 @* Botones *@
 
 @helper BotonNormal(string texto, string idControl = "btnNormal", string width = "120px", string alineado = "")
 {
     <button type="button" id="@idControl" class="btn btn-flat btn-default @alineado" style="width: @width;">
+        @texto
+    </button>
+}
+
+@helper BotonCrear(string texto, string idControl = "btnCrear", string width = "120px", string alineado = "")
+{
+    <button type="button" id="@idControl" class="btn btn-flat btn-primary @alineado" style="width: @width;">
         @texto
     </button>
 }
@@ -43,41 +48,17 @@
 
 @* Mensajes y llamadas *@
 
-@helper MensajeAlertaDenegado(string titulo, string mensaje)
-{
-    <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-ban"></i> @titulo</h4>
-        @mensaje
-    </div>
-}
+@helper AlertaDenegado(string titulo, string idMensaje = "alertDangerMensaje")
+{<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> @titulo</h4><div id="@idMensaje"></div></div>}
 
-@helper MensajeAlertaInformacion(string titulo, string mensaje)
-{
-    <div class="alert alert-info alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-info"></i> @titulo</h4>
-        @mensaje
-    </div>
-}
+@helper AlertaInformacion(string titulo, string idMensaje = "alertInfoMensaje")
+{<div class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> @titulo</h4><div id="@idMensaje"></div></div>}
 
-@helper MensajeAlertaAdvertencia(string titulo, string mensaje)
-{
-    <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-warning"></i> @titulo</h4>
-        @mensaje
-    </div>
-}
+@helper AlertaAdvertencia(string titulo, string idMensaje = "alertWarningMensaje")
+{<div class="alert alert-warning alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-warning"></i> @titulo</h4><div id="@idMensaje"></div></div>}
 
-@helper MensajeAlertaCompletado(string titulo, string mensaje)
-{
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> @titulo</h4>
-        @mensaje
-    </div>
-}
+@helper AlertaCompletado(string titulo, string idMensaje = "alertSuccessMensaje")
+{<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> @titulo</h4><div id="@idMensaje"></div></div>}
 
 @helper MensajeLlamadaDenegado(string titulo, string mensaje)
 {
@@ -113,69 +94,114 @@
 
 @* Formulario *@
 
-@helper InputTextBoxFormGroup(string titulo, string idControl, string placeholder = "", int maxLenght = 0, string extraClases = "", bool disabled = false)
+@helper InputTextBoxFormGroup(string titulo, string idControl, string valor = null, string placeholder = "", int maxLenght = 0, string extraClases = "", bool requerido = false, bool disabled = false)
 {
     <div class="form-group">
         <label for="@idControl">@titulo</label>
         <input type="text" id="@idControl" class="form-control @extraClases"
                @(maxLenght > 0 ? "maxlength=" + maxLenght : "") @(disabled ? "disabled" : "")
-               placeholder="@placeholder">
+               @(!string.IsNullOrEmpty(valor) ? MvcHtmlString.Create("value=\"" + valor + "\"") : null)
+               @(requerido ? MvcHtmlString.Create("required") : null)
+               placeholder="@placeholder"/>
     </div>
 }
 
-@helper InputEspecialFormGroup(string titulo, string idControl, string type = "text", string placeholder = "", int maxLenght = 0, string extraClases = "", bool disabled = false)
+@helper InputPasswordFormGroup(string titulo, string idControl, string valor = null, int maxLenght = 0, string extraClases = "", bool disabled = false)
+{
+    <div class="form-group">
+        <label for="@idControl">@titulo</label>
+        <div class="input-group">
+            <input type="password" id="@idControl" class="form-control @extraClases"
+                   @(maxLenght > 0 ? "maxlength=" + maxLenght : null) @(disabled ? "disabled" : "")
+                   @(!string.IsNullOrEmpty(valor) ? MvcHtmlString.Create("value=\"" + valor + "\"") : null)
+                   placeholder="Entre 6 y 16 letras y/o números" required>
+            <div class="input-group-btn">
+                <button name="resetClave" type="button" class="btn btn-flat btn-danger">Resetear</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("[name='resetClave']").click(function() {
+                    $("[type='password']").val("");
+                });
+            });
+        </script>
+    </div>
+}
+
+@helper InputEspecialFormGroup(string titulo, string idControl, string valor = null, string type = "text", string placeholder = "", int maxLenght = 0, string extraClases = "", bool requerido = false, bool disabled = false)
 {
     <div class="form-group">
         <label for="@idControl">@titulo</label>
         <input type="@type" id="@idControl" class="form-control @extraClases"
                @(maxLenght > 0 ? "maxlength=" + maxLenght : "") @(disabled ? "disabled" : "")
+               @(!string.IsNullOrEmpty(valor) ? MvcHtmlString.Create("value=\"" + valor + "\"") : null)
+               @(requerido ? MvcHtmlString.Create("required") : null)
                placeholder="@placeholder">
     </div>
 }
 
-@helper DropDownListFormGroup(string titulo, string idControl, Dictionary<string, string> itemList, string placeholder = "Seleccione una opción...", bool disabled = false)
+@helper InputIconFormGroup(string titulo, string idControl, string valor = null, string placeholder = "", int maxLenght = 0, bool requerido = false, bool disabled = false)
 {
     <div class="form-group">
         <label for="@idControl">@titulo</label>
-        <select id="@idControl" class="form-control" @(disabled ? "disabled" : "")>
+        <div class="input-group iconpicker-container">
+            <input type="text" data-placement="bottomRight" id="@idControl" class="form-control"
+                   @(maxLenght > 0 ? "maxlength=" + maxLenght : "") @(disabled ? "disabled" : "")
+                   @(!string.IsNullOrEmpty(valor) ? MvcHtmlString.Create("value=\"" + valor + "\"") : null)
+                   @(requerido ? MvcHtmlString.Create("required") : null)
+                   placeholder="@placeholder" />
+            <span class="input-group-addon"><i class="fa fa-fw @(!string.IsNullOrEmpty(valor) ? valor : "")"></i></span>
+        </div>
+    </div>
+}
+
+@helper DropDownListFormGroup(string titulo, string idControl, Dictionary<string, string> itemList, string valor = null, string placeholder = "Seleccione una opción...", bool disabled = false)
+{
+    <div class="form-group">
+        <label for="@idControl">@titulo</label>
+        <select id="@idControl" class="form-control" @(disabled ? "disabled" : null)>
             <option value="">@placeholder</option>
             @foreach (var item in itemList)
             {
-                <option value="@item.Value">@item.Key</option>
+                <option value="@item.Value" @(valor == item.Value ? "selected" : null)>@item.Key</option>
             }
         </select>
     </div>
 }
 
-@helper CheckBoxFormGroup(string titulo, string idControl, string textoCheck, string extraClases = "", bool check = false, bool disabled = false)
+@helper CheckBoxFormGroup(string titulo, string idControl, string textoCheck, string extraClases = "", bool isChecked = false, bool disabled = false)
 {
     <div class="form-group">
         <label for="@idControl">@titulo</label>
         <div class="checkbox @extraClases">
             <label>
-                <input type="checkbox" id="@idControl" @(check ? "checked=\"checked\"" : "")>
+                <input type="checkbox" id="@idControl" @(isChecked ? "checked" : null) />
                 @textoCheck
             </label>
         </div>
     </div>
 }
 
-@helper ImageUpload(string titulo, string idControl, string widthPreview = "160px", string heightPreview = "160px", string placeholder = "Seleccione una imagen")
+@helper ImageUpload(string titulo, string idControl, string imagen = null, string widthPreview = "160px", string heightPreview = "160px", string placeholder = "Seleccione una imagen")
 {
     <div class="form-group">
-        <label for="@idControl">Imagen</label>
-        <input type="file" id="@idControl">
+        <label for="@(idControl)">Imagen</label>
+        <input type="file" id="@(idControl)">
         <p class="help-block">@placeholder</p>
     </div>
-    <div style="border: 1px dashed black; width: @widthPreview; height: @heightPreview;"></div>
+    <div id="img@(idControl)" style="border: 1px dashed black; width: @widthPreview; height: @heightPreview;">
+    @if (!string.IsNullOrEmpty(imagen))
+    {
+        <img src="~/Images/demo/avatar2.png" alt="" />
+    }
+    </div>
 }
 
 @helper CampoOculto(string idControl, string valor)
-{
-    <input type="hidden" id="@idControl" value="@valor" />
-}
+{<input type="hidden" id="@idControl" value="@valor" />}
 
-@helper BoxEspecial(string title, string body, string footer, string idForm = "frmBox", string boxColor = "box-default")
+@helper BoxEspecial(string title, MvcHtmlString body, MvcHtmlString footer, string idForm = "frmBox", string boxColor = "box-default")
 {
     <div class="box @boxColor">
         <div class="box-header with-border">
@@ -204,8 +230,8 @@
                 </div>
                 <div id="@idContenido" class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="@idBtnAceptar" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-flat pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="@idBtnAceptar" class="btn btn-flat btn-success">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -222,12 +248,17 @@
                 </div>
                 <div class="modal-body" id="@idContenido"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-flat btn-success" data-dismiss="modal">Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
 }
+
+@* Varios *@
+
+@helper CargandoBox()
+{<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>}
 
 @* Funciones generales *@
 
@@ -236,7 +267,6 @@
     public static string GetMethod()
     {
         var response = "";
-        
         return response;
     }
 }

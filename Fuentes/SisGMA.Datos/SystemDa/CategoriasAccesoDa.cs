@@ -41,6 +41,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public CategoriasAcceso Get(int idItem)
@@ -87,10 +91,7 @@ namespace SisGMA.Datos.SystemDa
         {
             try
             {
-                _sisGmaEntities.CategoriasAcceso.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Categoria).IsModified = true;
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -105,6 +106,44 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
+        public bool UpdateEstado(int idCategoria, bool estado)
+        {
+            try
+            {
+                var item = _sisGmaEntities.CategoriasAcceso.FirstOrDefault(o => o.IdCategoriaAcceso == idCategoria);
+                if (item != null)
+                {
+                    item.Estado = estado;
+                    _sisGmaEntities.Entry(item).State = EntityState.Modified;
+                    return _sisGmaEntities.SaveChanges() > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return false;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -127,6 +166,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

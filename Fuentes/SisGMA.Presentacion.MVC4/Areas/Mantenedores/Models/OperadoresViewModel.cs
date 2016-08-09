@@ -1,4 +1,6 @@
-﻿namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
+﻿using SisGMA.Negocio.SystemBo;
+
+namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -23,17 +25,19 @@
         public string Clave { get; set; }
         public bool Estado { get; set; }
 
-        public List<OperadoresViewModel> ListaOperadores  { get; set; }
+        public List<OperadoresViewModel> ListaOperadores { get; set; }
 
         public OperadoresViewModel ToViewModel(Operarios operario)
         {
             var retorno = new OperadoresViewModel();
             if (operario != null)
             {
+                var rutNum = int.Parse(operario.RutOperario.Substring(0, operario.RutOperario.Length - 1));
+                var rutDv = operario.RutOperario.Substring(operario.RutOperario.Length - 1, 1);
                 retorno = new OperadoresViewModel
                 {
                     IdOperario = operario.IdOperario,
-                    RutOperario = operario.RutOperario,
+                    RutOperario = rutNum.ToString("N0") + "-" + rutDv,
                     Nombres = operario.Nombres,
                     ApPaterno = operario.ApPaterno,
                     ApMaterno = operario.ApMaterno,
@@ -79,6 +83,66 @@
             }
 
             return list;
+        }
+
+        public Dictionary<string, string> ListaRegiones()
+        {
+            var response = new Dictionary<string, string>();
+            var regiones = new SelectoresBo().ObtenerRegiones();
+            if (regiones != null)
+            {
+                foreach (var region in regiones)
+                {
+                    response.Add(region.Region, region.IdRegion.ToString());
+                }
+            }
+
+            return response;
+        }
+
+        public Dictionary<string, string> ListaProvincias()
+        {
+            var response = new Dictionary<string, string>();
+            var provincias = new SelectoresBo().ObtenerProvincias();
+            if (provincias != null)
+            {
+                foreach (var provincia in provincias)
+                {
+                    response.Add(provincia.Provincia, provincia.IdProvincia.ToString());
+                }
+            }
+
+            return response;
+        }
+
+        public Dictionary<string, string> ListaComunas()
+        {
+            var response = new Dictionary<string, string>();
+            var comunas = new SelectoresBo().ObtenerComunas();
+            if (comunas != null)
+            {
+                foreach (var comuna in comunas)
+                {
+                    response.Add(comuna.Comuna, comuna.IdComuna.ToString());
+                }
+            }
+
+            return response;
+        }
+
+        public Dictionary<string, string> ListaRoles()
+        {
+            var response = new Dictionary<string, string>();
+            var roles = new SelectoresBo().ObtenerRoles();
+            if (roles != null)
+            {
+                foreach (var rol in roles)
+                {
+                    response.Add(rol.Rol, rol.IdRol.ToString());
+                }
+            }
+
+            return response;
         }
     }
 }

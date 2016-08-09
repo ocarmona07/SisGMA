@@ -4,9 +4,7 @@
 @* Configuración Layout Master *@
 
 @helper MasterSkin(string skin)
-{
-    @(string.IsNullOrEmpty(skin) ? "skin-black" : skin)
-}
+{@(string.IsNullOrEmpty(skin) ? "skin-black" : skin)}
 
 @helper Notificaciones(List<NotificacionesViewModel> notificaciones)
 {
@@ -35,10 +33,7 @@
 }
 
 @helper CrearNotificacion(string titulo, string icono = "", string colorIcono = "")
-{
-    const string link = "#";
-    <li><a href="@link"><i class="fa @icono @colorIcono"></i>@titulo</a></li>
-}
+{const string link = "#"; <li><a href="@link"><i class="fa @icono @colorIcono"></i>@titulo</a></li>}
 
 @helper SidebarMenu()
 {
@@ -66,15 +61,15 @@
     <!-- /.search form -->*@
     @* sidebar menu: : style can be found in sidebar.less *@
     <ul class="sidebar-menu">
-        @foreach (var categoria in new GeneralBo().GetMenu().Where(item => item.Estado).ToList())
+        @foreach (var categoria in new GeneralBo().GetMenu())
         {
             <li class="header">@categoria.Categoria</li>
-            foreach (var acceso in categoria.Accesos.Where(e => e.IdAccesoPadre == null).ToList())
+            foreach (var acceso in categoria.Accesos.Where(e => e.IdAccesoPadre == null && e.Estado))
             {
                 if (acceso.Accesos1.Count == 0)
                 {
                     <li>
-                        <a href="@acceso.UrlAcceso" alt="@acceso.Descripcion">
+                        <a href="@acceso.UrlAcceso" alt="@acceso.Descripcion" title="@acceso.Descripcion">
                             <i class="fa @acceso.Icono"></i>
                             <span>@acceso.NombreAcceso</span>
                         </a>
@@ -83,15 +78,15 @@
                 }
 
                 <li class="treeview">
-                    <a href="#" alt="@acceso.Descripcion">
+                    <a href="#" alt="@acceso.Descripcion" title="@acceso.Descripcion">
                         <i class="fa @acceso.Icono"></i>
                         <span>@acceso.NombreAcceso</span>
                     </a>
                     <ul class="treeview-menu">
-                        @foreach (var subAcceso in acceso.Accesos1.Where(e => e.IdAccesoPadre != null).ToList())
+                        @foreach (var subAcceso in acceso.Accesos1.Where(e => e.IdAccesoPadre != null && e.Estado))
                         {
                             <li>
-                                <a href="@subAcceso.UrlAcceso" alt="@subAcceso.Descripcion">
+                                <a href="@subAcceso.UrlAcceso" alt="@subAcceso.Descripcion" title="@subAcceso.Descripcion">
                                     <i class="fa @subAcceso.Icono"></i>@subAcceso.NombreAcceso
                                 </a>
                             </li>
@@ -107,7 +102,7 @@
 {
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 0.2.0
+            <b>Version</b> 0.3.1
         </div>
         <strong>
             Copyright &copy; 2012-@DateTime.Today.Year
@@ -288,37 +283,4 @@
         </div>
     </aside>
     <div class="control-sidebar-bg"></div>
-}
-
-@functions{
-    public class WebPrincipal
-    {
-        public static string[] GetStyles()
-        {
-            var defaultStylesFolder = "~/Styles/";
-            var styles = new[]
-            {
-                defaultStylesFolder + "bootstrap.min.css",
-                defaultStylesFolder + "font-awesome.min.css",
-                defaultStylesFolder + "AdminLTE.min.css",
-                defaultStylesFolder + "skins/_all-skins.min.css"
-            };
-            return styles;
-        }
-
-        public static string[] GetScripts()
-        {
-            var defaultScriptsFolder = "~/Scripts/";
-            var defaultPluginsFolder = "~/Plugins/";
-            var styles = new[]
-            {
-                defaultPluginsFolder + "jQuery/jQuery-2.2.0.min.js",
-                defaultScriptsFolder + "bootstrap.min.js",
-                defaultScriptsFolder + "app.min.js",
-                defaultPluginsFolder + "fastclick/fastclick.js",
-                defaultPluginsFolder + "slimScroll/jquery.slimscroll.min.js"
-            };
-            return styles;
-        }
-    }
 }

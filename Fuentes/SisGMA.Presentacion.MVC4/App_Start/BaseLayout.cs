@@ -34,5 +34,33 @@ namespace SisGMA.Presentacion.MVC4
 
             return response;
         }
+
+        public string[] GetStyles()
+        {
+            var defaultStylesFolder = "~/Styles/";
+            var styles = new[]
+            {
+                defaultStylesFolder + "bootstrap.min.css",
+                defaultStylesFolder + "font-awesome.min.css",
+                defaultStylesFolder + "AdminLTE.min.css",
+                defaultStylesFolder + "skins/_all-skins.min.css"
+            };
+            return styles;
+        }
+
+        public string[] GetScripts()
+        {
+            var defaultScriptsFolder = "~/Scripts/";
+            var defaultPluginsFolder = "~/Plugins/";
+            var styles = new[]
+            {
+                defaultPluginsFolder + "jQuery/jQuery-2.2.0.min.js",
+                defaultScriptsFolder + "bootstrap.min.js",
+                defaultScriptsFolder + "app.min.js",
+                defaultPluginsFolder + "fastclick/fastclick.js",
+                defaultPluginsFolder + "slimScroll/jquery.slimscroll.min.js"
+            };
+            return styles;
+        }
     }
 }

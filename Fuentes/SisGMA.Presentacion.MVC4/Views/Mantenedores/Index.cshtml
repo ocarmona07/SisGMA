@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Section = "Mantenedores";
-    ViewBag.Title = "SisGMA - " + ViewBag.Section;
+    ViewBag.Title = ViewBag.Section;
     var menuItems = new SisGMA.Negocio.GeneralBo().GetMenu().FirstOrDefault(cat => cat.IdCategoriaAcceso == 2) ??
         new SisGMA.Entidades.CategoriasAcceso();
     var boxColors = new[] { "bg-aqua", "bg-green", "bg-yellow", "bg-red", "bg-purple" };

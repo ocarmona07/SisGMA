@@ -38,6 +38,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public List<Provincias> ObtenerProvincias()
@@ -57,6 +61,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -78,6 +86,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public List<Roles> ObtenerRoles()
@@ -97,6 +109,58 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
+        public List<CategoriasAcceso> ObtenerCategorias()
+        {
+            try
+            {
+                return _sisGmaEntities.CategoriasAcceso.ToList();
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return null;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
+        public List<Accesos> ObtenerAccesos()
+        {
+            try
+            {
+                return _sisGmaEntities.Accesos.ToList();
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return null;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
 
@@ -118,6 +182,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public List<MarcaVehiculos> ObtenerMarcaVehiculos()
@@ -138,6 +206,10 @@ namespace SisGMA.Datos.SystemDa
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
             }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
         }
 
         public List<ModeloVehiculos> ObtenerModeloVehiculos()
@@ -157,6 +229,10 @@ namespace SisGMA.Datos.SystemDa
                 IsValid = false;
                 ErrorMessage = e.GetBaseException().Message;
                 return null;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
             }
         }
     }

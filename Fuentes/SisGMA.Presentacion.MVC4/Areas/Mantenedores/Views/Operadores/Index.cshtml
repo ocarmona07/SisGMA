@@ -1,7 +1,7 @@
 ﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.OperadoresViewModel
 @{
     ViewBag.Section = "Operadores";
-    ViewBag.Title = "SisGMA - Mantenedores - " + ViewBag.Section;
+    ViewBag.Title = "Mantenedores - " + ViewBag.Section;
     var message = new SisGMA.Presentacion.MVC4.BaseLayout().GetMessage("Operadores", "CrearOperador", "IngresoOperadorOk");
     if (message != null && message.Any())
     {
@@ -9,7 +9,6 @@
         ViewBag.MessageContent = message["Message"];
     }
 }
-
 <section class="content-header">
     <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
@@ -27,13 +26,11 @@
         @Html.Partial("Partials/ListaOperadoresPartial", Model)
     </div>
 </section>
-
 @section Modals
 {
     @WebControls.ModalConfirmar()
     @WebControls.ModalInformar()
 }
-
 @section Scripts
 {
     @Styles.Render("/plugins/select2/select2.min.css")
@@ -42,64 +39,25 @@
     @Scripts.Render("/plugins/datatables/jquery.dataTables.min.js")
     @Scripts.Render("/plugins/datatables/dataTables.bootstrap.min.js")
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#btnEditarOperario").click(function () {
-                // TODO: cargar operario
-                $("#mdlInfoTitulo").html($(this).attr("data-id"));
-                $("#modalAlert").modal("show");
-                var response = "";
-                //$.ajax({
-                //    type: "POST",
-                //    url: "/Mantenedores/Operadores.aspx/ObtenerOperario",
-                //    data: "{idOperario:" + $(this).attr("data-id") + "}",
-                //    contentType: "application/json; charset=utf-8",
-                //    dataType: "json",
-                //    success: function (respon) {
-                //        response = respon;
-                //        if (response !== "") {
-                //            $("#tbRutOperador").val(response.d);
-                //            $("#tbNombres").val(response.d);
-                //            $("#tbApPaterno").val(response.d);
-                //            $("#tbApMaterno").val(response.d);
-                //        }
-                //    },
-                //    error: function (xhr, ajaxOptions, thrownError) {
-                //        alert(xhr.responseJSON.Message);
-                //    }
-                //});
-                //$("#listaOperadores").hide();
-                //$("#dataOperador").show();
-            });
-
-            $("#btnCancelar").click(function () {
-                $("#tbRutOperador").val("@Model.RutOperario");
-                $("#tbNombres").val("@Model.Nombres");
-                $("#tbApPaterno").val("@Model.ApPaterno");
-                $("#tbApMaterno").val("@Model.ApMaterno");
-                $("#tbDireccion").val("@Model.Direccion");
-                $("#tbTelefono").val("@Model.Telefono");
-                /*$("#modalConfirm").modal("show");
-                $("#dataOperador").hide();
-                // TODO: Resetear formulario
-                $("#listaOperadores").show();//*/
-            });
-
-            $("#btnAgregar").click(function () {
-                $("#modalConfirm").modal("show", function () {
-                    // TODO: guardar/actualizar operario
-                    $("#mdlInfoTitulo").html($("#tbNombres").val());
-                    $("#mdlInfoContenido").html($("#tbApPaterno").val());
+        $(document).ready(function() {
+            $("#acciones a").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ObtenerOperador", "Operadores", new {area = "Mantenedores"})",
+                    data: { idOperador: $(this).data("id") },
+                    success: function(response) {
+                        if (response !== "") {
+                            $("#divFormulario").html(response);
+                            $("#divFormulario .box .overlay").remove();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                    }
                 });
-            });
-
-            $("#ddlRegion").select2({
-                "language": "es"
-            });
-            $("#ddlProvincia").select2({
-                "language": "es"
-            });
-            $("#ddlComuna").select2({
-                "language": "es"
+                $("#divLista").addClass("hide");
+                $("#divFormulario").removeClass("hide");
             });
 
             $('#tblOperarios').DataTable({

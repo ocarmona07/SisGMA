@@ -133,6 +133,7 @@
     <Compile Include="Areas\Mantenedores\Controllers\OperadoresController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\ProveedoresController.cs" />
     <Compile Include="Areas\Mantenedores\MantenedoresAreaRegistration.cs" />
+    <Compile Include="Areas\Mantenedores\Models\AccesosViewModel.cs" />
     <Compile Include="Areas\Mantenedores\Models\OperadoresViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
@@ -735,6 +736,10 @@
     <Content Include="Plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Plugins\daterangepicker\moment.js" />
     <Content Include="Plugins\daterangepicker\moment.min.js" />
+    <Content Include="Plugins\fapicker\css\fontawesome-iconpicker.css" />
+    <Content Include="Plugins\fapicker\css\fontawesome-iconpicker.min.css" />
+    <Content Include="Plugins\fapicker\js\fontawesome-iconpicker.js" />
+    <Content Include="Plugins\fapicker\js\fontawesome-iconpicker.min.js" />
     <Content Include="Plugins\fastclick\fastclick.js" />
     <Content Include="Plugins\fastclick\fastclick.min.js" />
     <Content Include="Plugins\flot\excanvas.js" />
@@ -1127,6 +1132,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Mantenedores\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Accesos\Partials\ListaAccesosPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Accesos\Partials\ModalAccesoPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Accesos\Partials\ModalCategoriaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Accesos\Partials\ListaCategoriasPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

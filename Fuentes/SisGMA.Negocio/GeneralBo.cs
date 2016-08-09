@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SisGMA.Entidades;
-using SisGMA.Datos.SystemDa;
-
-namespace SisGMA.Negocio
+﻿namespace SisGMA.Negocio
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Entidades;
+    using Datos.SystemDa;
+
     public class GeneralBo
     {
         public List<Notificaciones> GetNotificaciones()
@@ -14,7 +14,7 @@ namespace SisGMA.Negocio
 
         public List<CategoriasAcceso> GetMenu()
         {
-            return new CategoriasAccesoDa().GetAll();
+            return new CategoriasAccesoDa().GetAll().Where(item => item.Estado).ToList();
         }
 
         /// <summary>
@@ -31,7 +31,6 @@ namespace SisGMA.Negocio
                 rut = rut.Replace("-", "");
                 var rutAux = int.Parse(rut.Substring(0, rut.Length - 1));
                 var dv = char.Parse(rut.Substring(rut.Length - 1, 1));
-
                 int m = 0, s = 1;
                 for (; rutAux != 0; rutAux /= 10)
                 {

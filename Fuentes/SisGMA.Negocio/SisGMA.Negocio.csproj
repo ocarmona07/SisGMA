@@ -43,6 +43,7 @@
     <Compile Include="ClientesBo.cs" />
     <Compile Include="OperariosBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemBo\AccesosBo.cs" />
     <Compile Include="SystemBo\SelectorsBo.cs" />
   </ItemGroup>
   <ItemGroup>
