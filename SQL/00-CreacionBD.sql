@@ -27,6 +27,17 @@ IF EXISTS ( SELECT  1
                     JOIN sys.sysobjects o ON ( o.id = r.constid
                                                AND o.type = 'F'
                                              )
+            WHERE   r.fkeyid = OBJECT_ID('CategoriasProductos')
+                    AND o.name = 'FK_CATEGORI_REFERENCE_CATEGORI' )
+    ALTER TABLE CategoriasProductos
+    DROP CONSTRAINT FK_CATEGORI_REFERENCE_CATEGORI
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
             WHERE   r.fkeyid = OBJECT_ID('Clientes')
                     AND o.name = 'FK_CLIENTES_REFERENCE_COMUNAS' )
     ALTER TABLE Clientes
@@ -160,9 +171,9 @@ IF EXISTS ( SELECT  1
                                                AND o.type = 'F'
                                              )
             WHERE   r.fkeyid = OBJECT_ID('Productos')
-                    AND o.name = 'FK_PRODUCTO_REFERENCE_SUBCATEG' )
+                    AND o.name = 'FK_PRODUCTO_REFERENCE_CATEGORI' )
     ALTER TABLE Productos
-    DROP CONSTRAINT FK_PRODUCTO_REFERENCE_SUBCATEG
+    DROP CONSTRAINT FK_PRODUCTO_REFERENCE_CATEGORI
 GO
 
 IF EXISTS ( SELECT  1
@@ -236,17 +247,6 @@ IF EXISTS ( SELECT  1
                     JOIN sys.sysobjects o ON ( o.id = r.constid
                                                AND o.type = 'F'
                                              )
-            WHERE   r.fkeyid = OBJECT_ID('Subcategorias')
-                    AND o.name = 'FK_SUBCATEG_REFERENCE_CATEGORI' )
-    ALTER TABLE Subcategorias
-    DROP CONSTRAINT FK_SUBCATEG_REFERENCE_CATEGORI
-GO
-
-IF EXISTS ( SELECT  1
-            FROM    sys.sysreferences r
-                    JOIN sys.sysobjects o ON ( o.id = r.constid
-                                               AND o.type = 'F'
-                                             )
             WHERE   r.fkeyid = OBJECT_ID('Vehiculos')
                     AND o.name = 'FK_VEHICULO_REFERENCE_MODELOVE' )
     ALTER TABLE Vehiculos
@@ -262,16 +262,16 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
-            WHERE   id = OBJECT_ID('Categorias')
+            WHERE   id = OBJECT_ID('CategoriasAcceso')
                     AND type = 'U' )
-    DROP TABLE Categorias
+    DROP TABLE CategoriasAcceso
 GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
-            WHERE   id = OBJECT_ID('CategoriasAcceso')
+            WHERE   id = OBJECT_ID('CategoriasProductos')
                     AND type = 'U' )
-    DROP TABLE CategoriasAcceso
+    DROP TABLE CategoriasProductos
 GO
 
 IF EXISTS ( SELECT  1
@@ -402,13 +402,6 @@ GO
 
 IF EXISTS ( SELECT  1
             FROM    sysobjects
-            WHERE   id = OBJECT_ID('Subcategorias')
-                    AND type = 'U' )
-    DROP TABLE Subcategorias
-GO
-
-IF EXISTS ( SELECT  1
-            FROM    sysobjects
             WHERE   id = OBJECT_ID('Vehiculos')
                     AND type = 'U' )
     DROP TABLE Vehiculos
@@ -421,25 +414,13 @@ CREATE TABLE Accesos
     (
       IdAcceso INT NOT NULL ,
       IdAccesoPadre INT NULL ,
-      IdCategoriaAcceso INT NULL ,
+      IdCategoriaAcceso INT NOT NULL ,
       NombreAcceso NVARCHAR(32) NOT NULL ,
       Descripcion NVARCHAR(256) NULL ,
       Icono NVARCHAR(32) NULL ,
       UrlAcceso NVARCHAR(512) NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_ACCESOS PRIMARY KEY ( IdAcceso )
-    )
-GO
-
-/*==============================================================*/
-/* Table: Categorias                                            */
-/*==============================================================*/
-CREATE TABLE Categorias
-    (
-      IdCategoria INT IDENTITY ,
-      Categoria NVARCHAR(32) NOT NULL ,
-      Estado BIT NOT NULL ,
-      CONSTRAINT PK_CATEGORIAS PRIMARY KEY ( IdCategoria )
     )
 GO
 
@@ -456,6 +437,21 @@ CREATE TABLE CategoriasAcceso
 GO
 
 /*==============================================================*/
+/* Table: CategoriasProductos                                   */
+/*==============================================================*/
+CREATE TABLE CategoriasProductos
+    (
+      IdCategoria INT IDENTITY ,
+      IdCategoriaPadre INT NULL ,
+      Codigo VARCHAR(16) NOT NULL ,
+      Categoria NVARCHAR(32) NOT NULL ,
+      Icono VARCHAR(32) NULL ,
+      Estado BIT NOT NULL ,
+      CONSTRAINT PK_CATEGORIASPRODUCTOS PRIMARY KEY ( IdCategoria )
+    )
+GO
+
+/*==============================================================*/
 /* Table: Clientes                                              */
 /*==============================================================*/
 CREATE TABLE Clientes
@@ -466,7 +462,7 @@ CREATE TABLE Clientes
       ApPaterno NVARCHAR(32) NOT NULL ,
       ApMaterno NVARCHAR(32) NULL ,
       Direccion NVARCHAR(64) NULL ,
-      IdComuna INT NULL ,
+      IdComuna INT NOT NULL ,
       Telefono NVARCHAR(16) NOT NULL ,
       Email NVARCHAR(64) NULL ,
       Clave NVARCHAR(16) NULL ,
@@ -481,8 +477,8 @@ GO
 CREATE TABLE ClientesVehiculos
     (
       IdClienteVehiculo INT NOT NULL ,
-      IdVehiculo INT NULL ,
-      IdCliente INT NULL ,
+      IdVehiculo INT NOT NULL ,
+      IdCliente INT NOT NULL ,
       CONSTRAINT PK_CLIENTESVEHICULOS PRIMARY KEY ( IdClienteVehiculo )
     )
 GO
@@ -493,7 +489,7 @@ GO
 CREATE TABLE Comunas
     (
       IdComuna INT NOT NULL ,
-      IdProvincia INT NULL ,
+      IdProvincia INT NOT NULL ,
       Comuna NVARCHAR(32) NOT NULL ,
       CONSTRAINT PK_COMUNAS PRIMARY KEY ( IdComuna )
     )
@@ -505,7 +501,7 @@ GO
 CREATE TABLE ControlProduccion
     (
       IdControlProd INT NOT NULL ,
-      IdOperario INT NULL ,
+      IdOperario INT NOT NULL ,
       FechaEntrega DATE NOT NULL ,
       ValorNeto MONEY NOT NULL ,
       CONSTRAINT PK_CONTROLPRODUCCION PRIMARY KEY ( IdControlProd )
@@ -518,8 +514,8 @@ GO
 CREATE TABLE GastosDiarios
     (
       IdGastoDiario INT IDENTITY ,
-      IdOperario INT NULL ,
-      IdProveedor INT NULL ,
+      IdOperario INT NOT NULL ,
+      IdProveedor INT NOT NULL ,
       FechaIngreso DATE NOT NULL ,
       Monto MONEY NOT NULL ,
       Observaciones NVARCHAR(MAX) NULL ,
@@ -571,7 +567,7 @@ GO
 CREATE TABLE ModeloVehiculos
     (
       IdModelo INT NOT NULL ,
-      IdMarca INT NULL ,
+      IdMarca INT NOT NULL ,
       Modelo NVARCHAR(32) NOT NULL ,
       CONSTRAINT PK_MODELOVEHICULOS PRIMARY KEY ( IdModelo )
     )
@@ -594,7 +590,7 @@ GO
 CREATE TABLE Notificaciones
     (
       IdNotificacion INT IDENTITY ,
-      IdOperario INT NULL ,
+      IdOperario INT NOT NULL ,
       TituloNotificacion NVARCHAR(128) NOT NULL ,
       Descripcion NVARCHAR(MAX) NULL ,
       Color NVARCHAR(16) NOT NULL ,
@@ -617,10 +613,10 @@ CREATE TABLE Operarios
       ApPaterno NVARCHAR(32) NOT NULL ,
       ApMaterno NVARCHAR(32) NOT NULL ,
       Direccion NVARCHAR(64) NULL ,
-      IdComuna INT NULL ,
+      IdComuna INT NOT NULL ,
       Telefono NVARCHAR(16) NULL ,
       Imagen NVARCHAR(MAX) NULL ,
-      IdRol INT NULL ,
+      IdRol INT NOT NULL ,
       Clave NVARCHAR(16) NOT NULL ,
       Estado BIT NOT NULL ,
       CONSTRAINT PK_OPERARIOS PRIMARY KEY ( IdOperario )
@@ -633,8 +629,8 @@ GO
 CREATE TABLE Productos
     (
       IdProducto INT IDENTITY ,
-      IdSubcategoria INT NULL ,
-      IdMarca INT NULL ,
+      IdCategoria INT NOT NULL ,
+      IdMarca INT NOT NULL ,
       IdProveedor INT NULL ,
       Codigo NVARCHAR(32) NOT NULL ,
       Descripcion NVARCHAR(MAX) NULL ,
@@ -652,7 +648,7 @@ GO
 CREATE TABLE Proveedores
     (
       IdProveedor INT IDENTITY ,
-      IdGiro INT NULL ,
+      IdGiro INT NOT NULL ,
       Nombre NVARCHAR(128) NOT NULL ,
       Telefono INT NULL ,
       Observaciones NVARCHAR(MAX) NULL ,
@@ -666,7 +662,7 @@ GO
 CREATE TABLE Provincias
     (
       IdProvincia INT NOT NULL ,
-      IdRegion INT NULL ,
+      IdRegion INT NOT NULL ,
       Provincia NVARCHAR(64) NOT NULL ,
       CONSTRAINT PK_PROVINCIAS PRIMARY KEY ( IdProvincia )
     )
@@ -701,22 +697,9 @@ GO
 CREATE TABLE RolesAccesos
     (
       IdRolAcceso INT NOT NULL ,
-      IdRol INT NULL ,
-      IdAcceso INT NULL ,
+      IdRol INT NOT NULL ,
+      IdAcceso INT NOT NULL ,
       CONSTRAINT PK_ROLESACCESOS PRIMARY KEY ( IdRolAcceso )
-    )
-GO
-
-/*==============================================================*/
-/* Table: Subcategorias                                         */
-/*==============================================================*/
-CREATE TABLE Subcategorias
-    (
-      IdSubcategoria INT IDENTITY ,
-      IdCategoria INT NULL ,
-      Subcategoria NVARCHAR(32) NOT NULL ,
-      Estado BIT NOT NULL ,
-      CONSTRAINT PK_SUBCATEGORIAS PRIMARY KEY ( IdSubcategoria )
     )
 GO
 
@@ -726,7 +709,7 @@ GO
 CREATE TABLE Vehiculos
     (
       IdVehiculo INT IDENTITY ,
-      IdModelo INT NULL ,
+      IdModelo INT NOT NULL ,
       Patente NVARCHAR(8) NOT NULL ,
       KmIngreso INT NOT NULL ,
       Anio INT NOT NULL ,
@@ -745,6 +728,11 @@ GO
 ALTER TABLE Accesos
 ADD CONSTRAINT FK_ACCESOS_REFERENCE_CATEGORI FOREIGN KEY (IdCategoriaAcceso)
 REFERENCES CategoriasAcceso (IdCategoriaAcceso)
+GO
+
+ALTER TABLE CategoriasProductos
+ADD CONSTRAINT FK_CATEGORI_REFERENCE_CATEGORI FOREIGN KEY (IdCategoriaPadre)
+REFERENCES CategoriasProductos (IdCategoria)
 GO
 
 ALTER TABLE Clientes
@@ -808,8 +796,8 @@ REFERENCES Roles (IdRol)
 GO
 
 ALTER TABLE Productos
-ADD CONSTRAINT FK_PRODUCTO_REFERENCE_SUBCATEG FOREIGN KEY (IdSubcategoria)
-REFERENCES Subcategorias (IdSubcategoria)
+ADD CONSTRAINT FK_PRODUCTO_REFERENCE_CATEGORI FOREIGN KEY (IdCategoria)
+REFERENCES CategoriasProductos (IdCategoria)
 GO
 
 ALTER TABLE Productos
@@ -840,11 +828,6 @@ GO
 ALTER TABLE RolesAccesos
 ADD CONSTRAINT FK_ROLESACC_REFERENCE_ACCESOS FOREIGN KEY (IdAcceso)
 REFERENCES Accesos (IdAcceso)
-GO
-
-ALTER TABLE Subcategorias
-ADD CONSTRAINT FK_SUBCATEG_REFERENCE_CATEGORI FOREIGN KEY (IdCategoria)
-REFERENCES Categorias (IdCategoria)
 GO
 
 ALTER TABLE Vehiculos
