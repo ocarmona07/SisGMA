@@ -116,7 +116,7 @@ namespace SisGMA.Datos.SystemDa
             }
         }
 
-        public List<CategoriasAcceso> ObtenerCategorias()
+        public List<CategoriasAcceso> ObtenerCategoriasAccesos()
         {
             try
             {

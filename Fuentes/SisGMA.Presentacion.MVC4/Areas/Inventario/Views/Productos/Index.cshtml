@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Section = "Productos";
+    ViewBag.Title = "Inventario - " + ViewBag.Section;
+}
+<section class="content-header">
+    <h1>@ViewBag.Section</h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Inicio", new { area = "" })"><i class="fa fa-home"></i>Inicio</a></li>
+        <li><a href="@Url.Action("Index", "Inventario", new { area = "" })">Inventario</a></li>
+        <li class="active">@ViewBag.Section</li>
+    </ol>
+</section>
+<section class="content">
+    
+</section>

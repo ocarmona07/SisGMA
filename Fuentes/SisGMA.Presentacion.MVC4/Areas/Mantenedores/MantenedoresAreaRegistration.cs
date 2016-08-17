@@ -17,7 +17,7 @@ namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores
             context.MapRoute(
                 "Mantenedores_default",
                 "Mantenedores/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", area = "Mantenedores", id = UrlParameter.Optional }
             );
         }
     }

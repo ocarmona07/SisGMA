@@ -2,7 +2,7 @@
 <div id="modalAcceso" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="frmAcceso" role="form" @(Model.DatosAcceso.IdAcceso > 0 ? "data-id=" + Model.DatosAcceso.IdAcceso : null)>
+            <form id="frmAcceso" role="form" data-id="@(Model.DatosAcceso.IdAcceso > 0 ? Model.DatosAcceso.IdAcceso : 0)">
                 <div class="modal-header">
                     <h4 class="modal-title">@Model.TituloModalAcceso</h4>
                 </div>
@@ -84,9 +84,16 @@
             }
         });
         $("#btnAceptarAcceso").click(function () {
-            if ($("#tbIdAcceso").val() === "") {
-                alert('Debe colocar un ID para el acceso');
-                return false;
+            var idAccess;
+            if ($("#frmAcceso .modal-body .row .col-md-2").hasClass("hide")) {
+                idAccess = $("#frmAcceso").attr("data-id");
+            } else {
+                if (isNaN(parseInt($("#tbIdAcceso").val()))) {
+                    alert('Debe colocar un ID para el acceso');
+                    return false;
+                } else {
+                    idAccess = $("#tbIdAcceso").val();
+                }
             }
             if ($("#ddlCategoria option:selected").val() === "") {
                 alert('Debe seleccionar una categoría');
@@ -101,7 +108,7 @@
                 type: "POST",
                 url: "@Url.Action("GuardarAcceso", "Accesos", new {area = "Mantenedores"})",
                 data: {
-                    idAcceso: @(Model.DatosAcceso.IdAcceso > 0 ? MvcHtmlString.Create(Model.DatosAcceso.IdAcceso.ToString()) : MvcHtmlString.Create("$('#tbIdAcceso').val()")),
+                    idAcceso: parseInt(idAccess),
                     idCategoriaAcceso: $("#ddlCategoria option:selected").val(),
                     idAccesoPadre: $("#ddlAccesoPadre option:selected").val(),
                     nombreAcceso: $("#tbNombreAcceso").val(),

@@ -21,7 +21,7 @@ namespace SisGMA.Entidades
         }
     
         public int IdModelo { get; set; }
-        public Nullable<int> IdMarca { get; set; }
+        public int IdMarca { get; set; }
         public string Modelo { get; set; }
     
         public virtual MarcaVehiculos MarcaVehiculos { get; set; }

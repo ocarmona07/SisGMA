@@ -15,8 +15,8 @@ namespace SisGMA.Entidades
     public partial class GastosDiarios
     {
         public int IdGastoDiario { get; set; }
-        public Nullable<int> IdOperario { get; set; }
-        public Nullable<int> IdProveedor { get; set; }
+        public int IdOperario { get; set; }
+        public int IdProveedor { get; set; }
         public System.DateTime FechaIngreso { get; set; }
         public decimal Monto { get; set; }
         public string Observaciones { get; set; }

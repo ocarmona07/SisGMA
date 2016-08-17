@@ -6,7 +6,7 @@
                 <h3 class="box-title">@Model.TituloForm</h3>
             </div>
             <div class="box-body">
-                <form id="frmOperador" role="form" @(Model.IdOperario > 0 ? "data-id=" + Model.IdOperario : null)>
+                <form id="frmOperador" role="form" data-id="@Model.IdOperario">
                     <div class="row">
                         <div class="col-md-6">
                             @WebControls.InputTextBoxFormGroup("RUT Operador", "tbRutOperador", Model.RutOperario, "Ej: 12.345.678-9", 12, requerido: true)
@@ -67,7 +67,7 @@
         });
 
         $("#btnLimpiar").click(function () {
-            $("#frmOperador").attr("data-id", null);
+            $("#frmOperador").attr("data-id", "0");
             $("#frmOperador")
                 .find("#imgfupImagenOperador").html("").end()
                 .find(":radio, :checkbox").removeAttr("checked").end()
@@ -75,9 +75,15 @@
         });
 
         $("#btnAgregar").click(function () {
+            if ($("#tbRutOperador").val() === "") {
+                alert("Debe ingresar el RUT del operador");
+                return false;
+            }
+
             $("#mdlConfirmTitulo").html("@Model.TituloForm");
             $("#mdlConfirmContenido").html("¿Esta seguro que desea guardar los cambios?");
             $("#modalConfirm").modal("show");
+            return false;
         });
 
         $("#btnConfirmAceptar").click(function () {
@@ -86,7 +92,7 @@
                 type: "POST",
                 url: "@Url.Action("GuardarOperador", "Operadores", new { area = "Mantenedores" })",
                 data: {
-                    idOperador: @Model.IdOperario,
+                    idOperador: parseInt($("#frmOperador").attr("data-id")),
                     rutOperador: $("#tbRutOperador").val(),
                     nombres: $("#tbNombres").val(),
                     apPaterno: $("#tbApPaterno").val(),
@@ -103,6 +109,22 @@
                     if (response) {
                         $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloForm)');
                         $("#alertSuccessMensaje").html("Registro @(Model.IdOperario > 0 ? "actualizado" :"agregado") correctamente");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaOperadores", "Operadores", new {area = "Mantenedores"})",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#divLista").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                            $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                        }
+                    });
                     } else {
                         $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
                         $("#alertDangerMensaje").html("No se ha podido @(Model.IdOperario > 0 ? "actualizar" :"agregar") los datos.");

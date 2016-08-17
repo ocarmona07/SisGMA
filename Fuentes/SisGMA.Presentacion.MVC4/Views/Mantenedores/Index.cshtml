@@ -7,7 +7,6 @@
     var boxColors = new[] { "bg-aqua", "bg-green", "bg-yellow", "bg-red", "bg-purple" };
     var counter = 0;
 }
-
 <section class="content-header">
     <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
@@ -17,7 +16,7 @@
 </section>
 <section class="content">
     <div class="row">
-        @foreach (var item in menuItems.Accesos)
+        @foreach (var item in menuItems.Accesos.Where(i => i.Estado))
         {
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box @boxColors[counter]">

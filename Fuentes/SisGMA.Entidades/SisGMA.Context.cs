@@ -26,8 +26,8 @@ namespace SisGMA.Entidades
         }
     
         public virtual DbSet<Accesos> Accesos { get; set; }
-        public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<CategoriasAcceso> CategoriasAcceso { get; set; }
+        public virtual DbSet<CategoriasProductos> CategoriasProductos { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<ClientesVehiculos> ClientesVehiculos { get; set; }
         public virtual DbSet<Comunas> Comunas { get; set; }
@@ -46,7 +46,6 @@ namespace SisGMA.Entidades
         public virtual DbSet<Regiones> Regiones { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<RolesAccesos> RolesAccesos { get; set; }
-        public virtual DbSet<Subcategorias> Subcategorias { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
     }
 }

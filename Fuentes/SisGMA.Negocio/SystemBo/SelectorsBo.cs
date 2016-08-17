@@ -11,9 +11,9 @@
             return new SelectoresDa().ObtenerRoles();
         }
 
-        public List<CategoriasAcceso> ObtenerCategorias()
+        public List<CategoriasAcceso> ObtenerCategoriasAccesos()
         {
-            return new SelectoresDa().ObtenerCategorias();
+            return new SelectoresDa().ObtenerCategoriasAccesos();
         }
 
         public List<Accesos> ObtenerAccesos()

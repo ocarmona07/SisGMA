@@ -15,7 +15,7 @@ namespace SisGMA.Entidades
     public partial class ControlProduccion
     {
         public int IdControlProd { get; set; }
-        public Nullable<int> IdOperario { get; set; }
+        public int IdOperario { get; set; }
         public System.DateTime FechaEntrega { get; set; }
         public decimal ValorNeto { get; set; }
     

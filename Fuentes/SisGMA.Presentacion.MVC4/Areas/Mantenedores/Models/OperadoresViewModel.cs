@@ -1,10 +1,9 @@
-﻿using SisGMA.Negocio.SystemBo;
-
-namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
+﻿namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
 {
     using System.Collections.Generic;
     using System.Linq;
     using Entidades;
+    using Negocio.SystemBo;
 
     public class OperadoresViewModel
     {
@@ -42,12 +41,12 @@ namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
                     ApPaterno = operario.ApPaterno,
                     ApMaterno = operario.ApMaterno,
                     Direccion = operario.Direccion,
-                    IdRegion = operario.Comunas.Provincias.IdRegion ?? 0,
-                    IdProvincia = operario.Comunas.IdProvincia ?? 0,
-                    IdComuna = operario.IdComuna ?? 0,
+                    IdRegion = operario.Comunas.Provincias.IdRegion,
+                    IdProvincia = operario.Comunas.IdProvincia,
+                    IdComuna = operario.IdComuna,
                     Telefono = operario.Telefono,
                     Imagen = operario.Imagen,
-                    IdRol = operario.IdRol ?? 0,
+                    IdRol = operario.IdRol,
                     Rol = operario.Roles.Rol,
                     Clave = operario.Clave,
                     Estado = operario.Estado
@@ -70,12 +69,12 @@ namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
                     ApPaterno = o.ApPaterno,
                     ApMaterno = o.ApMaterno,
                     Direccion = o.Direccion,
-                    IdRegion = o.Comunas.Provincias.IdRegion ?? 0,
-                    IdProvincia = o.Comunas.IdProvincia ?? 0,
-                    IdComuna = o.IdComuna ?? 0,
+                    IdRegion = o.Comunas.Provincias.IdRegion,
+                    IdProvincia = o.Comunas.IdProvincia,
+                    IdComuna = o.IdComuna,
                     Telefono = o.Telefono,
                     Imagen = o.Imagen,
-                    IdRol = o.IdRol ?? 0,
+                    IdRol = o.IdRol,
                     Rol = o.Roles.Rol,
                     Clave = o.Clave,
                     Estado = o.Estado

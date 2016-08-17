@@ -51,7 +51,7 @@
     </Compile>
     <Compile Include="SystemDa\CategoriasAccesoDa.cs">
     </Compile>
-    <Compile Include="InventarioDa\CategoriasDa.cs">
+    <Compile Include="InventarioDa\CategoriasProductosDa.cs">
     </Compile>
     <Compile Include="ClientesDa\ClientesDa.cs">
     </Compile>
@@ -76,8 +76,6 @@
     <Compile Include="SystemDa\RolesDa.cs">
     </Compile>
     <Compile Include="SystemDa\SelectoresDa.cs" />
-    <Compile Include="InventarioDa\SubcategoriasDa.cs">
-    </Compile>
     <Compile Include="VehiculosDa\VehiculosDa.cs">
     </Compile>
   </ItemGroup>

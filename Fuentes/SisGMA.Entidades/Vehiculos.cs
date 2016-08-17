@@ -21,7 +21,7 @@ namespace SisGMA.Entidades
         }
     
         public int IdVehiculo { get; set; }
-        public Nullable<int> IdModelo { get; set; }
+        public int IdModelo { get; set; }
         public string Patente { get; set; }
         public int KmIngreso { get; set; }
         public int Anio { get; set; }

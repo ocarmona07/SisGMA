@@ -1,18 +1,29 @@
-﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
 <div id="modalCategoria" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="frmCategoria" role="form" data-id="@(Model.DatosCategoria.IdCategoriaAcceso > 0 ? Model.DatosCategoria.IdCategoriaAcceso : 0)">
+            <form id="frmCategoria" role="form" data-id="@Model.DatosCategoria.IdCategoria">
                 <div class="modal-header">
                     <h4 class="modal-title">@Model.TituloModalCategoria</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-2 @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "hide" : "")">
-                            @WebControls.InputTextBoxFormGroup("ID", "tbIdCategoria", Model.DatosCategoria.IdCategoriaAcceso.ToString(), maxLenght: 6, requerido: true)
+                        <div class="col-md-2 @(Model.DatosCategoria.IdCategoria > 0 ? "hide" : "")">
+                            @WebControls.InputTextBoxFormGroup("ID", "tbIdCategoria", Model.DatosCategoria.IdCategoria.ToString(), maxLenght: 6, requerido: true)
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Código", "tbCodigo", Model.DatosCategoria.Codigo, maxLenght: 16, requerido: true)
+                        </div>
+                        <div class="col-md-6">
+                            @WebControls.DropDownListFormGroup("Categoría Padre", "ddlCategoriaPadre", Model.DdlListaCategorias(), Model.DatosCategoria.IdCategoriaPadre.ToString(), "Ninguno")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
                             @WebControls.InputTextBoxFormGroup("Nombre de la Categoría", "tbNombreCategoria", Model.DatosCategoria.Categoria, maxLenght: 32, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.InputIconFormGroup("Icono", "tbIcono", Model.DatosCategoria.Icono, maxLenght: 32)
                         </div>
                     </div>
                 </div>
@@ -21,12 +32,16 @@
                     <button type="button" id="btnAceptarCategoria" class="btn btn-flat btn-success">Aceptar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#tbIcono").iconpicker({
+            templates: {
+                search: '<input type="search" class="form-control iconpicker-search" placeholder="Buscar por nombre..." />'
+            }
+        });
         $("#btnAceptarCategoria").click(function () {
             var idCateg;
             if ($("#frmCategoria .modal-body .row .col-md-2").hasClass("hide")) {
@@ -39,6 +54,10 @@
                     idCateg = $("#tbIdCategoria").val();
                 }
             }
+            if ($('#tbCodigo').val() === '') {
+                alert('Debe colocar un código para la categoría');
+                return false;
+            }
             if ($('#tbNombreCategoria').val() === '') {
                 alert('Debe colocar un nombre para la categoría');
                 return false;
@@ -46,20 +65,23 @@
 
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("GuardarCategoria", "Accesos", new {area = "Mantenedores"})",
+                url: "@Url.Action("GuardarCategoria", "Inventario", new {area = "Mantenedores"})",
                 data: {
                     idCategoria: parseInt(idCateg),
+                    idCategoriaPadre: parseInt($("#ddlCategoriaPadre option:selected").val()),
+                    codigo: $("#tbCodigo").val(),
                     categoria: $("#tbNombreCategoria").val(),
+                    icono: $("#tbIcono").val(),
                     estado: "@Model.DatosCategoria.Estado"
                     },
                 success: function (response) {
                     if (response) {
                         $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloModalCategoria)');
-                        $("#alertSuccessMensaje").html("Registro @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "actualizado" :"agregado") correctamente");
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosCategoria.IdCategoria > 0 ? "actualizado" :"agregado") correctamente");
 
                         $.ajax({
                             type: "POST",
-                            url: "@Url.Action("ObtenerListaCategorias", "Accesos", new {area = "Mantenedores"})",
+                            url: "@Url.Action("ObtenerListaCategorias", "Inventario", new { area = "Mantenedores" })",
                             success: function (response) {
                                 if (response !== "") {
                                     $("#tabCategorias").html(response);
@@ -75,7 +97,7 @@
                         });
                     } else {
                         $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
-                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosCategoria.IdCategoriaAcceso > 0 ? "actualizar" :"agregar") los datos.");
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosCategoria.IdCategoria > 0 ? "actualizar" :"agregar") los datos.");
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

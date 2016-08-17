@@ -22,7 +22,7 @@ namespace SisGMA.Entidades
         }
     
         public int IdComuna { get; set; }
-        public Nullable<int> IdProvincia { get; set; }
+        public int IdProvincia { get; set; }
         public string Comuna { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

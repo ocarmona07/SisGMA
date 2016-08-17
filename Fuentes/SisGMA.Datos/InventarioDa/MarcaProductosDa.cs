@@ -6,14 +6,15 @@
 //    Los cambios manuales en este archivo se sobrescribirán si se regenera el código.
 // </auto-generated>
 //------------------------------------------------------------------------------
-/*
-namespace SisGMA.Datos
+
+namespace SisGMA.Datos.InventarioDa
 {
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
     using Entidades;
+    using Entidades.Common;
 
     public class MarcaProductosDa : BaseEntity
     {
@@ -55,7 +56,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                return _sisGmaEntities.MarcaProductos.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
+                return _sisGmaEntities.MarcaProductos.FirstOrDefault(o => o.IdMarca == idItem);
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -95,16 +96,7 @@ namespace SisGMA.Datos
         {
             try
             {
-                _sisGmaEntities.MarcaProductos.Attach(item);
-                var entry = _sisGmaEntities.Entry(item);
-                entry.Property(o => o.Nombres).IsModified = true; // TODO: Reemplazar atributos
-                entry.Property(o => o.ApPaterno).IsModified = true;
-                entry.Property(o => o.ApMaterno).IsModified = true;
-                entry.Property(o => o.Direccion).IsModified = true;
-                entry.Property(o => o.Email).IsModified = true;
-                entry.Property(o => o.Telefono).IsModified = true;
-                entry.Property(o => o.IdComuna).IsModified = true;
-                entry.Property(o => o.Estado).IsModified = true;
+                _sisGmaEntities.Entry(item).State = EntityState.Modified;
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -122,11 +114,45 @@ namespace SisGMA.Datos
             }
         }
 
+        public bool UpdateEstado(int idItem, bool estado)
+        {
+            try
+            {
+                var item = _sisGmaEntities.MarcaProductos.FirstOrDefault(o => o.IdMarca == idItem);
+                if (item != null)
+                {
+                    item.Estado = estado;
+                    _sisGmaEntities.Entry(item).State = EntityState.Modified;
+                    return _sisGmaEntities.SaveChanges() > 0;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return false;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return false;
+            }
+            finally
+            {
+                _sisGmaEntities.Dispose();
+            }
+        }
+
         public bool Delete(int idItem)
         {
             try
             {
-                var entry = _sisGmaEntities.MarcaProductos.FirstOrDefault(o => o.IdCliente == idItem); // TODO: Reemplazar Id
+                var entry = _sisGmaEntities.MarcaProductos.FirstOrDefault(o => o.IdMarca == idItem);
                 _sisGmaEntities.Entry(entry).State = EntityState.Deleted;
                 return _sisGmaEntities.SaveChanges() > 0;
             }
@@ -145,4 +171,3 @@ namespace SisGMA.Datos
         }
     }
 }
-*/

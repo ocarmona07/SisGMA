@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using SisGMA.Negocio.SystemBo;
-
-namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
+﻿namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
 {
+    using System.Linq;
     using System.Collections.Generic;
     using Entidades;
+    using Negocio.SystemBo;
 
     public class AccesosViewModel
     {
@@ -18,7 +17,7 @@ namespace SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models
         public Dictionary<string, string> DdlListaCategorias()
         {
             var response = new Dictionary<string, string>();
-            var categorias = new SelectoresBo().ObtenerCategorias();
+            var categorias = new SelectoresBo().ObtenerCategoriasAccesos();
             if (categorias != null)
             {
                 foreach (var categoria in categorias)

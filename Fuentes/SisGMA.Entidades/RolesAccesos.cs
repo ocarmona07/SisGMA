@@ -15,8 +15,8 @@ namespace SisGMA.Entidades
     public partial class RolesAccesos
     {
         public int IdRolAcceso { get; set; }
-        public Nullable<int> IdRol { get; set; }
-        public Nullable<int> IdAcceso { get; set; }
+        public int IdRol { get; set; }
+        public int IdAcceso { get; set; }
     
         public virtual Accesos Accesos { get; set; }
         public virtual Roles Roles { get; set; }

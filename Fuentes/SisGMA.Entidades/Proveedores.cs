@@ -22,7 +22,7 @@ namespace SisGMA.Entidades
         }
     
         public int IdProveedor { get; set; }
-        public Nullable<int> IdGiro { get; set; }
+        public int IdGiro { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> Telefono { get; set; }
         public string Observaciones { get; set; }

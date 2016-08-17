@@ -1,33 +1,33 @@
-﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.AccesosViewModel
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
 <div class="row margin-bottom">
     <div class="col-md-12 text-center">
-        @WebControls.BotonCrear("Agregar Categoria", "btnCrearCategoria", "200px")
+        @WebControls.BotonCrear("Agregar Marca", "btnCrearMarca", "200px")
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        @if (Model.ListaCategorias != null)
+        @if (Model.ListaMarcas != null)
         {
-            <table id="tblCategorias" class="table table-bordered table-hover dataTable" role="grid">
+            <table id="tblMarcas" class="table table-bordered table-hover dataTable" role="grid">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
+                        <th>Nombre Marca</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var acceso in Model.ListaCategorias)
+                    @foreach (var item in Model.ListaMarcas)
                     {
                         <tr>
-                            <td>@acceso.IdCategoriaAcceso</td>
-                            <td>@acceso.Categoria</td>
+                            <td>@item.IdMarca</td>
+                            <td>@item.Marca</td>
                             <td id="estado">
-                                <a class="btn btn-flat btn-xs @(acceso.Estado ? "btn-success" : "btn-danger")" data-id="@acceso.IdCategoriaAcceso">@(acceso.Estado ? "Activo" : "Inactivo")</a>
+                                <a class="btn btn-flat btn-xs @(item.Estado ? "btn-success" : "btn-danger")" data-id="@item.IdMarca">@(item.Estado ? "Activo" : "Inactivo")</a>
                             </td>
                             <td id="acciones">
-                                <a class="btn btn-flat btn-xs btn-warning" data-id="@acceso.IdCategoriaAcceso">Editar</a>
+                                <a class="btn btn-flat btn-xs btn-warning" data-id="@item.IdMarca">Editar</a>
                             </td>
                         </tr>
                     }
@@ -37,33 +37,33 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#btnCrearCategoria").click(function () {
-        $("#frmCategoria").attr("data-id", "0");
-        $("#frmCategoria")
+    $("#btnCrearMarca").click(function () {
+        $("#frmMarca").attr("data-id", "0");
+        $("#frmMarca")
             .find(".modal-body .row .hide").removeClass("hide").end()
-            .find(".modal-header h4").text("Crear Categoría").end()
+            .find(".modal-header h4").text("Crear Marca").end()
             .find("textarea, :text, select").val("");
-        $("#modalCategoria").modal("show");
+        $("#modalMarca").modal("show");
     });
 
-    $("#tblCategorias #estado a").click(function () {
+    $("#tblMarcas #estado a").click(function () {
         $.ajax({
             type: "POST",
-            url: "@Url.Action("CambiarEstadoCategoria", "Accesos", new {area = "Mantenedores"})",
+            url: "@Url.Action("CambiarEstadoMarca", "Inventario", new {area = "Mantenedores"})",
             data: {
-                idCategoria: $(this).data("id"),
+                idMarca: $(this).data("id"),
                 estado: $(this).hasClass("btn-danger")
             },
             success: function (response) {
                 if (response) {
-                    $("#divMessage").html('@WebControls.AlertaCompletado("Estado de la categoría")');
+                    $("#divMessage").html('@WebControls.AlertaCompletado("Estado de la marca")');
                     $("#alertSuccessMensaje").html("Se cambió el estado correctamente");
                     $.ajax({
                         type: "POST",
-                        url: "@Url.Action("ObtenerListaCategorias", "Accesos", new {area = "Mantenedores"})",
+                        url: "@Url.Action("ObtenerListaMarcas", "Inventario", new { area = "Mantenedores" })",
                         success: function (response) {
                             if (response !== "") {
-                                $("#tabCategorias").html(response);
+                                $("#tabMarcas").html(response);
                             } else {
                                 $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
                                 $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
@@ -75,7 +75,7 @@
                         }
                     });
                 } else {
-                    $("#divMessage").html('@WebControls.AlertaDenegado("Estado de la categoría")');
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Estado de la marca")');
                     $("#alertDangerMensaje").html("Error al cambiar el estado.");
                 }
             },
@@ -86,19 +86,19 @@
         });
     });
 
-    $("#tblCategorias #acciones a").click(function () {
+    $("#tblMarcas #acciones a").click(function () {
         $.ajax({
             type: "POST",
-            url: "@Url.Action("ObtenerDatosCategoria", "Accesos", new {area = "Mantenedores"})",
-            data: { idCategoria: $(this).data("id") },
+            url: "@Url.Action("ObtenerDatosMarca", "Inventario", new { area = "Mantenedores" })",
+            data: { idMarca: $(this).data("id") },
             success: function (response) {
                 if (response !== "") {
-                    $("#divModalCategoria").html(response);
-                    $("#modalCategoria").modal("show");
+                    $("#divModalMarca").html(response);
+                    $("#modalMarca").modal("show");
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#modalCategoria").modal("hide");
+                $("#modalMarca").modal("hide");
                 $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
                 $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
             }

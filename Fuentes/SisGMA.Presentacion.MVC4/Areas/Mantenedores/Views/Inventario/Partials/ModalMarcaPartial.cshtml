@@ -1,0 +1,89 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
+<div id="modalMarca" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="frmMarca" role="form" data-id="@Model.DatosMarca.IdMarca">
+                <div class="modal-header">
+                    <h4 class="modal-title">@Model.TituloModalMarcas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 @(Model.DatosMarca.IdMarca > 0 ? "hide" : "")">
+                            @WebControls.InputTextBoxFormGroup("ID", "tbIdMarca", Model.DatosMarca.IdMarca.ToString(), maxLenght: 6, requerido: true)
+                        </div>
+                        <div class="col-md-10">
+                            @WebControls.InputTextBoxFormGroup("Nombre de la Marca", "tbNombreMarca", Model.DatosMarca.Marca, maxLenght: 32, requerido: true)
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnAceptarMarca" class="btn btn-flat btn-success">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnAceptarMarca").click(function () {
+            var idMarca;
+            if ($("#frmMarca .modal-body .row .col-md-2").hasClass("hide")) {
+                idMarca = $("#frmMarca").attr("data-id");
+            } else {
+                if (isNaN(parseInt($("#tbIdMarca").val()))) {
+                    alert('Debe colocar un ID para la marca');
+                    return false;
+                } else {
+                    idMarca = $("#tbIdMarca").val();
+                }
+            }
+            if ($('#tbNombreMarca').val() === '') {
+                alert('Debe colocar un nombre para la marca');
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarMarca", "Inventario", new { area = "Mantenedores" })",
+                data: {
+                    idMarca: parseInt(idMarca),
+                    marca: $("#tbNombreMarca").val(),
+                    estado: "@Model.DatosMarca.Estado"
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloModalMarcas)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosMarca.IdMarca > 0 ? "actualizado" : "agregado") correctamente");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaMarcas", "Inventario", new { area = "Mantenedores" })",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabMarcas").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosMarca.IdMarca > 0 ? "actualizar" : "agregar") los datos.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+            $("#modalMarca").modal("hide");
+            return true;
+        });
+    });
+</script>

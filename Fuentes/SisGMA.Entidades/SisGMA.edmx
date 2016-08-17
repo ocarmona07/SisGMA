@@ -11,19 +11,11 @@
           </Key>
           <Property Name="IdAcceso" Type="int" Nullable="false" />
           <Property Name="IdAccesoPadre" Type="int" />
-          <Property Name="IdCategoriaAcceso" Type="int" />
+          <Property Name="IdCategoriaAcceso" Type="int" Nullable="false" />
           <Property Name="NombreAcceso" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="256" />
           <Property Name="Icono" Type="nvarchar" MaxLength="32" />
           <Property Name="UrlAcceso" Type="nvarchar" MaxLength="512" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Categorias">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Categoria" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoriasAcceso">
@@ -32,6 +24,17 @@
           </Key>
           <Property Name="IdCategoriaAcceso" Type="int" Nullable="false" />
           <Property Name="Categoria" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoriasProductos">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCategoriaPadre" Type="int" />
+          <Property Name="Codigo" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Icono" Type="varchar" MaxLength="32" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Clientes">
@@ -44,7 +47,7 @@
           <Property Name="ApPaterno" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="ApMaterno" Type="nvarchar" MaxLength="32" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="64" />
-          <Property Name="IdComuna" Type="int" />
+          <Property Name="IdComuna" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="64" />
           <Property Name="Clave" Type="nvarchar" MaxLength="16" />
@@ -55,15 +58,15 @@
             <PropertyRef Name="IdClienteVehiculo" />
           </Key>
           <Property Name="IdClienteVehiculo" Type="int" Nullable="false" />
-          <Property Name="IdVehiculo" Type="int" />
-          <Property Name="IdCliente" Type="int" />
+          <Property Name="IdVehiculo" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comunas">
           <Key>
             <PropertyRef Name="IdComuna" />
           </Key>
           <Property Name="IdComuna" Type="int" Nullable="false" />
-          <Property Name="IdProvincia" Type="int" />
+          <Property Name="IdProvincia" Type="int" Nullable="false" />
           <Property Name="Comuna" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="ControlProduccion">
@@ -71,7 +74,7 @@
             <PropertyRef Name="IdControlProd" />
           </Key>
           <Property Name="IdControlProd" Type="int" Nullable="false" />
-          <Property Name="IdOperario" Type="int" />
+          <Property Name="IdOperario" Type="int" Nullable="false" />
           <Property Name="FechaEntrega" Type="date" Nullable="false" />
           <Property Name="ValorNeto" Type="money" Nullable="false" />
         </EntityType>
@@ -80,8 +83,8 @@
             <PropertyRef Name="IdGastoDiario" />
           </Key>
           <Property Name="IdGastoDiario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdOperario" Type="int" />
-          <Property Name="IdProveedor" Type="int" />
+          <Property Name="IdOperario" Type="int" Nullable="false" />
+          <Property Name="IdProveedor" Type="int" Nullable="false" />
           <Property Name="FechaIngreso" Type="date" Nullable="false" />
           <Property Name="Monto" Type="money" Nullable="false" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
@@ -117,7 +120,7 @@
             <PropertyRef Name="IdModelo" />
           </Key>
           <Property Name="IdModelo" Type="int" Nullable="false" />
-          <Property Name="IdMarca" Type="int" />
+          <Property Name="IdMarca" Type="int" Nullable="false" />
           <Property Name="Modelo" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="NivelNotificacion">
@@ -132,12 +135,13 @@
             <PropertyRef Name="IdNotificacion" />
           </Key>
           <Property Name="IdNotificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdOperario" Type="int" />
+          <Property Name="IdOperario" Type="int" Nullable="false" />
           <Property Name="TituloNotificacion" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="Color" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="Icono" Type="nvarchar" MaxLength="32" />
           <Property Name="IdNivel" Type="int" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Operarios">
@@ -150,10 +154,10 @@
           <Property Name="ApPaterno" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="ApMaterno" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="64" />
-          <Property Name="IdComuna" Type="int" />
+          <Property Name="IdComuna" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="16" />
           <Property Name="Imagen" Type="nvarchar(max)" />
-          <Property Name="IdRol" Type="int" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
           <Property Name="Clave" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
@@ -162,8 +166,8 @@
             <PropertyRef Name="IdProducto" />
           </Key>
           <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdSubcategoria" Type="int" />
-          <Property Name="IdMarca" Type="int" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="IdMarca" Type="int" Nullable="false" />
           <Property Name="IdProveedor" Type="int" />
           <Property Name="Codigo" Type="nvarchar" MaxLength="32" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar(max)" />
@@ -177,7 +181,7 @@
             <PropertyRef Name="IdProveedor" />
           </Key>
           <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdGiro" Type="int" />
+          <Property Name="IdGiro" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Telefono" Type="int" />
           <Property Name="Observaciones" Type="nvarchar(max)" />
@@ -187,7 +191,7 @@
             <PropertyRef Name="IdProvincia" />
           </Key>
           <Property Name="IdProvincia" Type="int" Nullable="false" />
-          <Property Name="IdRegion" Type="int" />
+          <Property Name="IdRegion" Type="int" Nullable="false" />
           <Property Name="Provincia" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="Regiones">
@@ -210,24 +214,15 @@
             <PropertyRef Name="IdRolAcceso" />
           </Key>
           <Property Name="IdRolAcceso" Type="int" Nullable="false" />
-          <Property Name="IdRol" Type="int" />
-          <Property Name="IdAcceso" Type="int" />
-        </EntityType>
-        <EntityType Name="Subcategorias">
-          <Key>
-            <PropertyRef Name="IdSubcategoria" />
-          </Key>
-          <Property Name="IdSubcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdCategoria" Type="int" />
-          <Property Name="Subcategoria" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="IdRol" Type="int" Nullable="false" />
+          <Property Name="IdAcceso" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Vehiculos">
           <Key>
             <PropertyRef Name="IdVehiculo" />
           </Key>
           <Property Name="IdVehiculo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdModelo" Type="int" />
+          <Property Name="IdModelo" Type="int" Nullable="false" />
           <Property Name="Patente" Type="nvarchar" MaxLength="8" Nullable="false" />
           <Property Name="KmIngreso" Type="int" Nullable="false" />
           <Property Name="Anio" Type="int" Nullable="false" />
@@ -248,7 +243,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACCESOS_REFERENCE_CATEGORI">
-          <End Role="CategoriasAcceso" Type="Self.CategoriasAcceso" Multiplicity="0..1" />
+          <End Role="CategoriasAcceso" Type="Self.CategoriasAcceso" Multiplicity="1" />
           <End Role="Accesos" Type="Self.Accesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CategoriasAcceso">
@@ -259,8 +254,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CATEGORI_REFERENCE_CATEGORI">
+          <End Role="CategoriasProductos" Type="Self.CategoriasProductos" Multiplicity="0..1" />
+          <End Role="CategoriasProductos1" Type="Self.CategoriasProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasProductos">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="CategoriasProductos1">
+              <PropertyRef Name="IdCategoriaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTES_REFERENCE_CLIENTES">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="ClientesVehiculos" Type="Self.ClientesVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
@@ -272,7 +279,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
-          <End Role="Comunas" Type="Self.Comunas" Multiplicity="0..1" />
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comunas">
@@ -284,7 +291,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CLIENTES_REFERENCE_VEHICULO">
-          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="ClientesVehiculos" Type="Self.ClientesVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehiculos">
@@ -296,7 +303,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COMUNAS_REFERENCE_PROVINCI">
-          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
           <End Role="Comunas" Type="Self.Comunas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincias">
@@ -308,7 +315,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CONTROLP_REFERENCE_OPERARIO">
-          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="1" />
           <End Role="ControlProduccion" Type="Self.ControlProduccion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -320,7 +327,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GASTOSDI_REFERENCE_OPERARIO">
-          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="1" />
           <End Role="GastosDiarios" Type="Self.GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -332,7 +339,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GASTOSDI_REFERENCE_PROVEEDO">
-          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
           <End Role="GastosDiarios" Type="Self.GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Proveedores">
@@ -344,7 +351,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MODELOVE_REFERENCE_MARCAVEH">
-          <End Role="MarcaVehiculos" Type="Self.MarcaVehiculos" Multiplicity="0..1" />
+          <End Role="MarcaVehiculos" Type="Self.MarcaVehiculos" Multiplicity="1" />
           <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MarcaVehiculos">
@@ -368,7 +375,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NOTIFICA_REFERENCE_OPERARIO">
-          <End Role="Operarios" Type="Self.Operarios" Multiplicity="0..1" />
+          <End Role="Operarios" Type="Self.Operarios" Multiplicity="1" />
           <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -380,7 +387,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OPERARIO_REFERENCE_COMUNAS">
-          <End Role="Comunas" Type="Self.Comunas" Multiplicity="0..1" />
+          <End Role="Comunas" Type="Self.Comunas" Multiplicity="1" />
           <End Role="Operarios" Type="Self.Operarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comunas">
@@ -392,7 +399,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OPERARIO_REFERENCE_ROLES">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="Operarios" Type="Self.Operarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -403,8 +410,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_CATEGORI">
+          <End Role="CategoriasProductos" Type="Self.CategoriasProductos" Multiplicity="1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasProductos">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PRODUCTO_REFERENCE_MARCAPRO">
-          <End Role="MarcaProductos" Type="Self.MarcaProductos" Multiplicity="0..1" />
+          <End Role="MarcaProductos" Type="Self.MarcaProductos" Multiplicity="1" />
           <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MarcaProductos">
@@ -427,20 +446,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODUCTO_REFERENCE_SUBCATEG">
-          <End Role="Subcategorias" Type="Self.Subcategorias" Multiplicity="0..1" />
-          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subcategorias">
-              <PropertyRef Name="IdSubcategoria" />
-            </Principal>
-            <Dependent Role="Productos">
-              <PropertyRef Name="IdSubcategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PROVEEDO_REFERENCE_GIROS">
-          <End Role="Giros" Type="Self.Giros" Multiplicity="0..1" />
+          <End Role="Giros" Type="Self.Giros" Multiplicity="1" />
           <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Giros">
@@ -452,7 +459,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROVINCI_REFERENCE_REGIONES">
-          <End Role="Regiones" Type="Self.Regiones" Multiplicity="0..1" />
+          <End Role="Regiones" Type="Self.Regiones" Multiplicity="1" />
           <End Role="Provincias" Type="Self.Provincias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Regiones">
@@ -464,7 +471,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ROLESACC_REFERENCE_ACCESOS">
-          <End Role="Accesos" Type="Self.Accesos" Multiplicity="0..1" />
+          <End Role="Accesos" Type="Self.Accesos" Multiplicity="1" />
           <End Role="RolesAccesos" Type="Self.RolesAccesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accesos">
@@ -476,7 +483,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ROLESACC_REFERENCE_ROLES">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
           <End Role="RolesAccesos" Type="Self.RolesAccesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -487,20 +494,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
-          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
-          <End Role="Subcategorias" Type="Self.Subcategorias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categorias">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="Subcategorias">
-              <PropertyRef Name="IdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VEHICULO_REFERENCE_MODELOVE">
-          <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="0..1" />
+          <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="1" />
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ModeloVehiculos">
@@ -513,8 +508,8 @@
         </Association>
         <EntityContainer Name="SisGMAModelStoreContainer">
           <EntitySet Name="Accesos" EntityType="Self.Accesos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriasAcceso" EntityType="Self.CategoriasAcceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriasProductos" EntityType="Self.CategoriasProductos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientesVehiculos" EntityType="Self.ClientesVehiculos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comunas" EntityType="Self.Comunas" Schema="dbo" store:Type="Tables" />
@@ -533,7 +528,6 @@
           <EntitySet Name="Regiones" EntityType="Self.Regiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolesAccesos" EntityType="Self.RolesAccesos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Subcategorias" EntityType="Self.Subcategorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ACCESOS_REFERENCE_ACCESOS" Association="Self.FK_ACCESOS_REFERENCE_ACCESOS">
             <End Role="Accesos" EntitySet="Accesos" />
@@ -542,6 +536,10 @@
           <AssociationSet Name="FK_ACCESOS_REFERENCE_CATEGORI" Association="Self.FK_ACCESOS_REFERENCE_CATEGORI">
             <End Role="CategoriasAcceso" EntitySet="CategoriasAcceso" />
             <End Role="Accesos" EntitySet="Accesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CATEGORI_REFERENCE_CATEGORI" Association="Self.FK_CATEGORI_REFERENCE_CATEGORI">
+            <End Role="CategoriasProductos" EntitySet="CategoriasProductos" />
+            <End Role="CategoriasProductos1" EntitySet="CategoriasProductos" />
           </AssociationSet>
           <AssociationSet Name="FK_CLIENTES_REFERENCE_CLIENTES" Association="Self.FK_CLIENTES_REFERENCE_CLIENTES">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -591,16 +589,16 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Operarios" EntitySet="Operarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_CATEGORI" Association="Self.FK_PRODUCTO_REFERENCE_CATEGORI">
+            <End Role="CategoriasProductos" EntitySet="CategoriasProductos" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_REFERENCE_MARCAPRO" Association="Self.FK_PRODUCTO_REFERENCE_MARCAPRO">
             <End Role="MarcaProductos" EntitySet="MarcaProductos" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_REFERENCE_PROVEEDO" Association="Self.FK_PRODUCTO_REFERENCE_PROVEEDO">
             <End Role="Proveedores" EntitySet="Proveedores" />
-            <End Role="Productos" EntitySet="Productos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PRODUCTO_REFERENCE_SUBCATEG" Association="Self.FK_PRODUCTO_REFERENCE_SUBCATEG">
-            <End Role="Subcategorias" EntitySet="Subcategorias" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_PROVEEDO_REFERENCE_GIROS" Association="Self.FK_PROVEEDO_REFERENCE_GIROS">
@@ -619,10 +617,6 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolesAccesos" EntitySet="RolesAccesos" />
           </AssociationSet>
-          <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="Self.FK_SUBCATEG_REFERENCE_CATEGORI">
-            <End Role="Categorias" EntitySet="Categorias" />
-            <End Role="Subcategorias" EntitySet="Subcategorias" />
-          </AssociationSet>
           <AssociationSet Name="FK_VEHICULO_REFERENCE_MODELOVE" Association="Self.FK_VEHICULO_REFERENCE_MODELOVE">
             <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
             <End Role="Vehiculos" EntitySet="Vehiculos" />
@@ -634,8 +628,8 @@
       <Schema Namespace="SisGMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SisGMAEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accesos" EntityType="SisGMAModel.Accesos" />
-          <EntitySet Name="Categorias" EntityType="SisGMAModel.Categorias" />
           <EntitySet Name="CategoriasAcceso" EntityType="SisGMAModel.CategoriasAcceso" />
+          <EntitySet Name="CategoriasProductos" EntityType="SisGMAModel.CategoriasProductos" />
           <EntitySet Name="Clientes" EntityType="SisGMAModel.Clientes" />
           <EntitySet Name="ClientesVehiculos" EntityType="SisGMAModel.ClientesVehiculos" />
           <EntitySet Name="Comunas" EntityType="SisGMAModel.Comunas" />
@@ -654,7 +648,6 @@
           <EntitySet Name="Regiones" EntityType="SisGMAModel.Regiones" />
           <EntitySet Name="Roles" EntityType="SisGMAModel.Roles" />
           <EntitySet Name="RolesAccesos" EntityType="SisGMAModel.RolesAccesos" />
-          <EntitySet Name="Subcategorias" EntityType="SisGMAModel.Subcategorias" />
           <EntitySet Name="Vehiculos" EntityType="SisGMAModel.Vehiculos" />
           <AssociationSet Name="FK_ACCESOS_REFERENCE_ACCESOS" Association="SisGMAModel.FK_ACCESOS_REFERENCE_ACCESOS">
             <End Role="Accesos" EntitySet="Accesos" />
@@ -668,9 +661,13 @@
             <End Role="Accesos" EntitySet="Accesos" />
             <End Role="RolesAccesos" EntitySet="RolesAccesos" />
           </AssociationSet>
-          <AssociationSet Name="FK_SUBCATEG_REFERENCE_CATEGORI" Association="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI">
-            <End Role="Categorias" EntitySet="Categorias" />
-            <End Role="Subcategorias" EntitySet="Subcategorias" />
+          <AssociationSet Name="FK_CATEGORI_REFERENCE_CATEGORI" Association="SisGMAModel.FK_CATEGORI_REFERENCE_CATEGORI">
+            <End Role="CategoriasProductos" EntitySet="CategoriasProductos" />
+            <End Role="CategoriasProductos1" EntitySet="CategoriasProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_CATEGORI" Association="SisGMAModel.FK_PRODUCTO_REFERENCE_CATEGORI">
+            <End Role="CategoriasProductos" EntitySet="CategoriasProductos" />
+            <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
           <AssociationSet Name="FK_CLIENTES_REFERENCE_CLIENTES" Association="SisGMAModel.FK_CLIENTES_REFERENCE_CLIENTES">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -736,10 +733,6 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <AssociationSet Name="FK_PRODUCTO_REFERENCE_SUBCATEG" Association="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG">
-            <End Role="Subcategorias" EntitySet="Subcategorias" />
-            <End Role="Productos" EntitySet="Productos" />
-          </AssociationSet>
           <AssociationSet Name="FK_PROVINCI_REFERENCE_REGIONES" Association="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES">
             <End Role="Regiones" EntitySet="Regiones" />
             <End Role="Provincias" EntitySet="Provincias" />
@@ -755,7 +748,7 @@
           </Key>
           <Property Name="IdAcceso" Type="Int32" Nullable="false" />
           <Property Name="IdAccesoPadre" Type="Int32" />
-          <Property Name="IdCategoriaAcceso" Type="Int32" />
+          <Property Name="IdCategoriaAcceso" Type="Int32" Nullable="false" />
           <Property Name="NombreAcceso" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Icono" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
@@ -766,15 +759,6 @@
           <NavigationProperty Name="CategoriasAcceso" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_CATEGORI" FromRole="Accesos" ToRole="CategoriasAcceso" />
           <NavigationProperty Name="RolesAccesos" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ACCESOS" FromRole="Accesos" ToRole="RolesAccesos" />
         </EntityType>
-        <EntityType Name="Categorias">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Categorias" ToRole="Subcategorias" />
-        </EntityType>
         <EntityType Name="CategoriasAcceso">
           <Key>
             <PropertyRef Name="IdCategoriaAcceso" />
@@ -783,6 +767,20 @@
           <Property Name="Categoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Accesos" Relationship="SisGMAModel.FK_ACCESOS_REFERENCE_CATEGORI" FromRole="CategoriasAcceso" ToRole="Accesos" />
+        </EntityType>
+        <EntityType Name="CategoriasProductos">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCategoriaPadre" Type="Int32" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Icono" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CategoriasProductos1" Relationship="SisGMAModel.FK_CATEGORI_REFERENCE_CATEGORI" FromRole="CategoriasProductos" ToRole="CategoriasProductos1" />
+          <NavigationProperty Name="CategoriasProductos2" Relationship="SisGMAModel.FK_CATEGORI_REFERENCE_CATEGORI" FromRole="CategoriasProductos1" ToRole="CategoriasProductos" />
+          <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_CATEGORI" FromRole="CategoriasProductos" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -794,7 +792,7 @@
           <Property Name="ApPaterno" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ApMaterno" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="IdComuna" Type="Int32" />
+          <Property Name="IdComuna" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="Clave" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
@@ -807,8 +805,8 @@
             <PropertyRef Name="IdClienteVehiculo" />
           </Key>
           <Property Name="IdClienteVehiculo" Type="Int32" Nullable="false" />
-          <Property Name="IdVehiculo" Type="Int32" />
-          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="IdVehiculo" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_CLIENTES" FromRole="ClientesVehiculos" ToRole="Clientes" />
           <NavigationProperty Name="Vehiculos" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_VEHICULO" FromRole="ClientesVehiculos" ToRole="Vehiculos" />
         </EntityType>
@@ -817,7 +815,7 @@
             <PropertyRef Name="IdComuna" />
           </Key>
           <Property Name="IdComuna" Type="Int32" Nullable="false" />
-          <Property Name="IdProvincia" Type="Int32" />
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
           <Property Name="Comuna" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Clientes" Relationship="SisGMAModel.FK_CLIENTES_REFERENCE_COMUNAS" FromRole="Comunas" ToRole="Clientes" />
           <NavigationProperty Name="Provincias" Relationship="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI" FromRole="Comunas" ToRole="Provincias" />
@@ -828,7 +826,7 @@
             <PropertyRef Name="IdControlProd" />
           </Key>
           <Property Name="IdControlProd" Type="Int32" Nullable="false" />
-          <Property Name="IdOperario" Type="Int32" />
+          <Property Name="IdOperario" Type="Int32" Nullable="false" />
           <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ValorNeto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_CONTROLP_REFERENCE_OPERARIO" FromRole="ControlProduccion" ToRole="Operarios" />
@@ -838,8 +836,8 @@
             <PropertyRef Name="IdGastoDiario" />
           </Key>
           <Property Name="IdGastoDiario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdOperario" Type="Int32" />
-          <Property Name="IdProveedor" Type="Int32" />
+          <Property Name="IdOperario" Type="Int32" Nullable="false" />
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" />
           <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -880,7 +878,7 @@
             <PropertyRef Name="IdModelo" />
           </Key>
           <Property Name="IdModelo" Type="Int32" Nullable="false" />
-          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
           <Property Name="Modelo" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MarcaVehiculos" Relationship="SisGMAModel.FK_MODELOVE_REFERENCE_MARCAVEH" FromRole="ModeloVehiculos" ToRole="MarcaVehiculos" />
           <NavigationProperty Name="Vehiculos" Relationship="SisGMAModel.FK_VEHICULO_REFERENCE_MODELOVE" FromRole="ModeloVehiculos" ToRole="Vehiculos" />
@@ -898,12 +896,13 @@
             <PropertyRef Name="IdNotificacion" />
           </Key>
           <Property Name="IdNotificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdOperario" Type="Int32" />
+          <Property Name="IdOperario" Type="Int32" Nullable="false" />
           <Property Name="TituloNotificacion" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Color" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Icono" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="IdNivel" Type="Int32" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="NivelNotificacion" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_NIVELNOT" FromRole="Notificaciones" ToRole="NivelNotificacion" />
           <NavigationProperty Name="Operarios" Relationship="SisGMAModel.FK_NOTIFICA_REFERENCE_OPERARIO" FromRole="Notificaciones" ToRole="Operarios" />
@@ -918,10 +917,10 @@
           <Property Name="ApPaterno" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="ApMaterno" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="IdComuna" Type="Int32" />
+          <Property Name="IdComuna" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IdRol" Type="Int32" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
           <Property Name="Clave" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_OPERARIO_REFERENCE_COMUNAS" FromRole="Operarios" ToRole="Comunas" />
@@ -935,8 +934,8 @@
             <PropertyRef Name="IdProducto" />
           </Key>
           <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdSubcategoria" Type="Int32" />
-          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
           <Property Name="IdProveedor" Type="Int32" />
           <Property Name="Codigo" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -944,16 +943,16 @@
           <Property Name="ValorSalida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategoriasProductos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_CATEGORI" FromRole="Productos" ToRole="CategoriasProductos" />
           <NavigationProperty Name="MarcaProductos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_MARCAPRO" FromRole="Productos" ToRole="MarcaProductos" />
           <NavigationProperty Name="Proveedores" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_PROVEEDO" FromRole="Productos" ToRole="Proveedores" />
-          <NavigationProperty Name="Subcategorias" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" FromRole="Productos" ToRole="Subcategorias" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
             <PropertyRef Name="IdProveedor" />
           </Key>
           <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdGiro" Type="Int32" />
+          <Property Name="IdGiro" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="Int32" />
           <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -966,7 +965,7 @@
             <PropertyRef Name="IdProvincia" />
           </Key>
           <Property Name="IdProvincia" Type="Int32" Nullable="false" />
-          <Property Name="IdRegion" Type="Int32" />
+          <Property Name="IdRegion" Type="Int32" Nullable="false" />
           <Property Name="Provincia" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comunas" Relationship="SisGMAModel.FK_COMUNAS_REFERENCE_PROVINCI" FromRole="Provincias" ToRole="Comunas" />
           <NavigationProperty Name="Regiones" Relationship="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES" FromRole="Provincias" ToRole="Regiones" />
@@ -994,28 +993,17 @@
             <PropertyRef Name="IdRolAcceso" />
           </Key>
           <Property Name="IdRolAcceso" Type="Int32" Nullable="false" />
-          <Property Name="IdRol" Type="Int32" />
-          <Property Name="IdAcceso" Type="Int32" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <Property Name="IdAcceso" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Accesos" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ACCESOS" FromRole="RolesAccesos" ToRole="Accesos" />
           <NavigationProperty Name="Roles" Relationship="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES" FromRole="RolesAccesos" ToRole="Roles" />
-        </EntityType>
-        <EntityType Name="Subcategorias">
-          <Key>
-            <PropertyRef Name="IdSubcategoria" />
-          </Key>
-          <Property Name="IdSubcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCategoria" Type="Int32" />
-          <Property Name="Subcategoria" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Categorias" Relationship="SisGMAModel.FK_SUBCATEG_REFERENCE_CATEGORI" FromRole="Subcategorias" ToRole="Categorias" />
-          <NavigationProperty Name="Productos" Relationship="SisGMAModel.FK_PRODUCTO_REFERENCE_SUBCATEG" FromRole="Subcategorias" ToRole="Productos" />
         </EntityType>
         <EntityType Name="Vehiculos">
           <Key>
             <PropertyRef Name="IdVehiculo" />
           </Key>
           <Property Name="IdVehiculo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdModelo" Type="Int32" />
+          <Property Name="IdModelo" Type="Int32" Nullable="false" />
           <Property Name="Patente" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
           <Property Name="KmIngreso" Type="Int32" Nullable="false" />
           <Property Name="Anio" Type="Int32" Nullable="false" />
@@ -1038,7 +1026,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACCESOS_REFERENCE_CATEGORI">
-          <End Type="SisGMAModel.CategoriasAcceso" Role="CategoriasAcceso" Multiplicity="0..1" />
+          <End Type="SisGMAModel.CategoriasAcceso" Role="CategoriasAcceso" Multiplicity="1" />
           <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CategoriasAcceso">
@@ -1050,7 +1038,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ROLESACC_REFERENCE_ACCESOS">
-          <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Accesos" Role="Accesos" Multiplicity="1" />
           <End Type="SisGMAModel.RolesAccesos" Role="RolesAccesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accesos">
@@ -1061,20 +1049,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SUBCATEG_REFERENCE_CATEGORI">
-          <End Type="SisGMAModel.Categorias" Role="Categorias" Multiplicity="0..1" />
-          <End Type="SisGMAModel.Subcategorias" Role="Subcategorias" Multiplicity="*" />
+        <Association Name="FK_CATEGORI_REFERENCE_CATEGORI">
+          <End Type="SisGMAModel.CategoriasProductos" Role="CategoriasProductos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.CategoriasProductos" Role="CategoriasProductos1" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categorias">
+            <Principal Role="CategoriasProductos">
               <PropertyRef Name="IdCategoria" />
             </Principal>
-            <Dependent Role="Subcategorias">
+            <Dependent Role="CategoriasProductos1">
+              <PropertyRef Name="IdCategoriaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_CATEGORI">
+          <End Type="SisGMAModel.CategoriasProductos" Role="CategoriasProductos" Multiplicity="1" />
+          <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasProductos">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Productos">
               <PropertyRef Name="IdCategoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CLIENTES_REFERENCE_CLIENTES">
-          <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="1" />
           <End Type="SisGMAModel.ClientesVehiculos" Role="ClientesVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
@@ -1086,7 +1086,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CLIENTES_REFERENCE_COMUNAS">
-          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="1" />
           <End Type="SisGMAModel.Clientes" Role="Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comunas">
@@ -1098,7 +1098,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CLIENTES_REFERENCE_VEHICULO">
-          <End Type="SisGMAModel.Vehiculos" Role="Vehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Vehiculos" Role="Vehiculos" Multiplicity="1" />
           <End Type="SisGMAModel.ClientesVehiculos" Role="ClientesVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehiculos">
@@ -1110,7 +1110,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COMUNAS_REFERENCE_PROVINCI">
-          <End Type="SisGMAModel.Provincias" Role="Provincias" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Provincias" Role="Provincias" Multiplicity="1" />
           <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincias">
@@ -1122,7 +1122,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OPERARIO_REFERENCE_COMUNAS">
-          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Comunas" Role="Comunas" Multiplicity="1" />
           <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comunas">
@@ -1134,7 +1134,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CONTROLP_REFERENCE_OPERARIO">
-          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="1" />
           <End Type="SisGMAModel.ControlProduccion" Role="ControlProduccion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -1146,7 +1146,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GASTOSDI_REFERENCE_OPERARIO">
-          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="1" />
           <End Type="SisGMAModel.GastosDiarios" Role="GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -1158,7 +1158,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GASTOSDI_REFERENCE_PROVEEDO">
-          <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="1" />
           <End Type="SisGMAModel.GastosDiarios" Role="GastosDiarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Proveedores">
@@ -1170,7 +1170,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROVEEDO_REFERENCE_GIROS">
-          <End Type="SisGMAModel.Giros" Role="Giros" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Giros" Role="Giros" Multiplicity="1" />
           <End Type="SisGMAModel.Proveedores" Role="Proveedores" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Giros">
@@ -1182,7 +1182,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PRODUCTO_REFERENCE_MARCAPRO">
-          <End Type="SisGMAModel.MarcaProductos" Role="MarcaProductos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.MarcaProductos" Role="MarcaProductos" Multiplicity="1" />
           <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MarcaProductos">
@@ -1194,7 +1194,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MODELOVE_REFERENCE_MARCAVEH">
-          <End Type="SisGMAModel.MarcaVehiculos" Role="MarcaVehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.MarcaVehiculos" Role="MarcaVehiculos" Multiplicity="1" />
           <End Type="SisGMAModel.ModeloVehiculos" Role="ModeloVehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MarcaVehiculos">
@@ -1206,7 +1206,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VEHICULO_REFERENCE_MODELOVE">
-          <End Type="SisGMAModel.ModeloVehiculos" Role="ModeloVehiculos" Multiplicity="0..1" />
+          <End Type="SisGMAModel.ModeloVehiculos" Role="ModeloVehiculos" Multiplicity="1" />
           <End Type="SisGMAModel.Vehiculos" Role="Vehiculos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ModeloVehiculos">
@@ -1230,7 +1230,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NOTIFICA_REFERENCE_OPERARIO">
-          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="1" />
           <End Type="SisGMAModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Operarios">
@@ -1242,7 +1242,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OPERARIO_REFERENCE_ROLES">
-          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="1" />
           <End Type="SisGMAModel.Operarios" Role="Operarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -1265,20 +1265,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PRODUCTO_REFERENCE_SUBCATEG">
-          <End Type="SisGMAModel.Subcategorias" Role="Subcategorias" Multiplicity="0..1" />
-          <End Type="SisGMAModel.Productos" Role="Productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subcategorias">
-              <PropertyRef Name="IdSubcategoria" />
-            </Principal>
-            <Dependent Role="Productos">
-              <PropertyRef Name="IdSubcategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PROVINCI_REFERENCE_REGIONES">
-          <End Type="SisGMAModel.Regiones" Role="Regiones" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Regiones" Role="Regiones" Multiplicity="1" />
           <End Type="SisGMAModel.Provincias" Role="Provincias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Regiones">
@@ -1290,7 +1278,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ROLESACC_REFERENCE_ROLES">
-          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Roles" Role="Roles" Multiplicity="1" />
           <End Type="SisGMAModel.RolesAccesos" Role="RolesAccesos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
@@ -1321,21 +1309,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Categorias">
-            <EntityTypeMapping TypeName="SisGMAModel.Categorias">
-              <MappingFragment StoreEntitySet="Categorias">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CategoriasAcceso">
             <EntityTypeMapping TypeName="SisGMAModel.CategoriasAcceso">
               <MappingFragment StoreEntitySet="CategoriasAcceso">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
                 <ScalarProperty Name="IdCategoriaAcceso" ColumnName="IdCategoriaAcceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriasProductos">
+            <EntityTypeMapping TypeName="SisGMAModel.CategoriasProductos">
+              <MappingFragment StoreEntitySet="CategoriasProductos">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Icono" ColumnName="Icono" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdCategoriaPadre" ColumnName="IdCategoriaPadre" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1446,6 +1437,7 @@
             <EntityTypeMapping TypeName="SisGMAModel.Notificaciones">
               <MappingFragment StoreEntitySet="Notificaciones">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
                 <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
                 <ScalarProperty Name="Icono" ColumnName="Icono" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
@@ -1485,7 +1477,7 @@
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
                 <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
-                <ScalarProperty Name="IdSubcategoria" ColumnName="IdSubcategoria" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1533,16 +1525,6 @@
                 <ScalarProperty Name="IdAcceso" ColumnName="IdAcceso" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
                 <ScalarProperty Name="IdRolAcceso" ColumnName="IdRolAcceso" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Subcategorias">
-            <EntityTypeMapping TypeName="SisGMAModel.Subcategorias">
-              <MappingFragment StoreEntitySet="Subcategorias">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Subcategoria" ColumnName="Subcategoria" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-                <ScalarProperty Name="IdSubcategoria" ColumnName="IdSubcategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

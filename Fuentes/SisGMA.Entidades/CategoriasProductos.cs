@@ -12,20 +12,25 @@ namespace SisGMA.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class Subcategorias
+    public partial class CategoriasProductos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Subcategorias()
+        public CategoriasProductos()
         {
+            this.CategoriasProductos1 = new HashSet<CategoriasProductos>();
             this.Productos = new HashSet<Productos>();
         }
     
-        public int IdSubcategoria { get; set; }
-        public Nullable<int> IdCategoria { get; set; }
-        public string Subcategoria { get; set; }
+        public int IdCategoria { get; set; }
+        public Nullable<int> IdCategoriaPadre { get; set; }
+        public string Codigo { get; set; }
+        public string Categoria { get; set; }
+        public string Icono { get; set; }
         public bool Estado { get; set; }
     
-        public virtual Categorias Categorias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CategoriasProductos> CategoriasProductos1 { get; set; }
+        public virtual CategoriasProductos CategoriasProductos2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }
     }

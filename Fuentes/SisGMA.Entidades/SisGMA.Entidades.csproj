@@ -50,10 +50,10 @@
     <Compile Include="Accesos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="Categorias.cs">
+    <Compile Include="CategoriasAcceso.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
-    <Compile Include="CategoriasAcceso.cs">
+    <Compile Include="CategoriasProductos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="Clientes.cs">
@@ -126,9 +126,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SisGMA.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Subcategorias.cs">
-      <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
     <Compile Include="Vehiculos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>

@@ -23,7 +23,7 @@ namespace SisGMA.Entidades
     
         public int IdAcceso { get; set; }
         public Nullable<int> IdAccesoPadre { get; set; }
-        public Nullable<int> IdCategoriaAcceso { get; set; }
+        public int IdCategoriaAcceso { get; set; }
         public string NombreAcceso { get; set; }
         public string Descripcion { get; set; }
         public string Icono { get; set; }

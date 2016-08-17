@@ -10,35 +10,35 @@
                 {
                     <table id="tblOperarios" class="table table-bordered table-hover dataTable" role="grid">
                         <thead>
-                        <tr>
-                            <th>RUT</th>
-                            <th>Nombre(s)</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Rol</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
+                            <tr>
+                                <th>RUT</th>
+                                <th>Nombre(s)</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var operador in Model.ListaOperadores)
-                        {
-                            var rutNum = int.Parse(operador.RutOperario.Substring(0, operador.RutOperario.Length - 1));
-                            var rutDv = operador.RutOperario.Substring(operador.RutOperario.Length - 1, 1);
-                            <tr>
-                                <td>@(rutNum.ToString("N0") + "-" + rutDv)</td>
-                                <td>@operador.Nombres</td>
-                                <td>@operador.ApPaterno</td>
-                                <td>@operador.ApMaterno</td>
-                                <td>@operador.Rol</td>
-                                <td id="estado">
-                                    <a class="btn btn-flat btn-xs @(operador.Estado ? "btn-success" : "btn-danger")" data-id="@operador.IdOperario">@(operador.Estado ? "Activo" : "Inactivo")</a>
-                                </td>
-                                <td id="acciones">
-                                    <a class="btn btn-flat btn-xs btn-warning" data-id="@operador.IdOperario">Editar</a>
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var operador in Model.ListaOperadores)
+                            {
+                                var rutNum = int.Parse(operador.RutOperario.Substring(0, operador.RutOperario.Length - 1));
+                                var rutDv = operador.RutOperario.Substring(operador.RutOperario.Length - 1, 1);
+                                <tr>
+                                    <td>@(rutNum.ToString("N0") + "-" + rutDv)</td>
+                                    <td>@operador.Nombres</td>
+                                    <td>@operador.ApPaterno</td>
+                                    <td>@operador.ApMaterno</td>
+                                    <td>@operador.Rol</td>
+                                    <td id="estado">
+                                        <a class="btn btn-flat btn-xs @(operador.Estado ? "btn-success" : "btn-danger")" data-id="@operador.IdOperario">@(operador.Estado ? "Activo" : "Inactivo")</a>
+                                    </td>
+                                    <td id="acciones">
+                                        <a class="btn btn-flat btn-xs btn-warning" data-id="@operador.IdOperario">Editar</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 }
@@ -53,10 +53,59 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#btnCrear").click(function() {
+    $(document).ready(function () {
+        $("#acciones a").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerOperador", "Operadores", new {area = "Mantenedores"})",
+                data: { idOperador: $(this).data("id") },
+                success: function (response) {
+                    if (response !== "") {
+                        $("#divFormulario").html(response);
+                        $("#divFormulario .box .overlay").remove();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
             $("#divLista").addClass("hide");
-            $("#frmOperador").attr("data-id", null);
+            $("#divFormulario").removeClass("hide");
+        });
+
+        $('#tblOperarios').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": true,
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "No hay datos para mostrar",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            }
+        });
+
+        $("#btnCrear").click(function () {
+            $("#divLista").addClass("hide");
+            $("#frmOperador").attr("data-id", "0");
             $("#frmOperador")
                 .find("#hdnIdOperario").remove().end()
                 .find("#imgfupImagenOperador").html("").end()

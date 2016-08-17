@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="GeneralBo.cs" />
     <Compile Include="ClientesBo.cs" />
+    <Compile Include="InventarioBo\InventarioBo.cs" />
     <Compile Include="OperariosBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemBo\AccesosBo.cs" />

@@ -15,8 +15,8 @@ namespace SisGMA.Entidades
     public partial class ClientesVehiculos
     {
         public int IdClienteVehiculo { get; set; }
-        public Nullable<int> IdVehiculo { get; set; }
-        public Nullable<int> IdCliente { get; set; }
+        public int IdVehiculo { get; set; }
+        public int IdCliente { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Vehiculos Vehiculos { get; set; }

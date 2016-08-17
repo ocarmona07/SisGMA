@@ -127,12 +127,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BaseLayout.cs" />
+    <Compile Include="Areas\Inventario\Controllers\ProductosController.cs" />
+    <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\AccesosController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\InventarioController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\OperadoresController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\ProveedoresController.cs" />
     <Compile Include="Areas\Mantenedores\MantenedoresAreaRegistration.cs" />
+    <Compile Include="Areas\Mantenedores\Models\InventarioViewModel.cs" />
     <Compile Include="Areas\Mantenedores\Models\AccesosViewModel.cs" />
     <Compile Include="Areas\Mantenedores\Models\OperadoresViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1144,6 +1147,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Mantenedores\Views\Accesos\Partials\ListaCategoriasPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ListaCategoriasPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ModalCategoriaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ListaMarcasPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ModalMarcaPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Inventario\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Inventario\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Inventario\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Inventario\Views\Productos\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

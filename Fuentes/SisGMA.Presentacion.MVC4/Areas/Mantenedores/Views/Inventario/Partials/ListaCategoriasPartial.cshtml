@@ -1,0 +1,117 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
+<div class="row margin-bottom">
+    <div class="col-md-12 text-center">
+        @WebControls.BotonCrear("Agregar Categoria", "btnCrearCategoria", "200px")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tree">
+            @if (Model.ListaCategorias != null)
+            {
+                <ul>
+                @foreach (var item in Model.ListaCategorias.Where(c => c.IdCategoriaPadre == null))
+                {
+                    <li>
+                        <span><i class="fa @item.Icono"></i> @item.Categoria</span>
+                        <a id="btnEstado" class="btn btn-flat btn-xs @(item.Estado ? "btn-success" : "btn-danger")" data-id="@item.IdCategoria">@(item.Estado ? "Activo" : "Inactivo")</a>
+                        <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item.IdCategoria">Editar</a>
+                        @foreach (var item2 in item.CategoriasProductos1)
+                        {
+                            <ul>
+                                <li>
+                                    <span><i class="fa @item2.Icono"></i> @item2.Categoria</span>
+                                    <a id="btnEstado" class="btn btn-flat btn-xs @(item2.Estado ? "btn-success" : "btn-danger")" data-id="@item2.IdCategoria">@(item2.Estado ? "Activo" : "Inactivo")</a>
+                                    <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item2.IdCategoria">Editar</a>
+                                    @foreach (var item3 in item2.CategoriasProductos1)
+                                    {
+                                        <ul>
+                                            <li>
+                                                <span><i class="fa @item3.Icono"></i> @item3.Categoria</span>
+                                                <a id="btnEstado" class="btn btn-flat btn-xs @(item3.Estado ? "btn-success" : "btn-danger")" data-id="@item3.IdCategoria">@(item3.Estado ? "Activo" : "Inactivo")</a>
+                                                <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item3.IdCategoria">Editar</a>
+                                            </li>
+                                        </ul>
+                                    }
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                    
+                }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnCrearCategoria").click(function () {
+            $("#frmCategoria").attr("data-id", "0");
+            $("#frmCategoria")
+                .find(".modal-body .row .hide").removeClass("hide").end()
+                .find(".modal-header h4").text("Crear Categoría").end()
+                .find("textarea, :text, select").val("");
+            $("#modalCategoria").modal("show");
+        });
+
+        $(".tree #btnEstado").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CambiarEstadoCategoria", "Inventario", new {area = "Mantenedores"})",
+                data: {
+                    idCategoria: $(this).data("id"),
+                    estado: $(this).hasClass("btn-danger")
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado("Estado de la categoría")');
+                        $("#alertSuccessMensaje").html("Se cambió el estado correctamente");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaCategorias", "Inventario", new { area = "Mantenedores" })",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabCategorias").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Estado de la categoría")');
+                        $("#alertDangerMensaje").html("Error al cambiar el estado.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+        });
+
+        $(".tree #btnEditar").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerDatosCategoria", "Inventario", new { area = "Mantenedores" })",
+                data: { idCategoria: $(this).data("id") },
+                success: function (response) {
+                    if (response !== "") {
+                        $("#divModalCategoria").html(response);
+                        $("#modalCategoria").modal("show");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#modalCategoria").modal("hide");
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+        });
+    });
+</script>

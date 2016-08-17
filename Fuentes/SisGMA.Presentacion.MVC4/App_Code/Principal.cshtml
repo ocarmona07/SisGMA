@@ -81,6 +81,7 @@
                     <a href="#" alt="@acceso.Descripcion" title="@acceso.Descripcion">
                         <i class="fa @acceso.Icono"></i>
                         <span>@acceso.NombreAcceso</span>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         @foreach (var subAcceso in acceso.Accesos1.Where(e => e.IdAccesoPadre != null && e.Estado))

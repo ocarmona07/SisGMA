@@ -15,12 +15,13 @@ namespace SisGMA.Entidades
     public partial class Notificaciones
     {
         public int IdNotificacion { get; set; }
-        public Nullable<int> IdOperario { get; set; }
+        public int IdOperario { get; set; }
         public string TituloNotificacion { get; set; }
         public string Descripcion { get; set; }
         public string Color { get; set; }
         public string Icono { get; set; }
         public int IdNivel { get; set; }
+        public System.DateTime FechaHora { get; set; }
         public bool Estado { get; set; }
     
         public virtual NivelNotificacion NivelNotificacion { get; set; }
