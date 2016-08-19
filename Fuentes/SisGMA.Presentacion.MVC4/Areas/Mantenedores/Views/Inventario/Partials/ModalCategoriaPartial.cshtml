@@ -8,13 +8,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-2 @(Model.DatosCategoria.IdCategoria > 0 ? "hide" : "")">
-                            @WebControls.InputTextBoxFormGroup("ID", "tbIdCategoria", Model.DatosCategoria.IdCategoria.ToString(), maxLenght: 6, requerido: true)
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             @WebControls.InputTextBoxFormGroup("Código", "tbCodigo", Model.DatosCategoria.Codigo, maxLenght: 16, requerido: true)
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @WebControls.DropDownListFormGroup("Categoría Padre", "ddlCategoriaPadre", Model.DdlListaCategorias(), Model.DatosCategoria.IdCategoriaPadre.ToString(), "Ninguno")
                         </div>
                     </div>
@@ -43,17 +40,6 @@
             }
         });
         $("#btnAceptarCategoria").click(function () {
-            var idCateg;
-            if ($("#frmCategoria .modal-body .row .col-md-2").hasClass("hide")) {
-                idCateg = $("#frmCategoria").attr("data-id");
-            } else {
-                if (isNaN(parseInt($("#tbIdCategoria").val()))) {
-                    alert('Debe colocar un ID para la categoría');
-                    return false;
-                } else {
-                    idCateg = $("#tbIdCategoria").val();
-                }
-            }
             if ($('#tbCodigo').val() === '') {
                 alert('Debe colocar un código para la categoría');
                 return false;
@@ -67,7 +53,7 @@
                 type: "POST",
                 url: "@Url.Action("GuardarCategoria", "Inventario", new {area = "Mantenedores"})",
                 data: {
-                    idCategoria: parseInt(idCateg),
+                    idCategoria: parseInt($("#frmCategoria").attr("data-id")),
                     idCategoriaPadre: parseInt($("#ddlCategoriaPadre option:selected").val()),
                     codigo: $("#tbCodigo").val(),
                     categoria: $("#tbNombreCategoria").val(),

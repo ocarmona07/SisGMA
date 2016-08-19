@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BaseLayout.cs" />
     <Compile Include="Areas\Inventario\Controllers\ProductosController.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
+    <Compile Include="Areas\Inventario\Models\ProductosViewModel.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\AccesosController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\ClientesController.cs" />
     <Compile Include="Areas\Mantenedores\Controllers\InventarioController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Areas\Mantenedores\Models\OperadoresViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\MantenedoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1163,14 +1165,15 @@
   <ItemGroup>
     <Content Include="Areas\Inventario\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Inventario\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Areas\Inventario\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Inventario\Views\Productos\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inventario\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
