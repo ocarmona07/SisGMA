@@ -1,7 +1,7 @@
 SisGMA
 ======
 
-Proyecto en ASP.NET para Sistema de Gestión Mecánico Automotriz
+Proyecto en MVC 4 para Sistema de Gestión Mecánico Automotriz
 
 - Base de Datos: MS SQL Server 2012 SP2
-- Lenguaje: ASP.NET + C# (Entity Framework 6)
+- Lenguaje: MVC 4 (Razor) + C# (Entity Framework 6) Multicapa
