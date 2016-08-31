@@ -47,5 +47,6 @@ namespace SisGMA.Entidades
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<RolesAccesos> RolesAccesos { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
+        public virtual DbSet<Servicios> Servicios { get; set; }
     }
 }

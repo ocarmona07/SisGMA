@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -11,7 +12,7 @@
         // GET: /View/
         public ActionResult Index()
         {
-            Response.Redirect("/Inicio");
+            Response.Redirect(ConfigurationManager.AppSettings.Get("BaseUrl") + "Inicio");
             return View();
         }
     }

@@ -112,6 +112,9 @@
     <Compile Include="RolesAccesos.cs">
       <DependentUpon>SisGMA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Servicios.cs">
+      <DependentUpon>SisGMA.tt</DependentUpon>
+    </Compile>
     <Compile Include="SisGMA.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,0 +1,155 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Inventario.Models.ProductosViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header text-center">
+                @WebControls.BotonCrear("Agregar Producto", width: "200px")
+            </div>
+            <div class="box-body">
+                @if (Model.ListaProductos != null)
+                {
+                    <table id="tblProductos" class="table table-bordered table-hover dataTable" role="grid">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Valor de Ingreso</th>
+                                <th>Valor Salida</th>
+                                <th>Fecha Ingreso</th>
+                                <th>Cantidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var producto in Model.ListaProductos)
+                            {
+                                <tr>
+                                    <td>@producto.Codigo</td>
+                                    <td>@producto.Descripcion</td>
+                                    <td>$ @producto.ValorIngreso.ToString("N0")</td>
+                                    <td>$ @producto.ValorSalida.ToString("N0")</td>
+                                    <td>@producto.FechaIngreso.ToShortDateString()</td>
+                                    <td>@producto.Cantidad</td>
+                                    <td class="acciones">
+                                        <a class="btn btn-flat btn-xs btn-primary cantidad hide" data-id="@producto.IdProducto">Cambiar cantidad</a>
+                                        <a class="btn btn-flat btn-xs btn-warning editar" data-id="@producto.IdProducto">Editar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="callout callout-warning">
+                        <h4><i class="icon fa fa-warning" style="padding-right: 10px;"></i> No hay productos para mostrar</h4>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $('#tblProductos').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "dom": "<<'col-md-3'f><'col-md-9 text-right'i><t>p>",
+                "oLanguage": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "No hay datos para mostrar",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "No hay registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                }
+            });
+        });
+
+        $("td.acciones a.editar").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerProducto", "Productos", new {area = "Inventario"})",
+                data: { idProducto: $(this).data("id") },
+                success: function (response) {
+                    if (response !== "") {
+                        $("#divFormulario").html(response);
+                        $("#divFormulario .box .overlay").remove();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+            $("#divLista").addClass("hide");
+            $("#divFormulario").removeClass("hide");
+        });
+
+        $("#btnCrear").click(function () {
+            $("#divLista").addClass("hide");
+            $("#frmProducto").attr("data-id", "0");
+            $("#frmProducto").find("textarea, :text, [type=tel], select").val("");
+            $("#divFormulario .box .box-title").text("Crear producto");
+            $("#divFormulario").removeClass("hide");
+            $(".box .overlay").remove();
+        });
+    });
+
+    $("#tblProductos a.cantidad").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CambiarCantidadProductos", "Productos", new { area = "Inventario" })",
+            data: {
+                idOperario: $(this).data("id"),
+                estado: $(this).hasClass("btn-danger")
+            },
+            success: function (response) {
+                if (response) {
+                    $("#divMessage").html('@WebControls.AlertaCompletado("Estado del producto")');
+                    $("#alertSuccessMensaje").html("Se cambió la cantidad correctamente");
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("ObtenerListaProductos", "Productos", new { area = "Inventario" })",
+                        success: function (response) {
+                            if (response !== "") {
+                                $("#divLista").html(response);
+                            } else {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                            $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                } else {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Estado del producto")');
+                    $("#alertDangerMensaje").html("Error al cambiar el estado.");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+            }
+        });
+    });
+</script>

@@ -8,10 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-2 @(Model.DatosMarca.IdMarca > 0 ? "hide" : "")">
-                            @WebControls.InputTextBoxFormGroup("ID", "tbIdMarca", Model.DatosMarca.IdMarca.ToString(), maxLenght: 6, requerido: true)
-                        </div>
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @WebControls.InputTextBoxFormGroup("Nombre de la Marca", "tbNombreMarca", Model.DatosMarca.Marca, maxLenght: 32, requerido: true)
                         </div>
                     </div>
@@ -27,16 +24,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#btnAceptarMarca").click(function () {
-            var idMarca;
-            if ($("#frmMarca .modal-body .row .col-md-2").hasClass("hide")) {
-                idMarca = $("#frmMarca").attr("data-id");
-            } else {
-                if (isNaN(parseInt($("#tbIdMarca").val()))) {
-                    alert('Debe colocar un ID para la marca');
-                    return false;
-                } else {
-                    idMarca = $("#tbIdMarca").val();
-                }
+            if (isNaN(parseInt($("#frmMarca").attr("data-id")))) {
+                alert('Debe colocar un ID para la marca');
+                return false;
             }
             if ($('#tbNombreMarca').val() === '') {
                 alert('Debe colocar un nombre para la marca');
@@ -47,7 +37,7 @@
                 type: "POST",
                 url: "@Url.Action("GuardarMarca", "Inventario", new { area = "Mantenedores" })",
                 data: {
-                    idMarca: parseInt(idMarca),
+                    idMarca: parseInt($("#frmMarca").attr("data-id")),
                     marca: $("#tbNombreMarca").val(),
                     estado: "@Model.DatosMarca.Estado"
                 },

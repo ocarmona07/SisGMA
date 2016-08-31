@@ -1040,7 +1040,9 @@
     <Content Include="Areas\Mantenedores\Views\Clientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="Areas\Inventario\Views\Productos\Partials\ListaProductosPartial.cshtml" />
+    <Content Include="Areas\Inventario\Views\Productos\Partials\FormularioPartial.cshtml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Mantenedores\Views\Web.config" />
@@ -1165,7 +1167,9 @@
   <ItemGroup>
     <Content Include="Areas\Inventario\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ModalServicioPartial.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Inventario\Views\_ViewStart.cshtml" />
   </ItemGroup>
@@ -1174,6 +1178,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Inventario\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Mantenedores\Views\Inventario\Partials\ListaServiciosPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,107 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
+<div id="modalServicio" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="frmServicio" role="form" data-id="@Model.DatosServicio.IdServicio">
+                <div class="modal-header">
+                    <h4 class="modal-title">@Model.TituloModalServicio</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @WebControls.InputTextBoxFormGroup("Código", "tbCodigoServicio", Model.DatosServicio.Codigo, maxLenght: 16, requerido: true)
+                        </div>
+                        <div class="col-md-7">
+                            @WebControls.DropDownListFormGroup("Servicio Padre", "ddlServicioPadre", Model.DdlListaServicios(), Model.DatosServicio.IdServicioPadre.ToString(), "Ninguno")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @WebControls.InputTextBoxFormGroup("Nombre del Servicio", "tbNombreServicio", Model.DatosServicio.Servicio, maxLenght: 32, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Valor de Salida", "tbValorSalida", Model.DatosServicio.ValorSalida.ToString("N"), maxLenght: 10, requerido: true)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @WebControls.InputTextBoxFormGroup("Descripción", "tbDescripcionServicio", Model.DatosServicio.Descripcion, requerido: true)
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat pull-left" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnAceptarServicio" class="btn btn-flat btn-success">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnAceptarServicio").click(function () {
+            if ($('#tbCodigoServicio').val() === '') {
+                alert('Debe colocar un código para el servicio');
+                return false;
+            }
+            if ($('#tbNombreServicio').val() === '') {
+                alert('Debe colocar un nombre para el servicio');
+                return false;
+            }
+            if ($('#tbValorSalida').val() === '') {
+                alert('Debe colocar un valor de salida para el servicio');
+                return false;
+            }
+            if ($('#tbDescripcionServicio').val() === '') {
+                alert('Debe colocar una descripción para el servicio');
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarServicio", "Inventario", new {area = "Mantenedores"})",
+                data: {
+                    idServicio: parseInt($("#frmServicio").attr("data-id")),
+                    idServicioPadre: parseInt($("#ddlServicioPadre option:selected").val()),
+                    codigo: $("#tbCodigoServicio").val(),
+                    servicio: $("#tbNombreServicio").val(),
+                    descripcion: $("#tbDescripcionServicio").val(),
+                    valorSalida: $("#tbValorSalida").val(),
+                    estado: "@Model.DatosServicio.Estado"
+                    },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloModalServicio)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosServicio.IdServicio > 0 ? "actualizado" :"agregado") correctamente");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaServicios", "Inventario", new { area = "Mantenedores" })",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabServicios").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosServicio.IdServicio > 0 ? "actualizar" :"agregar") los datos.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+            $("#modalServicio").modal("hide");
+            return true;
+        });
+    });
+</script>

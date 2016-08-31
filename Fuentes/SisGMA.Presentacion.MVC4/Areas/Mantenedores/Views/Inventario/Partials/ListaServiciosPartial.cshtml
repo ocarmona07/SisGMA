@@ -1,0 +1,143 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Mantenedores.Models.InventarioViewModel
+<div class="row margin-bottom">
+    <div class="col-md-12 text-center">
+        @WebControls.BotonCrear("Agregar Servicio", "btnCrearServicio", "200px")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tree">
+            @if (Model.ListaServicios != null)
+            {
+                <ul>
+                    @foreach (var item in Model.ListaServicios.Where(c => c.IdServicioPadre == null))
+                    {
+                        <li>
+                            <span>@item.Servicio</span>
+                            <a id="btnEstado" class="btn btn-flat btn-xs @(item.Estado ? "btn-success" : "btn-danger")" data-id="@item.IdServicio">@(item.Estado ? "Activo" : "Inactivo")</a>
+                            <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item.IdServicio">Editar</a>
+                            @foreach (var item2 in item.Servicios1)
+                            {
+                                <ul>
+                                    <li>
+                                        <span>@item2.Servicio</span>
+                                        <a id="btnEstado" class="btn btn-flat btn-xs @(item2.Estado ? "btn-success" : "btn-danger")" data-id="@item2.IdServicio">@(item2.Estado ? "Activo" : "Inactivo")</a>
+                                        <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item2.IdServicio">Editar</a>
+                                        @foreach (var item3 in item2.Servicios1)
+                                        {
+                                            <ul>
+                                                <li>
+                                                    <span>@item3.Servicio</span>
+                                                    <a id="btnEstado" class="btn btn-flat btn-xs @(item3.Estado ? "btn-success" : "btn-danger")" data-id="@item3.IdServicio">@(item3.Estado ? "Activo" : "Inactivo")</a>
+                                                    <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item3.IdServicio">Editar</a>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Contraer esta rama');
+            $('.tree li.parent_li > span').on('click', function (e) {
+                var children = $(this).parent('li.parent_li').find(' > ul > li');
+                if (children.is(":visible")) {
+                    children.hide('fast');
+                    $(this).attr('title', 'Expandir esta rama');
+                } else {
+                    children.show('fast');
+                    $(this).attr('title', 'Contraer esta rama');
+                }
+                e.stopPropagation();
+            });
+        });
+
+        $("#btnCrearServicio").click(function () {
+            $("#frmServicio").attr("data-id", "0");
+            $("#frmServicio")
+                .find(".modal-body .row .hide").removeClass("hide").end()
+                .find(".modal-header h4").text("Crear Servicio").end()
+                .find("textarea, :text, select").val("");
+            $("#ddlServicioPadre").html();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerServicios", "Inventario", new { area = "Mantenedores" })",
+                success: function (response) {
+                    if (response !== "") {
+                        $("#ddlServicioPadre").html(response);
+                    }
+                },
+                error: function () {
+                }
+            });
+            $("#modalServicio").modal("show");
+        });
+
+        $(".tree #btnEstado").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CambiarEstadoServicio", "Inventario", new {area = "Mantenedores"})",
+                data: {
+                    idServicio: $(this).data("id"),
+                    estado: $(this).hasClass("btn-danger")
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado("Estado del servicio")');
+                        $("#alertSuccessMensaje").html("Se cambió el estado correctamente");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaServicios", "Inventario", new { area = "Mantenedores" })",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#tabServicios").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                            }
+                        });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Estado del servicio")');
+                        $("#alertDangerMensaje").html("Error al cambiar el estado.");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+        });
+
+        $(".tree #btnEditar").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerDatosServicio", "Inventario", new { area = "Mantenedores" })",
+                data: { idServicio: $(this).data("id") },
+                success: function (response) {
+                    if (response !== "") {
+                        $("#divModalServicio").html(response);
+                        $("#modalServicio").modal("show");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#modalServicio").modal("hide");
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                }
+            });
+        });
+    });
+</script>

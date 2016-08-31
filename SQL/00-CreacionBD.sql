@@ -247,6 +247,17 @@ IF EXISTS ( SELECT  1
                     JOIN sys.sysobjects o ON ( o.id = r.constid
                                                AND o.type = 'F'
                                              )
+            WHERE   r.fkeyid = OBJECT_ID('Servicios')
+                    AND o.name = 'FK_SERVICIO_REFERENCE_SERVICIO' )
+    ALTER TABLE Servicios
+    DROP CONSTRAINT FK_SERVICIO_REFERENCE_SERVICIO
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sys.sysreferences r
+                    JOIN sys.sysobjects o ON ( o.id = r.constid
+                                               AND o.type = 'F'
+                                             )
             WHERE   r.fkeyid = OBJECT_ID('Vehiculos')
                     AND o.name = 'FK_VEHICULO_REFERENCE_MODELOVE' )
     ALTER TABLE Vehiculos
@@ -398,6 +409,13 @@ IF EXISTS ( SELECT  1
             WHERE   id = OBJECT_ID('RolesAccesos')
                     AND type = 'U' )
     DROP TABLE RolesAccesos
+GO
+
+IF EXISTS ( SELECT  1
+            FROM    sysobjects
+            WHERE   id = OBJECT_ID('Servicios')
+                    AND type = 'U' )
+    DROP TABLE Servicios
 GO
 
 IF EXISTS ( SELECT  1
@@ -704,6 +722,22 @@ CREATE TABLE RolesAccesos
 GO
 
 /*==============================================================*/
+/* Table: Servicios                                             */
+/*==============================================================*/
+CREATE TABLE Servicios
+    (
+      IdServicio INT IDENTITY ,
+      IdServicioPadre INT NULL ,
+      Codigo NVARCHAR(16) NOT NULL ,
+      Servicio NVARCHAR(64) NOT NULL ,
+      Descripcion NVARCHAR(MAX) NULL ,
+      ValorSalida MONEY NOT NULL ,
+      Estado BIT NOT NULL ,
+      CONSTRAINT PK_SERVICIOS PRIMARY KEY ( IdServicio )
+    )
+GO
+
+/*==============================================================*/
 /* Table: Vehiculos                                             */
 /*==============================================================*/
 CREATE TABLE Vehiculos
@@ -828,6 +862,11 @@ GO
 ALTER TABLE RolesAccesos
 ADD CONSTRAINT FK_ROLESACC_REFERENCE_ACCESOS FOREIGN KEY (IdAcceso)
 REFERENCES Accesos (IdAcceso)
+GO
+
+ALTER TABLE Servicios
+ADD CONSTRAINT FK_SERVICIO_REFERENCE_SERVICIO FOREIGN KEY (IdServicioPadre)
+REFERENCES Servicios (IdServicio)
 GO
 
 ALTER TABLE Vehiculos

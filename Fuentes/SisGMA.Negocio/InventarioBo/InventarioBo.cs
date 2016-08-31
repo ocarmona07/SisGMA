@@ -74,5 +74,79 @@
         }
 
         #endregion
+
+        #region Productos
+
+        public Productos InsertProducto(Productos producto)
+        {
+            IsValid = true;
+            return new ProductosDa().Insert(producto);
+        }
+
+        public Productos UpdateProducto(Productos producto)
+        {
+            IsValid = true;
+            return new ProductosDa().Update(producto);
+        }
+
+        public bool UpdateCantidadProducto(int idProducto, int cantidad)
+        {
+            IsValid = true;
+            return new ProductosDa().UpdateCantidad(idProducto, cantidad);
+        }
+
+        public List<Productos> GetProductos()
+        {
+            IsValid = true;
+            return new ProductosDa().GetAll();
+        }
+
+        public Productos GetProducto(int idProducto)
+        {
+            IsValid = true;
+            return new ProductosDa().Get(idProducto);
+        }
+
+        public bool DeleteProducto(int idProducto)
+        {
+            IsValid = true;
+            return new ProductosDa().Delete(idProducto);
+        }
+
+        #endregion
+
+        #region Servicios
+
+        public Servicios InsertServicio(Servicios servicio)
+        {
+            return new ServiciosDa().Insert(servicio);
+        }
+
+        public Servicios UpdateServicio(Servicios servicio)
+        {
+            return new ServiciosDa().Update(servicio);
+        }
+
+        public bool UpdateEstadoServicio(int idServicio, bool estado)
+        {
+            return new ServiciosDa().UpdateEstado(idServicio, estado);
+        }
+
+        public List<Servicios> GetServicios()
+        {
+            return new ServiciosDa().GetAll();
+        }
+
+        public Servicios GetServicio(int idServicio)
+        {
+            return new ServiciosDa().Get(idServicio);
+        }
+
+        public bool DeleteServicio(int idServicio)
+        {
+            return new ServiciosDa().Delete(idServicio);
+        }
+
+        #endregion
     }
 }

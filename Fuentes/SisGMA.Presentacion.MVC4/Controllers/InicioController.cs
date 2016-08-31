@@ -1,9 +1,5 @@
 ﻿namespace SisGMA.Presentacion.MVC4.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
     public class InicioController : Controller
@@ -12,6 +8,8 @@
 
         public ActionResult Index()
         {
+            ViewBag.CantidadProductos = 0;
+            ViewBag.CantidadOperadores = 0;
             return View();
         }
     }

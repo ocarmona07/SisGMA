@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-5">
-                            @WebControls.InputTextBoxFormGroup("Código", "tbCodigo", Model.DatosCategoria.Codigo, maxLenght: 16, requerido: true)
+                            @WebControls.InputTextBoxFormGroup("Código", "tbCodigoCategoria", Model.DatosCategoria.Codigo, maxLenght: 16, requerido: true)
                         </div>
                         <div class="col-md-7">
                             @WebControls.DropDownListFormGroup("Categoría Padre", "ddlCategoriaPadre", Model.DdlListaCategorias(), Model.DatosCategoria.IdCategoriaPadre.ToString(), "Ninguno")
@@ -40,7 +40,7 @@
             }
         });
         $("#btnAceptarCategoria").click(function () {
-            if ($('#tbCodigo').val() === '') {
+            if ($('#tbCodigoCategoria').val() === '') {
                 alert('Debe colocar un código para la categoría');
                 return false;
             }
@@ -55,7 +55,7 @@
                 data: {
                     idCategoria: parseInt($("#frmCategoria").attr("data-id")),
                     idCategoriaPadre: parseInt($("#ddlCategoriaPadre option:selected").val()),
-                    codigo: $("#tbCodigo").val(),
+                    codigo: $("#tbCodigoCategoria").val(),
                     categoria: $("#tbNombreCategoria").val(),
                     icono: $("#tbIcono").val(),
                     estado: "@Model.DatosCategoria.Estado"

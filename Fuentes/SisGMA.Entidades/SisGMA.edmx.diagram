@@ -7,7 +7,7 @@
       <Diagram DiagramId="87b5e80b2d4f4e06942df6b981ee3ce2" Name="Diagram1" ZoomLevel="52">
         <EntityTypeShape EntityType="SisGMAModel.Accesos" Width="1.5" PointX="3.125" PointY="8" />
         <EntityTypeShape EntityType="SisGMAModel.CategoriasAcceso" Width="1.5" PointX="1" PointY="10" />
-        <EntityTypeShape EntityType="SisGMAModel.CategoriasProductos" Width="1.5" PointX="11.125" PointY="4.875" />
+        <EntityTypeShape EntityType="SisGMAModel.CategoriasProductos" Width="1.5" PointX="11.125" PointY="8.25" />
         <EntityTypeShape EntityType="SisGMAModel.Clientes" Width="1.5" PointX="5.125" PointY="0.625" />
         <EntityTypeShape EntityType="SisGMAModel.ClientesVehiculos" Width="1.5" PointX="7.125" PointY="0.625" />
         <EntityTypeShape EntityType="SisGMAModel.Comunas" Width="1.5" PointX="3.125" PointY="0.625" />
@@ -51,6 +51,8 @@
         <AssociationConnector Association="SisGMAModel.FK_PROVINCI_REFERENCE_REGIONES" />
         <AssociationConnector Association="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES" ManuallyRouted="false" >
         </AssociationConnector>
+        <EntityTypeShape EntityType="SisGMAModel.Servicios" Width="1.5" PointX="11.125" PointY="5.125" />
+        <AssociationConnector Association="SisGMAModel.FK_SERVICIO_REFERENCE_SERVICIO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

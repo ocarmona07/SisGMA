@@ -47,6 +47,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InventarioDa\ServiciosDa.cs" />
     <Compile Include="SystemDa\AccesosDa.cs">
     </Compile>
     <Compile Include="SystemDa\CategoriasAccesoDa.cs">

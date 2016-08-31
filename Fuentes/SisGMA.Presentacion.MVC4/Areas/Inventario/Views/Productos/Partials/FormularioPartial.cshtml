@@ -1,0 +1,126 @@
+﻿@model SisGMA.Presentacion.MVC4.Areas.Inventario.Models.ProductosViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">@Model.TituloProductos</h3>
+            </div>
+            <div class="box-body">
+                <form id="frmProducto" role="form" data-id="@Model.DatosProducto.IdProducto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Código", "tbCodigo", Model.DatosProducto.Codigo, "Ej: ABC123", 32, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.DropDownListFormGroup("Categoría", "ddlCategoria", Model.DdlListaCategorias(), Model.DatosProducto.IdCategoria.ToString())
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.DropDownListFormGroup("Marca", "ddlMarca", Model.DdlListaMarcas(), Model.DatosProducto.IdMarca.ToString())
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @WebControls.InputTextBoxFormGroup("Descripción", "tbDescripcion", Model.DatosProducto.Descripcion, "Ingrese una descripción", requerido: true)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Valor de ingreso", "tbValorIngreso", Model.DatosProducto.ValorIngreso.ToString("N0"), "Ej: 123456", 9, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Valor de salida", "tbValorSalida", Model.DatosProducto.ValorSalida.ToString("N0"), "Ej: 654321", 9, requerido: true)
+                        </div>
+                        <div class="col-md-4">
+                            @WebControls.InputTextBoxFormGroup("Cantidad", "tbCantidad", Model.DatosProducto.Cantidad.ToString(), "Ej: 10", 9, requerido: true)
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="box-footer text-center">
+                @WebControls.BotonCancelar(alineado: "pull-left")
+                @WebControls.BotonLimpiar()
+                @WebControls.BotonAceptar(alineado: "pull-right")
+            </div>
+            @WebControls.CargandoBox()
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnCancelar").click(function () {
+            $("#divFormulario").addClass("hide");
+            $("#divLista").removeClass("hide");
+        });
+
+        $("#btnLimpiar").click(function () {
+            $("#frmProducto").attr("data-id", "0");
+            $("#frmProducto").find("textarea, :text, [type=tel], select").val("");
+        });
+
+        $("#btnAgregar").click(function () {
+            if ($("#tbCodigo").val() === "") {
+                alert("Debe ingresar un código para el producto");
+                return false;
+            }
+
+            $("#mdlConfirmTitulo").html("@Model.TituloProductos");
+            $("#mdlConfirmContenido").html("¿Esta seguro que desea guardar los cambios?");
+            $("#modalConfirm").modal("show");
+            return false;
+        });
+
+        $("#btnConfirmAceptar").click(function () {
+            $("#divFormulario .box.box-primary").append('@WebControls.CargandoBox()');
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GuardarProducto", "Productos", new { area = "Inventario" })",
+                data: {
+                    idProducto: parseInt($("#frmProducto").attr("data-id")),
+                    idCategoria: parseInt($("#ddlCategoria :selected").val()),
+                    idMarca: parseInt($("#ddlMarca :selected").val()),
+                    codigo: $("#tbCodigo").val(),
+                    descripcion: $("#tbDescripcion").val(),
+                    valorIngreso: $("#tbValorIngreso").val(),
+                    valorSalida: $("#tbValorSalida").val(),
+                    cantidad: $("#tbCantidad").val()
+                },
+                success: function(response) {
+                    if (response) {
+                        $("#divMessage").html('@WebControls.AlertaCompletado(Model.TituloProductos)');
+                        $("#alertSuccessMensaje").html("Registro @(Model.DatosProducto.IdProducto > 0 ? "actualizado" :"agregado") correctamente");
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ObtenerListaProductos", "Productos", new { area = "Inventario" })",
+                            success: function (response) {
+                                if (response !== "") {
+                                    $("#divLista").html(response);
+                                } else {
+                                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                                    $("#alertDangerMensaje").html("Error al cargar la lista de registros.");
+                                }
+                            },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                            $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                    } else {
+                        $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                        $("#alertDangerMensaje").html("No se ha podido @(Model.DatosProducto.IdProducto > 0 ? "actualizar" :"agregar") los datos.");
+                    }
+
+                    return true;
+                },
+                error: function (xhr) {
+                    $("#divMessage").html('@WebControls.AlertaDenegado("Error")');
+                    $("#alertDangerMensaje").html(xhr.responseText);
+                    return false;
+                }
+            });
+            $("#modalConfirm").modal("hide");
+            $("#divFormulario").addClass("hide");
+            $("#divFormulario .box .overlay").remove();
+            $("#divLista").removeClass("hide");
+        });
+    });
+</script>

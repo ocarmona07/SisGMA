@@ -14,6 +14,10 @@
         public MarcaProductos DatosMarca { get; set; }
         public List<MarcaProductos> ListaMarcas { get; set; }
 
+        public string TituloModalServicio { get; set; }
+        public Servicios DatosServicio { get; set; }
+        public List<Servicios> ListaServicios { get; set; }
+
         public Dictionary<string, string> DdlListaCategorias()
         {
             var response = new Dictionary<string, string>();
@@ -23,6 +27,21 @@
                 foreach (var categoria in categorias)
                 {
                     response.Add(categoria.Categoria, categoria.IdCategoria.ToString());
+                }
+            }
+
+            return response;
+        }
+
+        public Dictionary<string, string> DdlListaServicios()
+        {
+            var response = new Dictionary<string, string>();
+            var servicios = new InventarioBo().GetServicios();
+            if (servicios != null)
+            {
+                foreach (var servicio in servicios)
+                {
+                    response.Add(servicio.Servicio, servicio.IdServicio.ToString());
                 }
             }
 

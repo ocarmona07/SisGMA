@@ -16,11 +16,11 @@ namespace SisGMA.Datos.InventarioDa
     using Entidades;
     using Entidades.Common;
 
-    public class ProductosDa : BaseEntity
+    public class ServiciosDa : BaseEntity
     {
         private readonly SisGMAEntities _sisGmaEntities;
 
-        public ProductosDa()
+        public ServiciosDa()
         {
             IsValid = true;
             ErrorMessage = string.Empty;
@@ -29,12 +29,12 @@ namespace SisGMA.Datos.InventarioDa
                 _sisGmaEntities = new SisGMAEntities();
             }
         }
-        
-        public Productos Insert(Productos item)
+
+        public Servicios Insert(Servicios item)
         {
             try
             {
-                _sisGmaEntities.Productos.Add(item);
+                _sisGmaEntities.Servicios.Add(item);
                 _sisGmaEntities.SaveChanges();
                 return item;
             }
@@ -51,32 +51,12 @@ namespace SisGMA.Datos.InventarioDa
                 return null;
             }
         }
-        
-        public Productos Get(int idItem)
+
+        public Servicios Get(int idItem)
         {
             try
             {
-                return _sisGmaEntities.Productos.FirstOrDefault(o => o.IdProducto == idItem);
-            }
-            catch (EntryPointNotFoundException ep)
-            {
-                IsValid = false;
-                ErrorMessage = ep.GetBaseException().Message;
-                return null;
-            }
-            catch (Exception e)
-            {
-                IsValid = false;
-                ErrorMessage = e.GetBaseException().Message;
-                return null;
-            }
-        }
-        
-        public List<Productos> GetAll()
-        {
-            try
-            {
-                return _sisGmaEntities.Productos.ToList();
+                return _sisGmaEntities.Servicios.FirstOrDefault(o => o.IdServicio == idItem);
             }
             catch (EntryPointNotFoundException ep)
             {
@@ -92,7 +72,27 @@ namespace SisGMA.Datos.InventarioDa
             }
         }
 
-        public Productos Update(Productos item)
+        public List<Servicios> GetAll()
+        {
+            try
+            {
+                return _sisGmaEntities.Servicios.ToList();
+            }
+            catch (EntryPointNotFoundException ep)
+            {
+                IsValid = false;
+                ErrorMessage = ep.GetBaseException().Message;
+                return null;
+            }
+            catch (Exception e)
+            {
+                IsValid = false;
+                ErrorMessage = e.GetBaseException().Message;
+                return null;
+            }
+        }
+
+        public Servicios Update(Servicios item)
         {
             try
             {
@@ -114,14 +114,14 @@ namespace SisGMA.Datos.InventarioDa
             }
         }
 
-        public bool UpdateCantidad(int idItem, int cantidad)
+        public bool UpdateEstado(int idItem, bool estado)
         {
             try
             {
-                var item = _sisGmaEntities.Productos.FirstOrDefault(o => o.IdProducto == idItem);
+                var item = _sisGmaEntities.Servicios.FirstOrDefault(o => o.IdServicio == idItem);
                 if (item != null)
                 {
-                    item.Cantidad = cantidad;
+                    item.Estado = estado;
                     _sisGmaEntities.Entry(item).State = EntityState.Modified;
                     return _sisGmaEntities.SaveChanges() > 0;
                 }
@@ -152,7 +152,7 @@ namespace SisGMA.Datos.InventarioDa
         {
             try
             {
-                var entry = _sisGmaEntities.Productos.FirstOrDefault(o => o.IdProducto == idItem);
+                var entry = _sisGmaEntities.Servicios.FirstOrDefault(o => o.IdServicio == idItem);
                 _sisGmaEntities.Entry(entry).State = EntityState.Deleted;
                 return _sisGmaEntities.SaveChanges() > 0;
             }

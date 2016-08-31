@@ -8,54 +8,54 @@
     <link href="/Plugins/fapicker/css/fontawesome-iconpicker.min.css" rel="stylesheet" />
     <style type="text/css">
         .tree li {
-            list-style-type: none;
-            margin: 0;
-            padding: 10px 5px 0 5px;
-            position: relative;
+             list-style-type: none;
+             margin: 0;
+             padding: 10px 5px 0 5px;
+             position: relative;
+         }
+
+        .tree li::before, .tree li::after {
+            content: '';
+            left: -20px;
+            position: absolute;
+            right: auto;
         }
 
-            .tree li::before, .tree li::after {
-                content: '';
-                left: -20px;
-                position: absolute;
-                right: auto;
-            }
+        .tree li::before {
+            border-left: 1px solid #999;
+            bottom: 50px;
+            height: 100%;
+            top: 0;
+            width: 1px;
+        }
 
-            .tree li::before {
-                border-left: 1px solid #999;
-                bottom: 50px;
-                height: 100%;
-                top: 0;
-                width: 1px;
-            }
+        .tree li::after {
+            border-top: 1px solid #999;
+            height: 20px;
+            top: 25px;
+            width: 25px;
+        }
 
-            .tree li::after {
-                border-top: 1px solid #999;
-                height: 20px;
-                top: 25px;
-                width: 25px;
-            }
+        .tree li span {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 3px 8px;
+            text-decoration: none;
+        }
 
-            .tree li span {
-                -moz-border-radius: 5px;
-                -webkit-border-radius: 5px;
-                border: 1px solid #999;
-                border-radius: 5px;
-                display: inline-block;
-                padding: 3px 8px;
-                text-decoration: none;
-            }
-
-            .tree li.parent_li > span {
-                cursor: pointer;
-            }
+        .tree li.parent_li > span {
+            cursor: pointer;
+        }
 
         .tree > ul > li::before, .tree > ul > li::after {
             border: 0;
         }
 
         .tree li:last-child::before {
-            height: 30px;
+            height: 25px;
         }
 
         .tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span {
@@ -66,27 +66,7 @@
     </style>
 }
 @section Scripts
-{
-    <script src="~/Plugins/fapicker/js/fontawesome-iconpicker.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(function () {
-                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Contraer esta rama');
-                $('.tree li.parent_li > span').on('click', function (e) {
-                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                    if (children.is(":visible")) {
-                        children.hide('fast');
-                        $(this).attr('title', 'Expandir esta rama');
-                    } else {
-                        children.show('fast');
-                        $(this).attr('title', 'Contraer esta rama');
-                    }
-                    e.stopPropagation();
-                });
-            });
-        });
-    </script>
-}
+{<script src="~/Plugins/fapicker/js/fontawesome-iconpicker.min.js"></script>}
 <section class="content-header">
     <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
@@ -101,6 +81,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tabCategorias" data-toggle="tab" aria-expanded="True">Categorías</a></li>
             <li><a href="#tabMarcas" data-toggle="tab" aria-expanded="False">Marcas</a></li>
+            <li><a href="#tabServicios" data-toggle="tab" aria-expanded="False" class="hide">Servicios</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tabCategorias">
@@ -108,6 +89,9 @@
             </div>
             <div class="tab-pane" id="tabMarcas">
                 @Html.Partial("Partials/ListaMarcasPartial", Model)
+            </div>
+            <div class="tab-pane" id="tabServicios">
+                @Html.Partial("Partials/ListaServiciosPartial", Model)
             </div>
         </div>
     </div>
@@ -120,4 +104,7 @@
     <div id="divModalMarca">
         @Html.Partial("Partials/ModalMarcaPartial", Model)
     </div>
+<div id="divModalServicio">
+    @Html.Partial("Partials/ModalServicioPartial", Model)
+</div>
 }

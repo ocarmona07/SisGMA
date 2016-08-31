@@ -7,10 +7,26 @@
     <h1>@ViewBag.Section</h1>
     <ol class="breadcrumb">
         <li><a href="@Url.Action("Index", "Inicio", new { area = "" })"><i class="fa fa-home"></i>Inicio</a></li>
-        <li><a href="@Url.Action("Index", "Inventario", new { area = "" })">Inventario</a></li>
+        <li><a href="#">Inventario</a></li>
         <li class="active">@ViewBag.Section</li>
     </ol>
 </section>
 <section class="content">
-    
+    <div id="divMessage"></div>
+    <div id="divFormulario" class="hide">
+        @Html.Partial("Partials/FormularioPartial", Model)
+    </div>
+    <div id="divLista">
+        @Html.Partial("Partials/ListaProductosPartial", Model)
+    </div>
 </section>
+@section Modals
+{
+    @WebControls.ModalConfirmar()
+    @WebControls.ModalInformar()
+}
+@section Styles
+{@Styles.Render("/plugins/datatables/dataTables.bootstrap.css")}
+@section Scripts
+{@Scripts.Render("/plugins/datatables/jquery.dataTables.min.js")
+@Scripts.Render("/plugins/datatables/dataTables.bootstrap.min.js")}

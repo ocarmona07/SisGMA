@@ -217,6 +217,18 @@
           <Property Name="IdRol" Type="int" Nullable="false" />
           <Property Name="IdAcceso" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Servicios">
+          <Key>
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdServicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdServicioPadre" Type="int" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Servicio" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="ValorSalida" Type="money" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vehiculos">
           <Key>
             <PropertyRef Name="IdVehiculo" />
@@ -494,6 +506,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SERVICIO_REFERENCE_SERVICIO">
+          <End Role="Servicios" Type="Self.Servicios" Multiplicity="0..1" />
+          <End Role="Servicios1" Type="Self.Servicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Servicios1">
+              <PropertyRef Name="IdServicioPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VEHICULO_REFERENCE_MODELOVE">
           <End Role="ModeloVehiculos" Type="Self.ModeloVehiculos" Multiplicity="1" />
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
@@ -528,6 +552,7 @@
           <EntitySet Name="Regiones" EntityType="Self.Regiones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolesAccesos" EntityType="Self.RolesAccesos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ACCESOS_REFERENCE_ACCESOS" Association="Self.FK_ACCESOS_REFERENCE_ACCESOS">
             <End Role="Accesos" EntitySet="Accesos" />
@@ -616,6 +641,10 @@
           <AssociationSet Name="FK_ROLESACC_REFERENCE_ROLES" Association="Self.FK_ROLESACC_REFERENCE_ROLES">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIO_REFERENCE_SERVICIO" Association="Self.FK_SERVICIO_REFERENCE_SERVICIO">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Servicios1" EntitySet="Servicios" />
           </AssociationSet>
           <AssociationSet Name="FK_VEHICULO_REFERENCE_MODELOVE" Association="Self.FK_VEHICULO_REFERENCE_MODELOVE">
             <End Role="ModeloVehiculos" EntitySet="ModeloVehiculos" />
@@ -740,6 +769,11 @@
           <AssociationSet Name="FK_ROLESACC_REFERENCE_ROLES" Association="SisGMAModel.FK_ROLESACC_REFERENCE_ROLES">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolesAccesos" EntitySet="RolesAccesos" />
+          </AssociationSet>
+          <EntitySet Name="Servicios" EntityType="SisGMAModel.Servicios" />
+          <AssociationSet Name="FK_SERVICIO_REFERENCE_SERVICIO" Association="SisGMAModel.FK_SERVICIO_REFERENCE_SERVICIO">
+            <End Role="Servicios" EntitySet="Servicios" />
+            <End Role="Servicios1" EntitySet="Servicios" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Accesos">
@@ -1289,6 +1323,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Servicios">
+          <Key>
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdServicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdServicioPadre" Type="Int32" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Servicio" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValorSalida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Servicios1" Relationship="SisGMAModel.FK_SERVICIO_REFERENCE_SERVICIO" FromRole="Servicios" ToRole="Servicios1" />
+          <NavigationProperty Name="Servicios2" Relationship="SisGMAModel.FK_SERVICIO_REFERENCE_SERVICIO" FromRole="Servicios1" ToRole="Servicios" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SERVICIO_REFERENCE_SERVICIO">
+          <End Type="SisGMAModel.Servicios" Role="Servicios" Multiplicity="0..1" />
+          <End Type="SisGMAModel.Servicios" Role="Servicios1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicios">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Servicios1">
+              <PropertyRef Name="IdServicioPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1539,6 +1599,19 @@
                 <ScalarProperty Name="Patente" ColumnName="Patente" />
                 <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
                 <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicios">
+            <EntityTypeMapping TypeName="SisGMAModel.Servicios">
+              <MappingFragment StoreEntitySet="Servicios">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ValorSalida" ColumnName="ValorSalida" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Servicio" ColumnName="Servicio" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="IdServicioPadre" ColumnName="IdServicioPadre" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

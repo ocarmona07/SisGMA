@@ -10,35 +10,40 @@
             @if (Model.ListaCategorias != null)
             {
                 <ul>
-                @foreach (var item in Model.ListaCategorias.Where(c => c.IdCategoriaPadre == null))
-                {
-                    <li>
-                        <span><i class="fa @item.Icono"></i> @item.Categoria</span>
-                        <a id="btnEstado" class="btn btn-flat btn-xs @(item.Estado ? "btn-success" : "btn-danger")" data-id="@item.IdCategoria">@(item.Estado ? "Activo" : "Inactivo")</a>
-                        <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item.IdCategoria">Editar</a>
-                        @foreach (var item2 in item.CategoriasProductos1)
-                        {
-                            <ul>
-                                <li>
-                                    <span><i class="fa @item2.Icono"></i> @item2.Categoria</span>
-                                    <a id="btnEstado" class="btn btn-flat btn-xs @(item2.Estado ? "btn-success" : "btn-danger")" data-id="@item2.IdCategoria">@(item2.Estado ? "Activo" : "Inactivo")</a>
-                                    <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item2.IdCategoria">Editar</a>
-                                    @foreach (var item3 in item2.CategoriasProductos1)
+                    @foreach (var item in Model.ListaCategorias.Where(c => c.IdCategoriaPadre == null))
+                    {
+                        <li>
+                            <span><i class="fa @item.Icono"></i> @item.Categoria</span>
+                            <a id="btnEstado" class="btn btn-flat btn-xs @(item.Estado ? "btn-success" : "btn-danger")" data-id="@item.IdCategoria">@(item.Estado ? "Activo" : "Inactivo")</a>
+                            <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item.IdCategoria">Editar</a>
+                            @if (item.CategoriasProductos1.Count > 0)
+                            {
+                                <ul>
+                                    @foreach (var item2 in item.CategoriasProductos1)
                                     {
-                                        <ul>
-                                            <li>
-                                                <span><i class="fa @item3.Icono"></i> @item3.Categoria</span>
-                                                <a id="btnEstado" class="btn btn-flat btn-xs @(item3.Estado ? "btn-success" : "btn-danger")" data-id="@item3.IdCategoria">@(item3.Estado ? "Activo" : "Inactivo")</a>
-                                                <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item3.IdCategoria">Editar</a>
-                                            </li>
-                                        </ul>
+                                        <li>
+                                            <span><i class="fa @item2.Icono"></i> @item2.Categoria</span>
+                                            <a id="btnEstado" class="btn btn-flat btn-xs @(item2.Estado ? "btn-success" : "btn-danger")" data-id="@item2.IdCategoria">@(item2.Estado ? "Activo" : "Inactivo")</a>
+                                            <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item2.IdCategoria">Editar</a>
+                                            @if (item2.CategoriasProductos1.Count > 0)
+                                            {
+                                                <ul>
+                                                    @foreach (var item3 in item2.CategoriasProductos1)
+                                                    {
+                                                        <li>
+                                                            <span><i class="fa @item3.Icono"></i> @item3.Categoria</span>
+                                                            <a id="btnEstado" class="btn btn-flat btn-xs @(item3.Estado ? "btn-success" : "btn-danger")" data-id="@item3.IdCategoria">@(item3.Estado ? "Activo" : "Inactivo")</a>
+                                                            <a id="btnEditar" class="btn btn-flat btn-xs btn-warning" data-id="@item3.IdCategoria">Editar</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
+                                        </li>
                                     }
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    
-                }
+                                </ul>
+                            }
+                        </li>
+                    }
                 </ul>
             }
         </div>
@@ -52,6 +57,18 @@
                 .find(".modal-body .row .hide").removeClass("hide").end()
                 .find(".modal-header h4").text("Crear Categoría").end()
                 .find("textarea, :text, select").val("");
+            $("#ddlCategoriaPadre").html();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ObtenerCategorias", "Inventario", new { area = "Mantenedores" })",
+                success: function (response) {
+                    if (response !== "") {
+                        $("#ddlCategoriaPadre").html(response);
+                    }
+                },
+                error: function () {
+                }
+            });
             $("#modalCategoria").modal("show");
         });
 
@@ -112,6 +129,21 @@
                     $("#alertDangerMensaje").html(xhr.responseText + "\n" + thrownError);
                 }
             });
+        });
+    });
+
+    $(function () {
+        $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Contraer esta rama');
+        $('.tree li.parent_li > span').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(":visible")) {
+                children.hide('fast');
+                $(this).attr('title', 'Expandir esta rama');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Contraer esta rama');
+            }
+            e.stopPropagation();
         });
     });
 </script>

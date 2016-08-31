@@ -163,9 +163,7 @@
         <select id="@idControl" class="form-control" @(disabled ? "disabled" : null)>
             <option value="">@placeholder</option>
             @foreach (var item in itemList)
-            {
-                <option value="@item.Value" @(valor == item.Value ? "selected" : null)>@item.Key</option>
-            }
+            {<option value="@item.Value" @(valor == item.Value ? "selected" : null)>@item.Key</option>}
         </select>
     </div>
 }

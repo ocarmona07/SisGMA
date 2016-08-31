@@ -6,11 +6,11 @@
 
     public class ProductosViewModel
     {
-        public string TituloModalProductos { get; set; }
-        public CategoriasProductos DatosCategoria { get; set; }
-        public List<CategoriasProductos> ListaCategorias { get; set; }
+        public string TituloProductos { get; set; }
         public Productos DatosProducto { get; set; }
         public List<Productos> ListaProductos { get; set; }
+        public CategoriasProductos DatosCategoria { get; set; }
+        public List<CategoriasProductos> ListaCategorias { get; set; }
 
         public Dictionary<string, string> DdlListaCategorias()
         {
