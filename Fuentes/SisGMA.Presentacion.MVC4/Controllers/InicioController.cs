@@ -1,6 +1,9 @@
-﻿namespace SisGMA.Presentacion.MVC4.Controllers
+﻿
+namespace SisGMA.Presentacion.MVC4.Controllers
 {
     using System.Web.Mvc;
+    using Negocio;
+    using Negocio.InventarioBo;
 
     public class InicioController : Controller
     {
@@ -8,8 +11,8 @@
 
         public ActionResult Index()
         {
-            ViewBag.CantidadProductos = 0;
-            ViewBag.CantidadOperadores = 0;
+            ViewBag.CantidadProductos = new InventarioBo().GetProductos().Count;
+            ViewBag.CantidadOperadores = new OperariosBo().GetAll().Count;
             return View();
         }
     }

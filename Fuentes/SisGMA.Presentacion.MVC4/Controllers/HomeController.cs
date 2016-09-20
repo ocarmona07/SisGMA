@@ -12,7 +12,7 @@
         // GET: /View/
         public ActionResult Index()
         {
-            Response.Redirect(ConfigurationManager.AppSettings.Get("BaseUrl") + "Inicio");
+            Response.Redirect(ConfigurationManager.AppSettings.Get("BaseUrl") + "/Inicio");
             return View();
         }
     }
