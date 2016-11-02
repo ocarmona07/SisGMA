@@ -2,6 +2,7 @@
 @{
     ViewBag.Section = "Operadores";
     ViewBag.Title = "Mantenedores - " + ViewBag.Section;
+    var baseUrl = System.Configuration.ConfigurationManager.AppSettings.Get("BaseUrl");
     var message = new SisGMA.Presentacion.MVC4.BaseLayout().GetMessage("Operadores", "CrearOperador", "IngresoOperadorOk");
     if (message != null && message.Any())
     {
@@ -33,12 +34,12 @@
 }
 @section Styles
 {
-    @Styles.Render("/plugins/select2/select2.min.css")
-    @Styles.Render("/plugins/datatables/dataTables.bootstrap.css")
+    @Styles.Render(baseUrl + "/plugins/select2/select2.min.css",
+        baseUrl + "/plugins/datatables/dataTables.bootstrap.css")
 }
 @section Scripts
 {
-    @Scripts.Render("/plugins/select2/select2.min.js")
-    @Scripts.Render("/plugins/datatables/jquery.dataTables.min.js")
-    @Scripts.Render("/plugins/datatables/dataTables.bootstrap.min.js")
+    @Scripts.Render(baseUrl + "/plugins/select2/select2.min.js",
+        baseUrl + "/plugins/datatables/jquery.dataTables.min.js",
+        baseUrl + "/plugins/datatables/dataTables.bootstrap.min.js")
 }

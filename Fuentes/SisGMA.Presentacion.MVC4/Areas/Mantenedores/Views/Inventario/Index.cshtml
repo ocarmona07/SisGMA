@@ -2,10 +2,11 @@
 @{
     ViewBag.Section = "Inventario";
     ViewBag.Title = "Mantenedores - " + ViewBag.Section;
+    var baseUrl = System.Configuration.ConfigurationManager.AppSettings.Get("BaseUrl");
 }
 @section Styles
 {
-    <link href="/Plugins/fapicker/css/fontawesome-iconpicker.min.css" rel="stylesheet" />
+    <link href="@baseUrl/Plugins/fapicker/css/fontawesome-iconpicker.min.css" rel="stylesheet" />
     <style type="text/css">
         .tree li {
              list-style-type: none;

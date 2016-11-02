@@ -2,6 +2,7 @@
 @{
     ViewBag.Section = "Productos";
     ViewBag.Title = "Inventario - " + ViewBag.Section;
+    var baseUrl = System.Configuration.ConfigurationManager.AppSettings.Get("BaseUrl");
 }
 <section class="content-header">
     <h1>@ViewBag.Section</h1>
@@ -26,7 +27,6 @@
     @WebControls.ModalInformar()
 }
 @section Styles
-{@Styles.Render("/plugins/datatables/dataTables.bootstrap.css")}
+{@Styles.Render(baseUrl + "/plugins/datatables/dataTables.bootstrap.css")}
 @section Scripts
-{@Scripts.Render("/plugins/datatables/jquery.dataTables.min.js")
-@Scripts.Render("/plugins/datatables/dataTables.bootstrap.min.js")}
+{@Scripts.Render(baseUrl + "/plugins/datatables/jquery.dataTables.min.js", baseUrl + "/plugins/datatables/dataTables.bootstrap.min.js")}

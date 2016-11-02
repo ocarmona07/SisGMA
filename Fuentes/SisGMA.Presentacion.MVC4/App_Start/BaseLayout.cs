@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Xml;
@@ -37,7 +38,7 @@ namespace SisGMA.Presentacion.MVC4
 
         public string[] GetStyles()
         {
-            var defaultStylesFolder = "~/Styles/";
+            var defaultStylesFolder = ConfigurationManager.AppSettings.Get("BaseUrl") + "/Styles/";
             var styles = new[]
             {
                 defaultStylesFolder + "bootstrap.min.css",
@@ -50,8 +51,9 @@ namespace SisGMA.Presentacion.MVC4
 
         public string[] GetScripts()
         {
-            var defaultScriptsFolder = "~/Scripts/";
-            var defaultPluginsFolder = "~/Plugins/";
+            var baseUrl = ConfigurationManager.AppSettings.Get("BaseUrl");
+            var defaultScriptsFolder = baseUrl + "/Scripts/";
+            var defaultPluginsFolder = baseUrl + "/Plugins/";
             var styles = new[]
             {
                 defaultPluginsFolder + "jQuery/jQuery-2.2.0.min.js",
